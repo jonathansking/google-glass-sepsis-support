@@ -9,7 +9,7 @@ BLOG: http://ucdavisgoogleglassproject.blogspot.com/
 IDE = ADT ECLIPSE: http://developer.android.com/sdk/index.html
 Google Glass Github: https://github.com/googleglass
 
-==================
+===================
 
 Running the Glassware on Glass
 You can use your IDE to compile and install the sample or use adb on the command line:
@@ -18,7 +18,7 @@ $ adb install -r TimerSample.apk
 
 To start the sample, say "ok glass, start a timer" from the Glass clock screen or use the touch menu.
 
-===================
+====================
 
 What is SEPSIS:
 Sepsis is an overwhelming immune response to infection, which damages its own tissues and organs. It can happen at any age, regardless of health condition and many times from seemingly benign incidents (e.g. a playground scrape). Severe sepsis strikes 18 million people every year, 750,000 being Americans and it have very high mortality rate that ranges from 28% to 50%. It is the leading cause of ICU deaths, accounting for 60-80% deaths in developing countries. It kills more than 6 million infants and young children world-wide every year. Diagnosis of sepsis is often delayed due to its difficulty to diagnose despite the rapid deterioration of the patient. To summarize, sepsis is an ubiquitous omnipotent killer that literally and figuratively can cost us an arm and a leg, and does not discriminate against sex, ethnicity, social status or age.
