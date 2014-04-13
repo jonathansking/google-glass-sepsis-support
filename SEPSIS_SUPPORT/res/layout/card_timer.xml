@@ -23,22 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="-12px"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
         <TextView
-            android:id="@+id/hours"
-            style="@style/TimeComponent" />
-        <ImageView
-            android:src="@drawable/ic_colon"
-            style="@style/ComponentIcon" />
+            android:id="@+id/welcome"
+            style="@style/Heading" />
         <TextView
-            android:id="@+id/minutes"
-            style="@style/TimeComponent" />
-        <ImageView
-            android:src="@drawable/ic_colon"
-            style="@style/ComponentIcon" />
-        <TextView
-            android:id="@+id/seconds"
-            style="@style/TimeComponent" />
+            android:id="@+id/open QR scanner"
+            style="@style/SubHeading" />
     </LinearLayout>
     <TextView
         android:id="@+id/tip"
