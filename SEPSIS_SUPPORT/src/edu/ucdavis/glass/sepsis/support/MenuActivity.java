@@ -30,5 +30,9 @@ import android.view.MenuItem;
  * Activity showing the options menu.
  */
 public class MenuActivity extends Activity {
-
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.welcome_screen);
+    }
 }
