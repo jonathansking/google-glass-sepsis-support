@@ -28,7 +28,7 @@
             android:id="@+id/welcome"
             style="@style/Heading" />
         <TextView
-            android:id="@+id/open QR scanner"
+            android:id="@+id/scanner"
             style="@style/SubHeading" />
     </LinearLayout>
     <TextView
