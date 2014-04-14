@@ -4,5 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView
+        style="@style/Heading"
+	    android:text="@string/recent_patients" />
 
 </LinearLayout>

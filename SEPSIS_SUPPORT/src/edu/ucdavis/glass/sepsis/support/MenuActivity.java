@@ -33,6 +33,8 @@ public class MenuActivity extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_screen);
+//        setContentView(R.layout.welcome_screen);
+//        setContentView(R.layout.recent_patient);
+        setContentView(R.layout.overview);
     }
 }

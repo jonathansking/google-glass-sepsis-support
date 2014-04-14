@@ -19,7 +19,9 @@
     <string name="start_sepsis_support">Sepsis Support</string>
 
     <string name="welcome">Welcome to Sepsis Decision Support</string>
-	<string name="scanner">Tap to scan patient QR code</string>
-	<string name="recent_patients">Swipe to view recent patients</string>
+	<string name="tap_scanner">Tap to scan patient QR code</string>
+	<string name="swipe_recent_patients">Swipe to view recent patients</string>
+	
+    <string name="recent_patients">Recent Patients</string>
 	
 </resources>

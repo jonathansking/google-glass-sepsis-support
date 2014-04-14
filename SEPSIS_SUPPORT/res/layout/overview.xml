@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Right"
+            android:text="Joe Doe" />
+        <TextView
+            style="@style/Heading.Left"
+            android:text="#8589475" />
+    </TableRow>
+    
+    <View
+        android:layout_height="2dip"
+        android:background="@color/white"/>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="Hospital Adm:" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="9am, 02/12/14" />
+    </TableRow>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="Hospital Disch:" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="12pm, 02/13/14" />
+    </TableRow>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="Encounter Number:" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="213" />
+    </TableRow>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="Sex:" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="Male" />
+    </TableRow>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="ICU Days:" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="3" />
+    </TableRow>
+
+</TableLayout>

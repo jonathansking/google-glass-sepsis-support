@@ -16,11 +16,10 @@
     
     <TextView
         style="@style/Heading.Sub"
-	    android:text="@string/scanner" />
+	    android:text="@string/tap_scanner" />
     
     <TextView
         style="@style/Heading.Sub"
-	    android:text="@string/recent_patients" />
-    
+	    android:text="@string/swipe_recent_patients" />
 
 </LinearLayout>
