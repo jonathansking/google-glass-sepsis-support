@@ -38,7 +38,7 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.MenuActivity"
             android:label="@string/app_name"
-            android:theme="@style/MenuTheme"
+            android:theme="@style/WelcomeTheme"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
@@ -47,14 +47,6 @@
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger_start" />
         </activity>
-        
-<!--        	<service -->
-<!--             android:name="edu.ucdavis.glass.sepsis.support.MenuActivity" -->
-<!--             android:icon="@drawable/ic_heartline" -->
-<!--             android:label="@string/app_name" -->
-<!--             android:enabled="true" -->
-<!--             android:exported="true"> -->
-<!--         </service> -->
 
     </application>
     

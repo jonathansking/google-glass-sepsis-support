@@ -3,11 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <EditText android:id="@+id/edit_message"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:hint="@string/welcome" />
+    
+<!--     <TextView android:id="@+id/edit_message" -->
+<!--         android:layout_weight="1" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="0dp" -->
+<!--         android:hint="@string/welcome" /> -->
+    
+    <TextView
+        style="@style/Heading"
+	    android:text="@string/welcome" />
+    
+    <TextView
+        style="@style/Heading.Sub"
+	    android:text="@string/scanner" />
+    
+    <TextView
+        style="@style/Heading.Sub"
+	    android:text="@string/recent_patients" />
     
 
 </LinearLayout>

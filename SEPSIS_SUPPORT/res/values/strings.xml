@@ -20,5 +20,6 @@
 
     <string name="welcome">Welcome to Sepsis Decision Support</string>
 	<string name="scanner">Tap to scan patient QR code</string>
+	<string name="recent_patients">Swipe to view recent patients</string>
 	
 </resources>
