@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.lang.Object;
 
 import android.app.Activity;
+import android.content.Intent;
 //import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 //import android.widget.AdapterView;
+
+import android.widget.AdapterView;
 
 import com.google.android.glass.app.*;
 import com.google.android.glass.widget.*;
@@ -44,22 +47,22 @@ public class RecentPatientActivity extends Activity {
         Card newcard;
 
         newcard = new Card(this);
-        //newcard.setText("This card has a footer.");
-        //newcard.setFootnote("I'm the footer!");
-        newcard.setImageLayout(Card.ImageLayout.FULL);
+        newcard.setText("Joe Doe");
+        newcard.setImageLayout(Card.ImageLayout.LEFT);
+        newcard.addImage(R.drawable.nicolas_cage);
         mCards.add(newcard);
 
-//        newcard = new Card(this);
-//        //newcard.setText("This card has a puppy background image.");
-//        //newcard.setFootnote("How can you resist?");
-////        newcard.setImageLayout(Card.ImageLayout.FULL);
-//        mCards.add(newcard);
-//
-//        newcard = new Card(this);
-//        newcard.setText("This card has a mosaic of puppies.");
-//        newcard.setFootnote("Aren't they precious?");
-////        newcard.setImageLayout(Card.ImageLayout.FULL);
-//        mCards.add(newcard);
+        newcard = new Card(this);
+        newcard.setText("This card has a puppy background image.");
+        newcard.setFootnote("How can you resist?");
+//        newcard.setImageLayout(Card.ImageLayout.FULL);
+        mCards.add(newcard);
+
+        newcard = new Card(this);
+        newcard.setText("This card has a mosaic of puppies.");
+        newcard.setFootnote("Aren't they precious?");
+//        newcard.setImageLayout(Card.ImageLayout.FULL);
+        mCards.add(newcard);
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {
@@ -110,8 +113,8 @@ public class RecentPatientActivity extends Activity {
             return  mCards.get(position).getView(convertView, parent);
         }
     	
-//    	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-//        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-//        }
+    	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+        }
     }
 }
