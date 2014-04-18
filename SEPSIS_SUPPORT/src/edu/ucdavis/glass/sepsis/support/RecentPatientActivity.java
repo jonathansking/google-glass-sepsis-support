@@ -1,19 +1,21 @@
 package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.lang.Object;
 
 import android.app.Activity;
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+//import android.widget.AdapterView;
 
-import com.google.android.glass.app.Card;
-import com.google.android.glass.widget.CardScrollAdapter;
-import com.google.android.glass.widget.CardScrollView;
+import com.google.android.glass.app.*;
+import com.google.android.glass.widget.*;
+//import com.google.android.glass.app.Card;
+//import com.google.android.glass.widget.CardScrollAdapter;
+//import com.google.android.glass.widget.CardScrollView;
+//import com.google.android.glass.widget.CardScrollView;
 
 public class RecentPatientActivity extends Activity {
 
@@ -24,12 +26,15 @@ public class RecentPatientActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        System.out.println( "here" );
+//        System.err.println( "hereerr" );
         createCards();
-
+        
         mCardScrollView = new CardScrollView(this);
         PatientCardScrollAdapter adapter = new PatientCardScrollAdapter();
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.activate();
+        System.out.println( mCardScrollView.getCount() );
         setContentView(mCardScrollView);
     }
 
@@ -39,38 +44,42 @@ public class RecentPatientActivity extends Activity {
         Card newcard;
 
         newcard = new Card(this);
-        newcard.setText("This card has a footer.");
-        newcard.setFootnote("I'm the footer!");
-//        newcard.setImageLayout(Card.ImageLayout.FULL);
+        //newcard.setText("This card has a footer.");
+        //newcard.setFootnote("I'm the footer!");
+        newcard.setImageLayout(Card.ImageLayout.FULL);
         mCards.add(newcard);
 
-        newcard = new Card(this);
-        newcard.setText("This card has a puppy background image.");
-        newcard.setFootnote("How can you resist?");
-//        newcard.setImageLayout(Card.ImageLayout.FULL);
-        mCards.add(newcard);
-
-        newcard = new Card(this);
-        newcard.setText("This card has a mosaic of puppies.");
-        newcard.setFootnote("Aren't they precious?");
-//        newcard.setImageLayout(Card.ImageLayout.FULL);
-        mCards.add(newcard);
+//        newcard = new Card(this);
+//        //newcard.setText("This card has a puppy background image.");
+//        //newcard.setFootnote("How can you resist?");
+////        newcard.setImageLayout(Card.ImageLayout.FULL);
+//        mCards.add(newcard);
+//
+//        newcard = new Card(this);
+//        newcard.setText("This card has a mosaic of puppies.");
+//        newcard.setFootnote("Aren't they precious?");
+////        newcard.setImageLayout(Card.ImageLayout.FULL);
+//        mCards.add(newcard);
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {
 
         @Override
         public int getPosition(Object item) {
+        	System.out.println("Line 69");
             return mCards.indexOf(item);
         }
 
         @Override
         public int getCount() {
+        	System.out.println("Line 75");
+        	System.out.println(mCards.size());
             return mCards.size();
         }
 
         @Override
         public Object getItem(int position) {
+        	System.out.println("Line 81");
             return mCards.get(position);
         }
 
@@ -79,6 +88,7 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getViewTypeCount() {
+        	System.out.println("Line 90");
             return Card.getViewTypeCount();
         }
 
@@ -88,12 +98,15 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getItemViewType(int position){
+        	System.out.println("Line 100");
             return mCards.get(position).getItemViewType();
         }
 
         @Override
         public View getView(int position, View convertView,
                 ViewGroup parent) {
+        	System.out.println("107");
+        	System.out.println(position);
             return  mCards.get(position).getView(convertView, parent);
         }
     	
