@@ -29,16 +29,22 @@ public class RecentPatientActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        System.out.println( "here" );
-//        System.err.println( "hereerr" );
         createCards();
         
         mCardScrollView = new CardScrollView(this);
         PatientCardScrollAdapter adapter = new PatientCardScrollAdapter();
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.activate();
-        System.out.println( mCardScrollView.getCount() );
+        mCardScrollView.setHorizontalScrollBarEnabled(true); //changes
         setContentView(mCardScrollView);
+        
+        mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        	@Override
+        	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+        		//Object o = mCardScrollView.getItemAtPosition(position);
+        		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) ); 
+        	}
+        });
     }
 
     private void createCards() {
@@ -49,7 +55,7 @@ public class RecentPatientActivity extends Activity {
         newcard = new Card(this);
         newcard.setText("Joe Doe");
         newcard.setImageLayout(Card.ImageLayout.LEFT);
-        newcard.addImage(R.drawable.nicolas_cage);
+        newcard.addImage(R.drawable.default_user);
         mCards.add(newcard);
 
         newcard = new Card(this);
@@ -111,10 +117,6 @@ public class RecentPatientActivity extends Activity {
         	System.out.println("107");
         	System.out.println(position);
             return  mCards.get(position).getView(convertView, parent);
-        }
-    	
-    	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
         }
     }
 }
