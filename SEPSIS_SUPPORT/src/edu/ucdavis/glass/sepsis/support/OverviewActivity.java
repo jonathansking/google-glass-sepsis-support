@@ -85,17 +85,17 @@ public class OverviewActivity extends Activity {
         patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
         patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);
         //System.out.println("KHADKA HERe");
-        new ConnectionActivity(patientId, patientName, patientSex, patientHospDisch, patientHospAdm).execute();
+        new LoadOverviewData(patientId, patientName, patientSex, patientHospDisch, patientHospAdm).execute();
         
 	}
 	
 	
-	private class ConnectionActivity extends AsyncTask<Void,Void,String> {
+	private class LoadOverviewData extends AsyncTask<Void,Void,String> {
 		
 		//private ProgressDialog pDialog;
 		private TextView patientId, patientName, patientSex, patientHospDisch, patientHospAdm;
 		
-		public ConnectionActivity(TextView patientId, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
+		public LoadOverviewData(TextView patientId, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
 			this.patientId = patientId;
 			this.patientName = patientName;
 			this.patientSex = patientSex;	
