@@ -17,26 +17,37 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.widget.TextView;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.util.Log;
+import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -45,66 +56,109 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import android.app.ProgressDialog;
+
 
 public class OverviewActivity extends Activity {
 	private GestureDetector mGestureDetector;
+	private TextView patientId, patientName,patientSex, patientHospAdm, patientHospDisch;
+	private ProgressDialog pDialog;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.overview);
         mGestureDetector = createGestureDetector(this);
         
-        //# Just for testing, allow network access in the main thread
-        //# NEVER use this is productive code
-        /*StrictMode.ThreadPolicy policy = new StrictMode.
-        ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);*/ 
-        
-        
-        String sepsisDBReturnString = readFromDB();
-        try {
-          JSONArray jsonArray = new JSONArray(sepsisDBReturnString);
-          Log.i(OverviewActivity.class.getName(),
-              "Number of entries " + jsonArray.length());
-          for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            Log.i(OverviewActivity.class.getName(), jsonObject.getString("text"));
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
+        //sk
 
-      public String readFromDB() {
-        StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet("http://ihuman.SUSHIL'S_WEBSITE_HAHAHAHAHAHAHAHAHAHAHAHAHAHAHA.json");
-        try {
-          HttpResponse response = client.execute(httpGet);
-          StatusLine statusLine = response.getStatusLine();
-          int statusCode = statusLine.getStatusCode();
-          if (statusCode == 200) {
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-            String line;
-            while ((line = reader.readLine()) != null) {
-              builder.append(line);
-            }
-          } else {
-            Log.e(OverviewActivity.class.toString(), "Failed to download file");
-          }
-        } catch (ClientProtocolException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        return builder.toString();
-      }
-    
+        patientId = (TextView) findViewById(R.id.patientId);
+        patientName = (TextView) findViewById(R.id.patientName);
+        patientSex = (TextView) findViewById(R.id.patientSex);
+        patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
+        patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);
+        //System.out.println("KHADKA HERe");
+        new ConnectionActivity(patientId, patientName, patientSex, patientHospDisch, patientHospAdm).execute();
+        
+	}
 	
+	
+	private class ConnectionActivity extends AsyncTask<Void,Void,String> {
+		
+		//private ProgressDialog pDialog;
+		private TextView patientId, patientName, patientSex, patientHospDisch, patientHospAdm;
+		
+		public ConnectionActivity(TextView patientId, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
+			this.patientId = patientId;
+			this.patientName = patientName;
+			this.patientSex = patientSex;	
+			this.patientHospDisch = patientHospDisch;
+			this.patientHospAdm = patientHospAdm;
+		}
+		
+		protected void onPreExecute(){
+			super.onPreExecute();
+			pDialog = new ProgressDialog(OverviewActivity.this);
+			pDialog.setMessage("Loading Patient Overview. Please wait...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			pDialog.show();
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			try{
+
+				String link = "http://glass.herumla.com";
+	            //URL url = new URL(link);
+	            HttpClient client = new DefaultHttpClient();
+	            HttpGet request = new HttpGet();
+	            request.setURI(new URI(link));
+	            HttpResponse response = client.execute(request);
+	            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+	            StringBuffer sb = new StringBuffer("");
+	            String line="";
+	            while ((line = in.readLine()) != null) {
+	            	sb.append(line);
+	            	break;
+	            }
+	            in.close();
+	            return sb.toString();
+			}
+			catch(Exception e){
+				return new String("Exception: " + e.getMessage());
+			}		
+		}
+		
+		protected void onPostExecute(String result) {
+			pDialog.dismiss();
+			System.out.println( "OnPostExecute running");
+			System.out.println( result );
+			try {
+			    JSONObject json = new JSONObject(result);
+			    System.out.println(" name is " + json.get("name"));
+			    this.patientId.setText("#" + (String) json.get("patient_id"));
+			    this.patientName.setText((String) json.get("name"));
+			    this.patientSex.setText((String) json.get("sex"));
+			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
+			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		    
+			//this.
+		}
+	}
+
 	private GestureDetector createGestureDetector(Context context) {
     GestureDetector gestureDetector = new GestureDetector(context);
         // create a base listener for generic gestures

@@ -23,5 +23,10 @@
 	<string name="swipe_recent_patients">Swipe to view recent patients</string>
 	
     <string name="recent_patients">Recent Patients</string>
+     <string name="sampleId">#8589475</string>
+    <string name="sampleName">John Doe</string>
+    <string name="sampleSex">Male</string>
+    <string name="sampleHospAdmission">9am, 02/12/14</string>
+    <string name="sampleHospDischarge">12pm, 02/13/14</string>
 	
 </resources>
