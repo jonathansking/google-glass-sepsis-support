@@ -21,7 +21,7 @@ import com.google.android.glass.widget.*;
 //import com.google.android.glass.widget.CardScrollView;
 
 public class RecentPatientActivity extends Activity {
-
+	public final static String EXTRA_MESSAGE = "Patient Info";
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
 
@@ -42,7 +42,12 @@ public class RecentPatientActivity extends Activity {
         	@Override
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
         		//Object o = mCardScrollView.getItemAtPosition(position);
-        		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) ); 
+        		//use position to get the position of the card and pass it to the overview activity
+        		Intent overview = new Intent(getApplicationContext(), OverviewActivity.class);
+        		//example: send position to the overview Activity
+        		//what we need: from position get the patient ID and send it to Overview!
+        		//overview.putExtra(EXTRA_MESSAGE, position)
+        		startActivity( overview ); 
         	}
         });
     }
@@ -52,23 +57,34 @@ public class RecentPatientActivity extends Activity {
 
         Card newcard;
 
-        newcard = new Card(this);
-        newcard.setText("Joe Doe");
-        newcard.setImageLayout(Card.ImageLayout.LEFT);
-        newcard.addImage(R.drawable.default_user);
-        mCards.add(newcard);
-
-        newcard = new Card(this);
-        newcard.setText("This card has a puppy background image.");
-        newcard.setFootnote("How can you resist?");
-//        newcard.setImageLayout(Card.ImageLayout.FULL);
-        mCards.add(newcard);
-
-        newcard = new Card(this);
-        newcard.setText("This card has a mosaic of puppies.");
-        newcard.setFootnote("Aren't they precious?");
-//        newcard.setImageLayout(Card.ImageLayout.FULL);
-        mCards.add(newcard);
+        //Dummies data. Need request to database to get the latest 5 patients
+        String patientName[]={"Joe Doe","Sarah Black","John Smith","Angolina Nguyen","Josue Hernandez"};
+        
+        for (int i = 0; i < patientName.length; i++)
+        {
+        	newcard = new Card(this);
+        	newcard.setText(patientName[i]);
+        	newcard.setImageLayout(Card.ImageLayout.LEFT);
+        	newcard.addImage(R.drawable.default_user);
+        	mCards.add(newcard);
+        }
+//        newcard = new Card(this);
+//        newcard.setText("Joe Doe");
+//        newcard.setImageLayout(Card.ImageLayout.LEFT);
+//        newcard.addImage(R.drawable.default_user);
+//        mCards.add(newcard);
+//
+//        newcard = new Card(this);
+//        newcard.setText("This card has a puppy background image.");
+//        newcard.setFootnote("How can you resist?");
+////        newcard.setImageLayout(Card.ImageLayout.FULL);
+//        mCards.add(newcard);
+//
+//        newcard = new Card(this);
+//        newcard.setText("This card has a mosaic of puppies.");
+//        newcard.setFootnote("Aren't they precious?");
+////        newcard.setImageLayout(Card.ImageLayout.FULL);
+//        mCards.add(newcard);
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {
