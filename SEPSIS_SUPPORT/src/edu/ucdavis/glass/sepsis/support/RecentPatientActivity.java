@@ -15,10 +15,6 @@ import android.widget.AdapterView;
 
 import com.google.android.glass.app.*;
 import com.google.android.glass.widget.*;
-//import com.google.android.glass.app.Card;
-//import com.google.android.glass.widget.CardScrollAdapter;
-//import com.google.android.glass.widget.CardScrollView;
-//import com.google.android.glass.widget.CardScrollView;
 
 public class RecentPatientActivity extends Activity {
 	public final static String EXTRA_MESSAGE = "Patient Info";
@@ -66,45 +62,27 @@ public class RecentPatientActivity extends Activity {
         	newcard.setText(patientName[i]);
         	newcard.setImageLayout(Card.ImageLayout.LEFT);
         	newcard.addImage(R.drawable.default_user);
+//        	newcard.setFootnote("Tap to load patient"); // maybe something like this
         	mCards.add(newcard);
         }
-//        newcard = new Card(this);
-//        newcard.setText("Joe Doe");
-//        newcard.setImageLayout(Card.ImageLayout.LEFT);
-//        newcard.addImage(R.drawable.default_user);
-//        mCards.add(newcard);
-//
-//        newcard = new Card(this);
-//        newcard.setText("This card has a puppy background image.");
-//        newcard.setFootnote("How can you resist?");
-////        newcard.setImageLayout(Card.ImageLayout.FULL);
-//        mCards.add(newcard);
-//
-//        newcard = new Card(this);
-//        newcard.setText("This card has a mosaic of puppies.");
-//        newcard.setFootnote("Aren't they precious?");
-////        newcard.setImageLayout(Card.ImageLayout.FULL);
-//        mCards.add(newcard);
+
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {
 
         @Override
         public int getPosition(Object item) {
-        	System.out.println("Line 69");
             return mCards.indexOf(item);
         }
 
         @Override
         public int getCount() {
-        	System.out.println("Line 75");
         	System.out.println(mCards.size());
             return mCards.size();
         }
 
         @Override
         public Object getItem(int position) {
-        	System.out.println("Line 81");
             return mCards.get(position);
         }
 
@@ -113,7 +91,6 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getViewTypeCount() {
-        	System.out.println("Line 90");
             return Card.getViewTypeCount();
         }
 
@@ -123,15 +100,11 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getItemViewType(int position){
-        	System.out.println("Line 100");
             return mCards.get(position).getItemViewType();
         }
 
         @Override
-        public View getView(int position, View convertView,
-                ViewGroup parent) {
-        	System.out.println("107");
-        	System.out.println(position);
+        public View getView(int position, View convertView, ViewGroup parent) {
             return  mCards.get(position).getView(convertView, parent);
         }
     }
