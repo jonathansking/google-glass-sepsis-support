@@ -30,8 +30,8 @@ public class QRScanner extends Activity {
 	    
 	    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
 	    intent.setPackage("com.google.zxing.client.android");
-	    intent.putExtra("SCAN_MODE",ONE_D_MODE,QR_CODE_MODE,PRODUCT_MODE,DATA_MATRIX_MODE);
-	    startActivityForResult(intent, UPC_CODE_REQUEST);  
+	    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+	    startActivityForResult(intent, 0);  
 	    
 	    Card card1 = new Card(this);
 	    card1.setText("Spoken Words!");
@@ -43,7 +43,7 @@ public class QRScanner extends Activity {
 	
 	//when a QR code is read, it will send a result code 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     if (requestCode == UPC_CODE_REQUEST && resultCode == RESULT_OK){
+     if (resultCode == RESULT_OK){
         String contents = data.getStringExtra("SCAN_RESULT");
         Card card1 = new Card(this);
         card1.setText(contents);

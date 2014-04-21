@@ -47,7 +47,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
-                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), QRScanner.class) );
                     return true;
                 } else if (gesture == Gesture.TWO_TAP) {
                     return true;
