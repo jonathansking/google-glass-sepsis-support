@@ -24,5 +24,5 @@ To delete a branch
 
 To push branch to remote, while in branch
 	$ git push origin NewFeature
-
+.
 
