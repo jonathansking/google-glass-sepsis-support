@@ -1,61 +1,111 @@
 package edu.ucdavis.glass.sepsis.support;
 
-import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import java.util.ArrayList;
+import java.lang.Object;
 
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
+import android.app.Activity;
+import android.content.Intent;
+//import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+//import android.widget.AdapterView;
+
+import android.widget.AdapterView;
+
+import com.google.android.glass.app.*;
+import com.google.android.glass.widget.*;
 
 public class RecentPatientActivity extends Activity {
-	private GestureDetector mGestureDetector;
-	
-	@Override
+	public final static String EXTRA_MESSAGE = "Patient Info";
+    private ArrayList<Card> mCards;
+    private CardScrollView mCardScrollView;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recent_patient);
-        mGestureDetector = createGestureDetector(this);
-    }
-	
-	private GestureDetector createGestureDetector(Context context) {
-    GestureDetector gestureDetector = new GestureDetector(context);
-        // create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
-            @Override
-            public boolean onGesture(Gesture gesture) {
-                if (gesture == Gesture.TAP) {
-                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-                    return true;
-                } else if (gesture == Gesture.TWO_TAP) {
-                    return true;
-                } else if (gesture == Gesture.SWIPE_RIGHT) {
-                	finish();
-                    return true;
-                } else if (gesture == Gesture.SWIPE_LEFT) {
-                	finish();
-                    return true;
-                }
-                return false;
-            }
-        });
+
+        createCards();
         
-        return gestureDetector;
+        mCardScrollView = new CardScrollView(this);
+        PatientCardScrollAdapter adapter = new PatientCardScrollAdapter();
+        mCardScrollView.setAdapter(adapter);
+        mCardScrollView.activate();
+        mCardScrollView.setHorizontalScrollBarEnabled(true); //changes
+        setContentView(mCardScrollView);
+        
+        mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        	@Override
+        	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+        		//Object o = mCardScrollView.getItemAtPosition(position);
+        		//use position to get the position of the card and pass it to the overview activity
+        		Intent overview = new Intent(getApplicationContext(), OverviewActivity.class);
+        		//example: send position to the overview Activity
+        		//what we need: from position get the patient ID and send it to Overview!
+        		//overview.putExtra(EXTRA_MESSAGE, position)
+        		startActivity( overview ); 
+        	}
+        });
     }
 
-	// send generic motion events to the gesture detector
-    @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        if (mGestureDetector != null) {
-            return mGestureDetector.onMotionEvent(event);
+    private void createCards() {
+        mCards = new ArrayList<Card>();
+
+        Card newcard;
+
+        //Dummies data. Need request to database to get the latest 5 patients
+        String patientName[]={"Joe Doe","Sarah Black","John Smith","Angolina Nguyen","Josue Hernandez"};
+        
+        for (int i = 0; i < patientName.length; i++)
+        {
+        	newcard = new Card(this);
+        	newcard.setText(patientName[i]);
+        	newcard.setImageLayout(Card.ImageLayout.LEFT);
+        	newcard.addImage(R.drawable.default_user);
+//        	newcard.setFootnote("Tap to load patient"); // maybe something like this
+        	mCards.add(newcard);
         }
-        return false;
+
+    }
+    
+    private class PatientCardScrollAdapter extends CardScrollAdapter {
+
+        @Override
+        public int getPosition(Object item) {
+            return mCards.indexOf(item);
+        }
+
+        @Override
+        public int getCount() {
+        	System.out.println(mCards.size());
+            return mCards.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mCards.get(position);
+        }
+
+        /**
+         * Returns the amount of view types.
+         */
+        @Override
+        public int getViewTypeCount() {
+            return Card.getViewTypeCount();
+        }
+
+        /**
+         * Returns the view type of this card so the system can figure out
+         * if it can be recycled.
+         */
+        @Override
+        public int getItemViewType(int position){
+            return mCards.get(position).getItemViewType();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return  mCards.get(position).getView(convertView, parent);
+        }
     }
 }
