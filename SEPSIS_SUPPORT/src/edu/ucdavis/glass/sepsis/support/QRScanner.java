@@ -33,26 +33,16 @@ public class QRScanner extends Activity {
 	    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
 	    startActivityForResult(intent, 0);  
 	    
-	    Card card1 = new Card(this);
-	    card1.setText("Spoken Words!");
-	    card1.setFootnote("my app");
-	    View card1View = card1.toView();
-	    setContentView(card1View);
-	    setDisplayCard(card1);
 	}
 	
 	//when a QR code is read, it will send a result code 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     if (resultCode == RESULT_OK){
-        String contents = data.getStringExtra("SCAN_RESULT");
-        Card card1 = new Card(this);
-        card1.setText(contents);
-        card1.setFootnote("zxing");
-        View card1View = card1.toView();
-        setContentView(card1View);
-        setDisplayCard(card1);
-
+    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     if (requestCode == 0){
+    	if (resultCode == RESULT_OK){
+    		String contents = data.getStringExtra("SCAN_RESULT");
+    	} else if (resultCode == RESULT_CANCELED) {
+            // Handle cancel
+        }
      }
-    super.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 }
