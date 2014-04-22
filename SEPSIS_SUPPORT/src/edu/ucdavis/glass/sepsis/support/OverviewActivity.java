@@ -31,12 +31,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 public class OverviewActivity extends Activity {
 	private GestureDetector mGestureDetector;
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Intent recentPatientIntent = getIntent();
+        String message = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
+        //int pID = Integer.parseInt(message);
+        System.out.println(message);
         setContentView(R.layout.overview);
         mGestureDetector = createGestureDetector(this);
     }

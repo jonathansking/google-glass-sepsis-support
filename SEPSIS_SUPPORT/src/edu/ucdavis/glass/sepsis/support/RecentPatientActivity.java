@@ -17,14 +17,23 @@ import com.google.android.glass.app.*;
 import com.google.android.glass.widget.*;
 
 public class RecentPatientActivity extends Activity {
-	public final static String EXTRA_MESSAGE = "Patient Info";
+	
+	public final static String PATIENT_ID = "Patient info";
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
+    private String patientID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
+        //Assign dummy data for global ID
+        for (int i = 0; i < 5; i++)
+        {
+        	global.id.add(String.valueOf(i));
+        }
+        ///////////////
+        
         createCards();
         
         mCardScrollView = new CardScrollView(this);
@@ -39,11 +48,14 @@ public class RecentPatientActivity extends Activity {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
         		//Object o = mCardScrollView.getItemAtPosition(position);
         		//use position to get the position of the card and pass it to the overview activity
-        		Intent overview = new Intent(getApplicationContext(), OverviewActivity.class);
-        		//example: send position to the overview Activity
-        		//what we need: from position get the patient ID and send it to Overview!
-        		//overview.putExtra(EXTRA_MESSAGE, position)
-        		startActivity( overview ); 
+        		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
+
+        		//Get the patient ID from the global class. 
+        		//Couldn't send it by integer, I converted it to String to put to intent
+        		patientID = String.valueOf(global.id.get(position));
+        		overviewIntent.putExtra(PATIENT_ID, patientID);
+        		
+        		startActivity( overviewIntent );
         	}
         });
     }
@@ -77,7 +89,7 @@ public class RecentPatientActivity extends Activity {
 
         @Override
         public int getCount() {
-        	System.out.println(mCards.size());
+        	//System.out.println(mCards.size());
             return mCards.size();
         }
 
