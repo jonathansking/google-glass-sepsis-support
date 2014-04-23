@@ -39,64 +39,43 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.TextView;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import android.app.ProgressDialog;
-
-
 public class OverviewActivity extends Activity {
 	private GestureDetector mGestureDetector;
-	private TextView patientId, patientName,patientSex, patientHospAdm, patientHospDisch;
+	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
 	private ProgressDialog pDialog;
 	
+	private String patient_id;
+	//private Context appcontext;
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.overview);
+
         mGestureDetector = createGestureDetector(this);
         
         //sk
+        patient_id = "2";
 
-        patientId = (TextView) findViewById(R.id.patientId);
+        patientIdTxtView = (TextView) findViewById(R.id.patientId);
         patientName = (TextView) findViewById(R.id.patientName);
         patientSex = (TextView) findViewById(R.id.patientSex);
         patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
         patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);
-        //System.out.println("KHADKA HERe");
-        new LoadOverviewData(patientId, patientName, patientSex, patientHospDisch, patientHospAdm).execute();
+        //appcontext = OverviewActivity.this;
+        System.out.println("KHADKA HERe");
         
+        new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
+
 	}
 	
 	
-	private class LoadOverviewData extends AsyncTask<Void,Void,String> {
+	private class LoadOverviewData extends AsyncTask<String,Void,String> {
 		
 		//private ProgressDialog pDialog;
-		private TextView patientId, patientName, patientSex, patientHospDisch, patientHospAdm;
-		
-		public LoadOverviewData(TextView patientId, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
-			this.patientId = patientId;
+		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
+		//private Context activity_context;
+		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
+			this.patientIdTxtView = patientIdTxtView;
 			this.patientName = patientName;
 			this.patientSex = patientSex;	
 			this.patientHospDisch = patientHospDisch;
@@ -113,10 +92,13 @@ public class OverviewActivity extends Activity {
 		}
 		
 		@Override
-		protected String doInBackground(Void... params) {
+		protected String doInBackground(String...arg0) {
 			try{
-
-				String link = "http://glass.herumla.com";
+				String patient_id = (String)arg0[0];
+				System.out.println("Patient_id is " + patient_id);
+				String link = "http://glass.herumla.com/?"+ "patient_id=" + patient_id ;
+				System.out.println( "the link inside doinbackground is " + link);
+				//link = "http://glass.herumla.com";
 	            //URL url = new URL(link);
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
@@ -131,6 +113,7 @@ public class OverviewActivity extends Activity {
 	            	break;
 	            }
 	            in.close();
+	            System.out.println( "returned string" + sb.toString() );
 	            return sb.toString();
 			}
 			catch(Exception e){
@@ -145,7 +128,7 @@ public class OverviewActivity extends Activity {
 			try {
 			    JSONObject json = new JSONObject(result);
 			    System.out.println(" name is " + json.get("name"));
-			    this.patientId.setText("#" + (String) json.get("patient_id"));
+			    this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
 			    this.patientName.setText((String) json.get("name"));
 			    this.patientSex.setText((String) json.get("sex"));
 			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
@@ -158,7 +141,7 @@ public class OverviewActivity extends Activity {
 			//this.
 		}
 	}
-
+	
 	private GestureDetector createGestureDetector(Context context) {
     GestureDetector gestureDetector = new GestureDetector(context);
         // create a base listener for generic gestures

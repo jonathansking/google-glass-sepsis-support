@@ -69,20 +69,20 @@ public class RecentPatientActivity extends Activity {
 
         @Override
         public int getPosition(Object item) {
-        	System.out.println("Line 69");
+        	//System.out.println("Line 69");
             return mCards.indexOf(item);
         }
 
         @Override
         public int getCount() {
-        	System.out.println("Line 75");
-        	System.out.println(mCards.size());
+        	//System.out.println("Line 75");
+        	//System.out.println(mCards.size());
             return mCards.size();
         }
 
         @Override
         public Object getItem(int position) {
-        	System.out.println("Line 81");
+        	//System.out.println("Line 81");
             return mCards.get(position);
         }
 
@@ -91,7 +91,7 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getViewTypeCount() {
-        	System.out.println("Line 90");
+        	//System.out.println("Line 90");
             return Card.getViewTypeCount();
         }
 
@@ -101,15 +101,15 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getItemViewType(int position){
-        	System.out.println("Line 100");
+        	//System.out.println("Line 100");
             return mCards.get(position).getItemViewType();
         }
 
         @Override
         public View getView(int position, View convertView,
                 ViewGroup parent) {
-        	System.out.println("107");
-        	System.out.println(position);
+        	//System.out.println("107");
+        	//System.out.println(position);
             return  mCards.get(position).getView(convertView, parent);
         }
     	
