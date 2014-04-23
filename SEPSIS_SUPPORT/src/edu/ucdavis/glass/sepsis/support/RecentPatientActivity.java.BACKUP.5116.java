@@ -72,17 +72,30 @@ public class RecentPatientActivity extends Activity {
 
         @Override
         public int getPosition(Object item) {
+<<<<<<< HEAD
+        	//System.out.println("Line 69");
+=======
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return mCards.indexOf(item);
         }
 
         @Override
         public int getCount() {
+<<<<<<< HEAD
+        	//System.out.println("Line 75");
+        	//System.out.println(mCards.size());
+=======
         	System.out.println(mCards.size());
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return mCards.size();
         }
 
         @Override
         public Object getItem(int position) {
+<<<<<<< HEAD
+        	//System.out.println("Line 81");
+=======
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return mCards.get(position);
         }
 
@@ -91,6 +104,10 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getViewTypeCount() {
+<<<<<<< HEAD
+        	//System.out.println("Line 90");
+=======
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return Card.getViewTypeCount();
         }
 
@@ -100,11 +117,22 @@ public class RecentPatientActivity extends Activity {
          */
         @Override
         public int getItemViewType(int position){
+<<<<<<< HEAD
+        	//System.out.println("Line 100");
+=======
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return mCards.get(position).getItemViewType();
         }
 
         @Override
+<<<<<<< HEAD
+        public View getView(int position, View convertView,
+                ViewGroup parent) {
+        	//System.out.println("107");
+        	//System.out.println(position);
+=======
         public View getView(int position, View convertView, ViewGroup parent) {
+>>>>>>> f21d8c80088924845495a52720ca80a8a0eb6d9f
             return  mCards.get(position).getView(convertView, parent);
         }
     }
