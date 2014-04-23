@@ -27,10 +27,11 @@ public class RecentPatientActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //Assign dummy data for global ID
-        for (int i = 0; i < 5; i++)
+        //Assign dummy data for global ID and Name        
+        for (int i = 0; i < global.MAX_RECENT_PATIENT; i++)
         {
         	global.id.add(String.valueOf(i));
+        	global.name.add("Patient Name " + String.valueOf(i));
         }
         ///////////////
         
@@ -61,20 +62,16 @@ public class RecentPatientActivity extends Activity {
     }
 
     private void createCards() {
-        mCards = new ArrayList<Card>();
+        mCards = new ArrayList<Card>(global.MAX_RECENT_PATIENT);
 
         Card newcard;
-
-        //Dummies data. Need request to database to get the latest 5 patients
-        String patientName[]={"Joe Doe","Sarah Black","John Smith","Angolina Nguyen","Josue Hernandez"};
         
-        for (int i = 0; i < patientName.length; i++)
+        for (int i = 0; i < global.name.size(); i++)
         {
         	newcard = new Card(this);
-        	newcard.setText(patientName[i]);
+        	newcard.setText(global.name.get(i));
         	newcard.setImageLayout(Card.ImageLayout.LEFT);
         	newcard.addImage(R.drawable.default_user);
-//        	newcard.setFootnote("Tap to load patient"); // maybe something like this
         	mCards.add(newcard);
         }
 
