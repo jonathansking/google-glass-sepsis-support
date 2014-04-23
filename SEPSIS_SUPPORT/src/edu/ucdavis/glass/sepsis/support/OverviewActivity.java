@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import android.content.Intent;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -43,27 +44,23 @@ public class OverviewActivity extends Activity {
 	private GestureDetector mGestureDetector;
 	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
 	private ProgressDialog pDialog;
-	
-	private String patient_id;
-	//private Context appcontext;
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Intent recentPatientIntent = getIntent();
+        String patient_id = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
+        System.out.println(patient_id);
         setContentView(R.layout.overview);
 
         mGestureDetector = createGestureDetector(this);
         
-        //sk
-        patient_id = "2";
-
         patientIdTxtView = (TextView) findViewById(R.id.patientId);
         patientName = (TextView) findViewById(R.id.patientName);
         patientSex = (TextView) findViewById(R.id.patientSex);
         patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
-        patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);
-        //appcontext = OverviewActivity.this;
-        System.out.println("KHADKA HERe");
-        
+        patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);        
         new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
 
 	}
@@ -71,9 +68,7 @@ public class OverviewActivity extends Activity {
 	
 	private class LoadOverviewData extends AsyncTask<String,Void,String> {
 		
-		//private ProgressDialog pDialog;
 		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
-		//private Context activity_context;
 		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
 			this.patientIdTxtView = patientIdTxtView;
 			this.patientName = patientName;
@@ -97,9 +92,6 @@ public class OverviewActivity extends Activity {
 				String patient_id = (String)arg0[0];
 				System.out.println("Patient_id is " + patient_id);
 				String link = "http://glass.herumla.com/?"+ "patient_id=" + patient_id ;
-				System.out.println( "the link inside doinbackground is " + link);
-				//link = "http://glass.herumla.com";
-	            //URL url = new URL(link);
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(link));

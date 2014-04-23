@@ -16,28 +16,76 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 
 public class WelcomeActivity extends Activity {
+	
+	private String recentPatientID = "recentPatientID";
+	private String recentPatientName = "recentPatientName";
 	private GestureDetector mGestureDetector;
+	@SuppressWarnings("unchecked")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FileInputStream fis;
+        try {
+            fis = openFileInput(recentPatientID);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            global.id = (ArrayList<String>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            fis = openFileInput(recentPatientName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            global.name = (ArrayList<String>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+//        for(int i = 0; i < 4; i++)
+//        {
+//        	global.id.add(String.valueOf(i));
+//        	global.id.add(String.valueOf(i));
+//        }
         setContentView(R.layout.welcome_screen);
         mGestureDetector = createGestureDetector(this);
+    }
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+        	FileOutputStream fos = openFileOutput(recentPatientID,MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(global.id);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+        	FileOutputStream fos = openFileOutput(recentPatientName,MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(global.name);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 	
 	private GestureDetector createGestureDetector(Context context) {
