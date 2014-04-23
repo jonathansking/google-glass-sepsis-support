@@ -28,12 +28,8 @@ public class RecentPatientActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         //Assign dummy data for global ID and Name        
-        for (int i = 0; i < global.MAX_RECENT_PATIENT; i++)
-        {
-        	global.id.add(String.valueOf(i));
-        	global.name.add("Patient Name " + String.valueOf(i));
-        }
-        ///////////////
+        for (int i = 1; i <= global.maxRecentPatients; i++)
+        	global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
         
         createCards();
         
@@ -53,7 +49,7 @@ public class RecentPatientActivity extends Activity {
 
         		//Get the patient ID from the global class. 
         		//Couldn't send it by integer, I converted it to String to put to intent
-        		patientID = String.valueOf(global.id.get(position));
+        		patientID = String.valueOf( global.getPatientAtPosition(position).getId() );
         		overviewIntent.putExtra(PATIENT_ID, patientID);
         		
         		startActivity( overviewIntent );
@@ -62,14 +58,15 @@ public class RecentPatientActivity extends Activity {
     }
 
     private void createCards() {
-        mCards = new ArrayList<Card>(global.MAX_RECENT_PATIENT);
+        mCards = new ArrayList<Card>(global.getRecentPatientSize());
+        ArrayList<Patient> recentPatients = global.getPatients();
 
         Card newcard;
         
-        for (int i = 0; i < global.name.size(); i++)
+        for ( Patient p : recentPatients )
         {
         	newcard = new Card(this);
-        	newcard.setText(global.name.get(i));
+        	newcard.setText( p.getName() );
         	newcard.setImageLayout(Card.ImageLayout.LEFT);
         	newcard.addImage(R.drawable.default_user);
         	mCards.add(newcard);

@@ -125,6 +125,10 @@ public class OverviewActivity extends Activity {
 			    this.patientSex.setText((String) json.get("sex"));
 			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
 			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+//			    global.id.remove(4);
+//			    global.name.remove(4);
+//			    global.id.add((String) json.get("patient_id"));
+//			    global.name.add((String) json.get("name"));
 			}
 			catch(Exception e) {
 				e.printStackTrace();
