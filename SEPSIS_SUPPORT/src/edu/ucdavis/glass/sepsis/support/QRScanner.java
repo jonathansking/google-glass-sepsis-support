@@ -28,9 +28,9 @@ import com.google.android.glass.widget.*;
 public class QRScanner extends Activity {
 	protected void onCreate(Bundle savedInstanceState){ 
 	    super.onCreate(savedInstanceState);
+	    
 	    try{ 
 		    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-		    //intent.setPackage("com.google.zxing.client.android");
 		    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
 		    startActivityForResult(intent, 0); 
 		    
@@ -45,7 +45,7 @@ public class QRScanner extends Activity {
 		}
 	}
 	
-	//when a QR code is read, it will send a result code 
+	// when a QR code is read, it will send a result code 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	if (requestCode == 0){
 	    	if (resultCode == RESULT_OK){
@@ -56,11 +56,10 @@ public class QRScanner extends Activity {
 	            View card1View = card1.getView();
 	            setContentView(card1View);
 	            
-	            //setDisplayCard(card1);
 	    	}
-//    	else if (resultCode == RESULT_CANCELED) {
-//            // Handle cancel
-//        }
+	    	else if (resultCode == RESULT_CANCELED) {
+//	            Handle cancel
+	        }
     	}
     	super.onActivityResult(requestCode, resultCode, data);
     }
