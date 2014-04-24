@@ -20,7 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -40,11 +40,12 @@ public class WelcomeActivity extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         FileInputStream fis;
         try {
             fis = openFileInput(patientsFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.recentPatients = (ArrayList<Patient>) ois.readObject();
+            Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();

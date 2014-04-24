@@ -27,9 +27,12 @@ public class RecentPatientActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //Assign dummy data for global ID and Name        
-        for (int i = 1; i <= Global.maxRecentPatients; i++)
-        	Global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
+        //Assign dummy data for global ID and Name     
+        if( Global.once ) {
+        	Global.once = false;
+	        for (int i = 1; i <= Global.maxRecentPatients; i++)
+	        	Global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
+        }
         
         createCards();
         
@@ -43,15 +46,9 @@ public class RecentPatientActivity extends Activity {
         mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-        		//Object o = mCardScrollView.getItemAtPosition(position);
         		//use position to get the position of the card and pass it to the overview activity
         		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-
-        		//Get the patient ID from the global class. 
-        		//Couldn't send it by integer, I converted it to String to put to intent
-        		patientID = String.valueOf( Global.recentPatients.get(position).getId() );
-        		overviewIntent.putExtra(PATIENT_ID, patientID);
-        		
+        		overviewIntent.putExtra(PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
         		startActivity( overviewIntent );
         	}
         });

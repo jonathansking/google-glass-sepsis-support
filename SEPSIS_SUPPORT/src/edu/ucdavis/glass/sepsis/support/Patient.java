@@ -11,6 +11,10 @@ public class Patient {
 	    	name = n;
 	    }
 	    
+	    public String toString() {
+	    	return name + ": " + id;
+	    }
+	    
 	    public Patient(Patient p) {
 	    	id = p.id;
 	    	name = p.name;

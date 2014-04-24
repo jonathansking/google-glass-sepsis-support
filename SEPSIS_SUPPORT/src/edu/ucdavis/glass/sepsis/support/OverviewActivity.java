@@ -123,6 +123,11 @@ public class OverviewActivity extends Activity {
 			    this.patientSex.setText((String) json.get("sex"));
 			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
 			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+			    
+			    // add to recent patients
+			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
+			    
+			    Global.printPatients();
 			}
 			catch(Exception e) {
 				e.printStackTrace();
