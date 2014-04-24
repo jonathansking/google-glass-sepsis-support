@@ -16,6 +16,12 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayDeque;
+
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
@@ -25,19 +31,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 
 public class WelcomeActivity extends Activity {
+	
+	private final String patientsFile = "patients_file.sav";
+	
 	private GestureDetector mGestureDetector;
+	@SuppressWarnings("unchecked")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        FileInputStream fis;
+        try {
+            fis = openFileInput(patientsFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.welcome_screen);
         mGestureDetector = createGestureDetector(this);
+    }
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+        	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(Global.recentPatients);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 	
 	private GestureDetector createGestureDetector(Context context) {
@@ -55,7 +84,6 @@ public class WelcomeActivity extends Activity {
                 	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 } else if (gesture == Gesture.SWIPE_LEFT) {
-                	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 }
                 return false;

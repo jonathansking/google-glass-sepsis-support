@@ -23,5 +23,7 @@
 	<string name="swipe_recent_patients">Swipe to view recent patients</string>
 	
     <string name="recent_patients">Recent Patients</string>
+    
+     <string name="empty">&#8230;</string>
 	
 </resources>

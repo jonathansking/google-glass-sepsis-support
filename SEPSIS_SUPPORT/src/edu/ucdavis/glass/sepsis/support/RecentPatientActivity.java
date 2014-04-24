@@ -17,14 +17,23 @@ import com.google.android.glass.app.*;
 import com.google.android.glass.widget.*;
 
 public class RecentPatientActivity extends Activity {
-	public final static String EXTRA_MESSAGE = "Patient Info";
+	
+	public final static String PATIENT_ID = "Patient info";
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
+    private String patientID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
+        //Assign dummy data for global ID and Name     
+        if( Global.once ) {
+        	Global.once = false;
+	        for (int i = 1; i <= Global.maxRecentPatients; i++)
+	        	Global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
+        }
+        
         createCards();
         
         mCardScrollView = new CardScrollView(this);
@@ -37,35 +46,26 @@ public class RecentPatientActivity extends Activity {
         mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-        		//Object o = mCardScrollView.getItemAtPosition(position);
         		//use position to get the position of the card and pass it to the overview activity
-        		Intent overview = new Intent(getApplicationContext(), OverviewActivity.class);
-        		//example: send position to the overview Activity
-        		//what we need: from position get the patient ID and send it to Overview!
-        		//overview.putExtra(EXTRA_MESSAGE, position)
-        		startActivity( overview ); 
+        		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
+        		overviewIntent.putExtra(PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
+        		startActivity( overviewIntent );
         	}
         });
     }
 
     private void createCards() {
-        mCards = new ArrayList<Card>();
+        mCards = new ArrayList<Card>( Global.recentPatients.size() );
 
-        Card newcard;
-
-        //Dummies data. Need request to database to get the latest 5 patients
-        String patientName[]={"Joe Doe","Sarah Black","John Smith","Angolina Nguyen","Josue Hernandez"};
-        
-        for (int i = 0; i < patientName.length; i++)
+        for ( Patient p : Global.recentPatients )
         {
-        	newcard = new Card(this);
-        	newcard.setText(patientName[i]);
-        	newcard.setImageLayout(Card.ImageLayout.LEFT);
-        	newcard.addImage(R.drawable.default_user);
-//        	newcard.setFootnote("Tap to load patient"); // maybe something like this
-        	mCards.add(newcard);
+        	Card c = new Card(this);
+        	c.setText( p.getName() );
+        	c.setFootnote( p.getId() );
+        	c.setImageLayout(Card.ImageLayout.LEFT);
+        	c.addImage(R.drawable.default_user);
+        	mCards.add(c);
         }
-
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {
@@ -77,7 +77,7 @@ public class RecentPatientActivity extends Activity {
 
         @Override
         public int getCount() {
-        	System.out.println(mCards.size());
+        	//System.out.println(mCards.size());
             return mCards.size();
         }
 

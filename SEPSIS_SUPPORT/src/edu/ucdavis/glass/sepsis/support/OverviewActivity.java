@@ -17,29 +17,123 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import android.content.Intent;
 
 import android.app.Activity;
-import android.content.ComponentName;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.TextView;
+
 
 public class OverviewActivity extends Activity {
 	private GestureDetector mGestureDetector;
+	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
+	private ProgressDialog pDialog;
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Intent recentPatientIntent = getIntent();
+        String patient_id = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
         setContentView(R.layout.overview);
+
         mGestureDetector = createGestureDetector(this);
-    }
+        
+        patientIdTxtView = (TextView) findViewById(R.id.patientId);
+        patientName = (TextView) findViewById(R.id.patientName);
+        patientSex = (TextView) findViewById(R.id.patientSex);
+        patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
+        patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);        
+        new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
+
+	}
+	
+	private class LoadOverviewData extends AsyncTask<String,Void,String> {
+		
+		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
+		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
+			this.patientIdTxtView = patientIdTxtView;
+			this.patientName = patientName;
+			this.patientSex = patientSex;	
+			this.patientHospDisch = patientHospDisch;
+			this.patientHospAdm = patientHospAdm;
+		}
+		
+		protected void onPreExecute(){
+			super.onPreExecute();
+			pDialog = new ProgressDialog(OverviewActivity.this);
+			pDialog.setMessage("Loading Patient Overview. Please wait...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			pDialog.show();
+		}
+		
+		@Override
+		protected String doInBackground(String...arg0) {
+			try{
+				String patient_id = (String)arg0[0];
+				System.out.println("Patient_id: " + patient_id);
+				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
+	            HttpClient client = new DefaultHttpClient();
+	            HttpGet request = new HttpGet();
+	            request.setURI(new URI(link));
+	            HttpResponse response = client.execute(request);
+	            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+	            StringBuffer sb = new StringBuffer("");
+	            String line="";
+	            while ((line = in.readLine()) != null) {
+	            	sb.append(line);
+	            	break;
+	            }
+	            in.close();
+	            System.out.println( "returned string" + sb.toString() );
+	            return sb.toString();
+			}
+			catch(Exception e){
+				return new String("Exception: " + e.getMessage());
+			}		
+		}
+		
+		protected void onPostExecute(String result) {
+			pDialog.dismiss();
+			System.out.println( "OnPostExecute running");
+			System.out.println( result );
+			try {
+			    JSONObject json = new JSONObject(result);
+			    System.out.println(" name is " + json.get("name"));
+			    this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
+			    this.patientName.setText((String) json.get("name"));
+			    this.patientSex.setText((String) json.get("sex"));
+			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
+			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+			    
+			    // add to recent patients
+			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
+			    
+			    Global.printPatients();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	private GestureDetector createGestureDetector(Context context) {
     GestureDetector gestureDetector = new GestureDetector(context);
@@ -71,4 +165,6 @@ public class OverviewActivity extends Activity {
         }
         return false;
     }
+    
+    
 }
