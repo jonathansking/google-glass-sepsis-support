@@ -51,7 +51,6 @@ public class OverviewActivity extends Activity {
         
         Intent recentPatientIntent = getIntent();
         String patient_id = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
-        System.out.println(patient_id);
         setContentView(R.layout.overview);
 
         mGestureDetector = createGestureDetector(this);
@@ -64,7 +63,6 @@ public class OverviewActivity extends Activity {
         new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
 
 	}
-	
 	
 	private class LoadOverviewData extends AsyncTask<String,Void,String> {
 		
@@ -90,8 +88,8 @@ public class OverviewActivity extends Activity {
 		protected String doInBackground(String...arg0) {
 			try{
 				String patient_id = (String)arg0[0];
-				System.out.println("Patient_id is " + patient_id);
-				String link = "http://glass.herumla.com/?"+ "patient_id=" + patient_id ;
+				System.out.println("Patient_id: " + patient_id);
+				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(link));
@@ -125,16 +123,10 @@ public class OverviewActivity extends Activity {
 			    this.patientSex.setText((String) json.get("sex"));
 			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
 			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
-//			    global.id.remove(4);
-//			    global.name.remove(4);
-//			    global.id.add((String) json.get("patient_id"));
-//			    global.name.add((String) json.get("name"));
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 			}
-		    
-			//this.
 		}
 	}
 	

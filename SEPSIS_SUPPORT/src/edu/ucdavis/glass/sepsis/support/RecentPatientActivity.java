@@ -28,8 +28,8 @@ public class RecentPatientActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         //Assign dummy data for global ID and Name        
-        for (int i = 1; i <= global.maxRecentPatients; i++)
-        	global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
+        for (int i = 1; i <= Global.maxRecentPatients; i++)
+        	Global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
         
         createCards();
         
@@ -49,7 +49,7 @@ public class RecentPatientActivity extends Activity {
 
         		//Get the patient ID from the global class. 
         		//Couldn't send it by integer, I converted it to String to put to intent
-        		patientID = String.valueOf( global.getPatientAtPosition(position).getId() );
+        		patientID = String.valueOf( Global.recentPatients.get(position).getId() );
         		overviewIntent.putExtra(PATIENT_ID, patientID);
         		
         		startActivity( overviewIntent );
@@ -58,20 +58,17 @@ public class RecentPatientActivity extends Activity {
     }
 
     private void createCards() {
-        mCards = new ArrayList<Card>(global.getRecentPatientSize());
-        ArrayList<Patient> recentPatients = global.getPatients();
+        mCards = new ArrayList<Card>( Global.recentPatients.size() );
 
-        Card newcard;
-        
-        for ( Patient p : recentPatients )
+        for ( Patient p : Global.recentPatients )
         {
-        	newcard = new Card(this);
-        	newcard.setText( p.getName() );
-        	newcard.setImageLayout(Card.ImageLayout.LEFT);
-        	newcard.addImage(R.drawable.default_user);
-        	mCards.add(newcard);
+        	Card c = new Card(this);
+        	c.setText( p.getName() );
+        	c.setFootnote( p.getId() );
+        	c.setImageLayout(Card.ImageLayout.LEFT);
+        	c.addImage(R.drawable.default_user);
+        	mCards.add(c);
         }
-
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter {

@@ -33,8 +33,8 @@ import android.view.MotionEvent;
 
 public class WelcomeActivity extends Activity {
 	
-	private String recentPatientID = "recentPatientID";
-	private String recentPatientName = "recentPatientName";
+	private final String patientsFile = "patients_file.sav";
+	
 	private GestureDetector mGestureDetector;
 	@SuppressWarnings("unchecked")
 	@Override
@@ -42,27 +42,13 @@ public class WelcomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         FileInputStream fis;
         try {
-            fis = openFileInput(recentPatientID);
+            fis = openFileInput(patientsFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            global.id = (ArrayList<String>) ois.readObject();
+            Global.recentPatients = (ArrayList<Patient>) ois.readObject();
             ois.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            fis = openFileInput(recentPatientName);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            global.name = (ArrayList<String>) ois.readObject();
-            ois.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-//        for(int i = 0; i < 4; i++)
-//        {
-//        	global.id.add(String.valueOf(i));
-//        	global.id.add(String.valueOf(i));
-//        }
         setContentView(R.layout.welcome_screen);
         mGestureDetector = createGestureDetector(this);
     }
@@ -71,17 +57,9 @@ public class WelcomeActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         try {
-        	FileOutputStream fos = openFileOutput(recentPatientID,MODE_PRIVATE);
+        	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(global.id);
-            oos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-        	FileOutputStream fos = openFileOutput(recentPatientName,MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(global.name);
+            oos.writeObject(Global.recentPatients);
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +73,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 if (gesture == Gesture.TAP) {
-                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+//                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 } else if (gesture == Gesture.TWO_TAP) {
                     return true;
@@ -103,7 +81,6 @@ public class WelcomeActivity extends Activity {
                 	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 } else if (gesture == Gesture.SWIPE_LEFT) {
-                	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 }
                 return false;

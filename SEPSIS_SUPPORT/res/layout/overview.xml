@@ -8,11 +8,11 @@
         <TextView
             android:id="@+id/patientName"
         	style="@style/Heading.Right"
-            android:text="@string/sampleName" />
+            android:text="@string/empty" />
         <TextView
             android:id="@+id/patientId"
             style="@style/Heading.Left"
-            android:text="@string/sampleId" />
+            android:text="@string/empty" />
     </TableRow>
     
     <View
@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/patientHospAdm"
         	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/sampleHospAdmission" />
+            android:text="@string/empty" />
     </TableRow>
  
     <TableRow
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/patientHospDisch"
         	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/sampleHospDischarge" />
+            android:text="@string/empty" />
     </TableRow>
  
     <TableRow
@@ -48,7 +48,7 @@
             android:text="Encounter Number:" />
         <TextView
         	style="@style/Heading.Sub.Row.Left"
-            android:text="213" />
+            android:text="@string/empty" />
     </TableRow>
  
     <TableRow
@@ -59,7 +59,7 @@
         <TextView
             android:id="@+id/patientSex"
         	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/sampleSex" />
+            android:text="@string/empty" />
     </TableRow>
  
     <TableRow
@@ -69,7 +69,7 @@
             android:text="ICU Days:" />
         <TextView
         	style="@style/Heading.Sub.Row.Left"
-            android:text="3" />
+            android:text="@string/empty" />
     </TableRow>
 
 </TableLayout>

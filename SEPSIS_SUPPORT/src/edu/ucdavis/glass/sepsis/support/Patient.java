@@ -3,11 +3,17 @@ package edu.ucdavis.glass.sepsis.support;
 public class Patient {
 	    private String id;
 	    private String name;
-//	    private picture
-	    
+//	    picture?
+//	    first loaded?
+
 	    public Patient(String i, String n) {
 	    	id = i;
 	    	name = n;
+	    }
+	    
+	    public Patient(Patient p) {
+	    	id = p.id;
+	    	name = p.name;
 	    }
 	    
 	    public String getName() {
