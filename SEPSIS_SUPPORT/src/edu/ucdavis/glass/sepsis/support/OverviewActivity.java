@@ -27,10 +27,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
 import android.content.Intent;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,14 +36,19 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 
-public class OverviewActivity extends Activity {
+
+public class OverviewActivity extends Activity 
+{
 	private GestureDetector mGestureDetector;
 	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
 	private ProgressDialog pDialog;
 
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+	{
         super.onCreate(savedInstanceState);
         
         Intent recentPatientIntent = getIntent();
@@ -61,13 +63,13 @@ public class OverviewActivity extends Activity {
         patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
         patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);        
         new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
-
 	}
 	
-	private class LoadOverviewData extends AsyncTask<String,Void,String> {
-		
+	private class LoadOverviewData extends AsyncTask<String,Void,String> 
+	{
 		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
-		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) {
+		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) 
+		{
 			this.patientIdTxtView = patientIdTxtView;
 			this.patientName = patientName;
 			this.patientSex = patientSex;	
@@ -75,19 +77,22 @@ public class OverviewActivity extends Activity {
 			this.patientHospAdm = patientHospAdm;
 		}
 		
-		protected void onPreExecute(){
+		protected void onPreExecute()
+		{
 			super.onPreExecute();
 			pDialog = new ProgressDialog(OverviewActivity.this);
 			pDialog.setMessage("Loading Patient Overview. Please wait...");
 			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
+			pDialog.setCancelable(false); 
 			pDialog.show();
 		}
 		
 		@Override
-		protected String doInBackground(String...arg0) {
-			try{
-				String patient_id = (String)arg0[0];
+		protected String doInBackground(String...arg0) 
+		{
+			try
+			{
+				String patient_id = (String)arg0[0]; 
 				System.out.println("Patient_id: " + patient_id);
 				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
 	            HttpClient client = new DefaultHttpClient();
@@ -98,7 +103,8 @@ public class OverviewActivity extends Activity {
 
 	            StringBuffer sb = new StringBuffer("");
 	            String line="";
-	            while ((line = in.readLine()) != null) {
+	            while ((line = in.readLine()) != null) 
+	            {
 	            	sb.append(line);
 	            	break;
 	            }
@@ -111,7 +117,8 @@ public class OverviewActivity extends Activity {
 			}		
 		}
 		
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(String result) 
+		{
 			pDialog.dismiss();
 			System.out.println( "OnPostExecute running");
 			System.out.println( result );
@@ -129,25 +136,37 @@ public class OverviewActivity extends Activity {
 			    
 			    Global.printPatients();
 			}
-			catch(Exception e) {
+			catch(Exception e) 
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	private GestureDetector createGestureDetector(Context context) {
-    GestureDetector gestureDetector = new GestureDetector(context);
+	private GestureDetector createGestureDetector(Context context) 
+	{
+		GestureDetector gestureDetector = new GestureDetector(context);
+		
         // create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
+        gestureDetector.setBaseListener( new GestureDetector.BaseListener() 
+        {
             @Override
-            public boolean onGesture(Gesture gesture) {
-                if (gesture == Gesture.TAP) {
+            public boolean onGesture(Gesture gesture) 
+            {
+                if (gesture == Gesture.TAP) 
+                {
                     return true;
-                } else if (gesture == Gesture.TWO_TAP) {
+                } 
+                else if (gesture == Gesture.TWO_TAP) 
+                {
                     return true;
-                } else if (gesture == Gesture.SWIPE_RIGHT) {
+                } 
+                else if (gesture == Gesture.SWIPE_RIGHT) 
+                {
                     return true;
-                } else if (gesture == Gesture.SWIPE_LEFT) {
+                } 
+                else if (gesture == Gesture.SWIPE_LEFT) 
+                {
                     return true;
                 }
                 return false;
@@ -159,10 +178,11 @@ public class OverviewActivity extends Activity {
 
     // send generic motion events to the gesture detector
     @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        if (mGestureDetector != null) {
+    public boolean onGenericMotionEvent(MotionEvent event) 
+    {
+        if (mGestureDetector != null)
             return mGestureDetector.onMotionEvent(event);
-        }
+        
         return false;
     }
     

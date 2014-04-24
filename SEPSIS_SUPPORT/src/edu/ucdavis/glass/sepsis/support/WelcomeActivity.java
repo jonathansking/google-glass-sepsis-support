@@ -22,34 +22,36 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
-
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
-public class WelcomeActivity extends Activity {
-	
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
+
+public class WelcomeActivity extends Activity 
+{
 	private final String patientsFile = "patients_file.sav";
-	
 	private GestureDetector mGestureDetector;
+	
 	@SuppressWarnings("unchecked")
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+	{
         super.onCreate(savedInstanceState);
         
         FileInputStream fis;
-        try {
+        try 
+        {
             fis = openFileInput(patientsFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
             ois.close();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
         setContentView(R.layout.welcome_screen);
@@ -57,35 +59,50 @@ public class WelcomeActivity extends Activity {
     }
 	
 	@Override
-    protected void onDestroy() {
+    protected void onDestroy() 
+	{
         super.onDestroy();
-        try {
+        try 
+        {
         	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.recentPatients);
             oos.close();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }
 	
-	private GestureDetector createGestureDetector(Context context) {
+	private GestureDetector createGestureDetector(Context context) 
+	{
     GestureDetector gestureDetector = new GestureDetector(context);
         // create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() {
+        gestureDetector.setBaseListener( new GestureDetector.BaseListener() 
+        {
             @Override
-            public boolean onGesture(Gesture gesture) {
-                if (gesture == Gesture.TAP) {
+            public boolean onGesture(Gesture gesture) 
+            {
+                if (gesture == Gesture.TAP) 
+                {
                 	startActivity( new Intent(getApplicationContext(), QRScanner.class) );
                     return true;
-                } else if (gesture == Gesture.TWO_TAP) {
+                } 
+                else if (gesture == Gesture.TWO_TAP) 
+                {
                     return true;
-                } else if (gesture == Gesture.SWIPE_RIGHT) {
+                } 
+                else if (gesture == Gesture.SWIPE_RIGHT) 
+                {
                 	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
-                } else if (gesture == Gesture.SWIPE_LEFT) {
+                } 
+                else if (gesture == Gesture.SWIPE_LEFT) 
+                {
                     return true;
                 }
+                
                 return false;
             }
         });
@@ -95,10 +112,11 @@ public class WelcomeActivity extends Activity {
 
     // send generic motion events to the gesture detector
     @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        if (mGestureDetector != null) {
+    public boolean onGenericMotionEvent(MotionEvent event) 
+    {
+        if (mGestureDetector != null) 
             return mGestureDetector.onMotionEvent(event);
-        }
+        
         return false;
     }
 }
