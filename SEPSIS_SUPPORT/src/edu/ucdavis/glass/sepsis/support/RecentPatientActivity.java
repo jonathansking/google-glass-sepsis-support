@@ -5,11 +5,9 @@ import java.lang.Object;
 
 import android.app.Activity;
 import android.content.Intent;
-//import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.AdapterView;
 
 import android.widget.AdapterView;
 
@@ -21,19 +19,11 @@ public class RecentPatientActivity extends Activity {
 	public final static String PATIENT_ID = "Patient info";
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
-    private String patientID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        //Assign dummy data for global ID and Name     
-        if( Global.once ) {
-        	Global.once = false;
-	        for (int i = 1; i <= Global.maxRecentPatients; i++)
-	        	Global.pushRecentPatient( String.valueOf(i), "Patient Name " + String.valueOf(i) );
-        }
-        
+ 
         createCards();
         
         mCardScrollView = new CardScrollView(this);
@@ -46,6 +36,7 @@ public class RecentPatientActivity extends Activity {
         mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+        		
         		//use position to get the position of the card and pass it to the overview activity
         		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
         		overviewIntent.putExtra(PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
