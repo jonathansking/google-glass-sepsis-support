@@ -4,9 +4,12 @@ import java.util.ArrayDeque;
 
 public class Global 
 {
-	
-	public static final int maxRecentPatients = 5; 
+	//globally store recentpatient queue
+	public static int maxRecentPatients = 5; 
     public static ArrayDeque<Patient> recentPatients = new ArrayDeque<Patient>();
+    
+    //globally store options
+    public static Options options;
     
     // adds patient to Queue, maintaining a max
     public static void pushRecentPatient(String id, String name) 

@@ -1,26 +1,9 @@
-/*
- * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package edu.ucdavis.glass.sepsis.support;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayDeque;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,11 +14,15 @@ import android.view.MotionEvent;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
-public class WelcomeActivity extends Activity 
-{
-	private final String patientsFile = "patients_file.sav";
+public class Options extends Activity {
+	
+	private final String optionsFile = "options.sav";
 	private GestureDetector mGestureDetector;
 	
+	//OPTIONS
+	public int screentimeout;
+	public int numberofrecentpatients;
+
 	@SuppressWarnings("unchecked")
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -45,9 +32,9 @@ public class WelcomeActivity extends Activity
         FileInputStream fis;
         try 
         {
-            fis = openFileInput(patientsFile);
+            fis = openFileInput(optionsFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
+            Global.options = (Options) ois.readObject();
             ois.close();
         } 
         catch (Exception e) 
@@ -64,9 +51,9 @@ public class WelcomeActivity extends Activity
         super.onDestroy();
         try 
         {
-        	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
+        	FileOutputStream fos = openFileOutput(optionsFile, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(Global.recentPatients);
+            oos.writeObject(Global.options);
             oos.close();
         } 
         catch (Exception e) 
@@ -86,26 +73,19 @@ public class WelcomeActivity extends Activity
             {
                 if (gesture == Gesture.TAP) 
                 {
-                	startActivity( new Intent(getApplicationContext(), QRScanner.class) );
+                	
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {
-                	//SHORT TERM SOLUTION, SKIP QR, MOSTLY FOR TESTING AND DEVELOPMENT EASE
-                	// pass FAKE QR message to the overview activity
-    				Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-    				overviewIntent.putExtra("Patient info", 1 ); 
-    				startActivity( overviewIntent );
-                    return true;
+                	return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                    startActivity( new Intent(getApplicationContext(), Options.class));
                 	return true;
                 }
                 
@@ -125,4 +105,6 @@ public class WelcomeActivity extends Activity
         
         return false;
     }
+	
+	
 }
