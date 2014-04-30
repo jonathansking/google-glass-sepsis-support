@@ -34,6 +34,8 @@ import com.google.android.glass.touchpad.GestureDetector;
 public class WelcomeActivity extends Activity 
 {
 	private final String patientsFile = "patients_file.sav";
+	private final String optionsFile = "options.sav";
+	
 	private GestureDetector mGestureDetector;
 	
 	@SuppressWarnings("unchecked")
@@ -42,6 +44,7 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
+        // load recent patients
         FileInputStream fis;
         try 
         {
@@ -54,6 +57,20 @@ public class WelcomeActivity extends Activity
         {
             e.printStackTrace();
         }
+        
+        // load options
+        try 
+        {
+            fis = openFileInput(optionsFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Global.options = (OptionsActivity.Options) ois.readObject();
+            ois.close();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
         setContentView(R.layout.welcome_screen);
         mGestureDetector = createGestureDetector(this);
     }
@@ -62,11 +79,26 @@ public class WelcomeActivity extends Activity
     protected void onDestroy() 
 	{
         super.onDestroy();
+        
+        // write out recent patients
         try 
         {
         	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.recentPatients);
+            oos.close();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        // write out options
+        try 
+        {
+        	FileOutputStream fos = openFileOutput(optionsFile, MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(Global.options);
             oos.close();
         } 
         catch (Exception e) 
@@ -105,7 +137,7 @@ public class WelcomeActivity extends Activity
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                    startActivity( new Intent(getApplicationContext(), Options.class));
+                    startActivity( new Intent(getApplicationContext(), OptionsActivity.class));
                 	return true;
                 }
                 

@@ -1,65 +1,24 @@
 package edu.ucdavis.glass.sepsis.support;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
-public class Options extends Activity {
-	
-	private final String optionsFile = "options.sav";
+public class OptionsActivity extends Activity 
+{
 	private GestureDetector mGestureDetector;
-	
-	//OPTIONS
-	public int screentimeout;
-	public int numberofrecentpatients;
 
-	@SuppressWarnings("unchecked")
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
-        
-        FileInputStream fis;
-        try 
-        {
-            fis = openFileInput(optionsFile);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.options = (Options) ois.readObject();
-            ois.close();
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-        setContentView(R.layout.welcome_screen);
+
+        setContentView(R.layout.options);
         mGestureDetector = createGestureDetector(this);
-    }
-	
-	@Override
-    protected void onDestroy() 
-	{
-        super.onDestroy();
-        try 
-        {
-        	FileOutputStream fos = openFileOutput(optionsFile, MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(Global.options);
-            oos.close();
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
     }
 	
 	private GestureDetector createGestureDetector(Context context) 
@@ -73,7 +32,7 @@ public class Options extends Activity {
             {
                 if (gesture == Gesture.TAP) 
                 {
-                	
+                	// bring up menu
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
@@ -82,6 +41,8 @@ public class Options extends Activity {
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	// go back to welcome screen
+                	finish();
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
@@ -106,5 +67,14 @@ public class Options extends Activity {
         return false;
     }
 	
-	
+	public class Options 
+	{
+		public int screenTimeout;
+		public int numberOfRecentPatients;
+		
+		public Options() {
+			screenTimeout = 30;
+			numberOfRecentPatients = 5;
+		}
+	}
 }

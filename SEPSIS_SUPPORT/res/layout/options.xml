@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading"
+            android:text="@string/options" />
+    </TableRow>
+    
+    <View
+        android:layout_height="2dip"
+        android:background="@color/white"/>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="@string/screen_timeout" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="@string/empty" />
+    </TableRow>
+ 
+    <TableRow
+        style="@style/Row" >
+        <TextView
+        	style="@style/Heading.Sub.Row.Right"
+            android:text="@string/num_recent_patients" />
+        <TextView
+        	style="@style/Heading.Sub.Row.Left"
+            android:text="@string/empty" />
+    </TableRow>
+
+</TableLayout>
