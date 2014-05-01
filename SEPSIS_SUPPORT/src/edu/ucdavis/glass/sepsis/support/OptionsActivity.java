@@ -51,7 +51,7 @@ public class OptionsActivity extends Activity
 	        	Global.options.screenTimeout = selectValueStartingAt( Global.options.screenTimeout );
 	            return true;
 	        case R.id.set_num_recent_patients:
-	        	Global.options.numberOfRecentPatients = = selectValueStartingAt( Global.options.screenTimeout );
+	        	Global.options.numberOfRecentPatients = selectValueStartingAt( Global.options.screenTimeout );
 	            return true;
 	        case R.id.reset_options:
 	        	Global.options = new Options();
