@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.lang.Object;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.google.android.glass.app.*;
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.*;
 
 public class RecentPatientActivity extends Activity 
 {
+	private GestureDetector mGestureDetector;
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
 
@@ -22,7 +27,8 @@ public class RecentPatientActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
- 
+
+        mGestureDetector = createGestureDetector(this);
         createCards();
         
         mCardScrollView = new CardScrollView(this);
@@ -58,18 +64,16 @@ public class RecentPatientActivity extends Activity
         	mCards.add(c);
         }
         
+	    // error, no recent patients
         if( mCards.isEmpty() ) {
-        	Card c = new Card(this);
-        	c.setText( R.string.no_patients );
-        	c.setImageLayout(Card.ImageLayout.LEFT);
-        	c.addImage(R.drawable.empty_set);
-        	mCards.add(c);
+			Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+			errorIntent.putExtra(Global.ERROR_MSG, "There are no recent patients." ); 
+			startActivity( errorIntent );
         }
     }
     
     private class PatientCardScrollAdapter extends CardScrollAdapter 
     {
-
         @Override
         public int getPosition(Object item) 
         {
@@ -79,7 +83,6 @@ public class RecentPatientActivity extends Activity
         @Override
         public int getCount() 
         {
-        	//System.out.println(mCards.size());
             return mCards.size();
         }
 
@@ -88,20 +91,15 @@ public class RecentPatientActivity extends Activity
         {
             return mCards.get(position);
         }
-
-        /**
-         * Returns the amount of view types.
-         */
+        
+        // returns the amount of view types.
         @Override
         public int getViewTypeCount() 
         {
             return Card.getViewTypeCount();
         }
 
-        /**
-         * Returns the view type of this card so the system can figure out
-         * if it can be recycled.
-         */
+        // returns the view type of this card so the system can figure out if it can be recycled.
         @Override
         public int getItemViewType(int position)
         {
@@ -113,5 +111,49 @@ public class RecentPatientActivity extends Activity
         {
             return  mCards.get(position).getView(convertView, parent);
         }
+    }
+    
+	private GestureDetector createGestureDetector(Context context) 
+	{
+		GestureDetector gestureDetector = new GestureDetector(context);
+		
+        // create a base listener for generic gestures
+        gestureDetector.setBaseListener( new GestureDetector.BaseListener() 
+        {
+            @Override
+            public boolean onGesture(Gesture gesture) 
+            {
+                if (gesture == Gesture.TAP) 
+                {
+                    return true;
+                } 
+                else if (gesture == Gesture.TWO_TAP) 
+                {
+                    return true;
+                } 
+                else if (gesture == Gesture.SWIPE_RIGHT) 
+                {
+                    return true;
+                } 
+                else if (gesture == Gesture.SWIPE_LEFT) 
+                {
+                	// go back to welcome view
+                    finish();
+                }
+                return false;
+            }
+        });
+        
+        return gestureDetector;
+    }
+
+    // send generic motion events to the gesture detector
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) 
+    {
+        if (mGestureDetector != null)
+            return mGestureDetector.onMotionEvent(event);
+        
+        return false;
     }
 }

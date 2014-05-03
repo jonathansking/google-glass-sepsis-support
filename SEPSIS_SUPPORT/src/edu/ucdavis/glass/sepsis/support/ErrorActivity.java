@@ -41,6 +41,7 @@ public class ErrorActivity extends Activity
             {
                 if (gesture == Gesture.TAP) 
                 {
+                	finish();
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 

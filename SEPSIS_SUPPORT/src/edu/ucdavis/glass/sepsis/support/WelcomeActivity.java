@@ -41,6 +41,9 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
+        setContentView(R.layout.welcome_screen);
+        mGestureDetector = createGestureDetector(this);
+        
         // load recent patients
         FileInputStream fis;
         try 
@@ -52,7 +55,10 @@ public class WelcomeActivity extends Activity
         } 
         catch (Exception e) 
         {
-            e.printStackTrace();
+        	// error
+        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading options failed." ); 
+			startActivity( errorIntent );
         }
         
         // load options
@@ -65,11 +71,11 @@ public class WelcomeActivity extends Activity
         } 
         catch (Exception e) 
         {
-            e.printStackTrace();
+        	// error
+        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading options failed." ); 
+			startActivity( errorIntent );
         }
-        
-        setContentView(R.layout.welcome_screen);
-        mGestureDetector = createGestureDetector(this);
     }
 	
 	@Override
@@ -87,7 +93,9 @@ public class WelcomeActivity extends Activity
         } 
         catch (Exception e) 
         {
-            e.printStackTrace();
+        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Saving patient data failed." ); 
+			startActivity( errorIntent );
         }
         
         // write out options
@@ -100,7 +108,9 @@ public class WelcomeActivity extends Activity
         } 
         catch (Exception e) 
         {
-            e.printStackTrace();
+        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Saving options failed." ); 
+			startActivity( errorIntent );
         }
     }
 	
@@ -120,7 +130,7 @@ public class WelcomeActivity extends Activity
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {
-                	//SHORT TERM SOLUTION, SKIP QR, MOSTLY FOR TESTING AND DEVELOPMENT EASE
+                	// SHORT TERM SOLUTION, SKIP QR, MOSTLY FOR TESTING AND DEVELOPMENT EASE
                 	// pass FAKE QR message to the overview activity
     				Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
     				overviewIntent.putExtra("Patient info", 1 ); 
@@ -129,11 +139,13 @@ public class WelcomeActivity extends Activity
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	// go to recent patient view
                 	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+                	// go to options view
                     startActivity( new Intent(getApplicationContext(), OptionsActivity.class));
                 	return true;
                 }

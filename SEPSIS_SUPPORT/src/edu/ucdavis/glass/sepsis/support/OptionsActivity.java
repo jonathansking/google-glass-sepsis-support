@@ -98,7 +98,6 @@ public class OptionsActivity extends Activity
                 {
                 	return true;
                 }
-                
                 return false;
             }
         });

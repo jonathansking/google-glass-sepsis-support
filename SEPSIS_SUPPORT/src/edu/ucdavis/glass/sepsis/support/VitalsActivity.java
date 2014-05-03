@@ -93,7 +93,6 @@ public class VitalsActivity extends Activity
 			try
 			{
 				String patient_id = (String)arg0[0]; 
-				System.out.println("Patient_id: " + patient_id);
 				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
@@ -109,7 +108,6 @@ public class VitalsActivity extends Activity
 	            	break;
 	            }
 	            in.close();
-	            System.out.println( "returned string" + sb.toString() );
 	            return sb.toString();
 			}
 			catch(Exception e){
@@ -124,21 +122,18 @@ public class VitalsActivity extends Activity
 			System.out.println( result );
 			try {
 			    JSONObject json = new JSONObject(result);
-			    System.out.println(" name is " + json.get("name"));
 			    this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
 			    this.patientName.setText((String) json.get("name"));
 			    this.patientStatus.setText((String) json.get("sex"));
 			    this.patientROMPD.setText((String) json.get("hosp_admission"));
 			    this.patientBlood.setText((String) json.get("hosp_discharge"));
-			    
-			    // add to recent patients
-			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
-			    
-			    Global.printPatients();
 			}
 			catch(Exception e) 
 			{
-				e.printStackTrace();
+				// error
+				Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+				errorIntent.putExtra(Global.ERROR_MSG, "Exception, unable to read json." ); 
+				startActivity( errorIntent );
 			}
 		}
 	}

@@ -11,6 +11,11 @@
         <TextView
         	style="@style/Heading"
             android:text="@string/error" />
+    
+    <View
+    	android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/white"/>
         
         <TextView
             android:id="@+id/errorMessageTxtView"

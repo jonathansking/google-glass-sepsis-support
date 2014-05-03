@@ -13,6 +13,11 @@
         android:text="@string/vitals_screen_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="24sp" />
+    
+    <View
+    	android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/white"/>
 
     <TableRow
         android:id="@+id/tableRow3"

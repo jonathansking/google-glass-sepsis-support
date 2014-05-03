@@ -12,16 +12,9 @@ public class QRScanner extends Activity
 	{ 
 	    super.onCreate(savedInstanceState);
 	    
-	    try
-	    { 
-		    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-		    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-		    startActivityForResult(intent, 0); 
-		} 
-	    catch (Exception e) 
-	    {
-			e.printStackTrace();
-		}
+	    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+	    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+	    startActivityForResult(intent, 0); 
 	}
 	
 	// when zxing scanner returns
@@ -38,7 +31,10 @@ public class QRScanner extends Activity
 	    	}
 	    	else if (resultCode == RESULT_CANCELED) 
 	    	{
-	            // handle?
+	    		// error
+				Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+				errorIntent.putExtra(Global.ERROR_MSG, "QR scan failed." ); 
+				startActivity( errorIntent );
 	        }
     	}
     	super.onActivityResult(requestCode, resultCode, data);
