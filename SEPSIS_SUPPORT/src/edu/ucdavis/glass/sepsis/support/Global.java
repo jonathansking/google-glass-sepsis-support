@@ -12,7 +12,7 @@ public class Global
 	
 	// recent patient queue
 	public static int maxRecentPatients = 5; 
-    public static ArrayDeque<Patient> recentPatients = new ArrayDeque<Patient>();
+    public static ArrayDeque<Patient> recentPatients;
     
     // options
     public static OptionsActivity.Options options;

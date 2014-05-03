@@ -38,5 +38,7 @@ public class QRScanner extends Activity
 	        }
     	}
     	super.onActivityResult(requestCode, resultCode, data);
+    	
+    	finish();
     }
 }

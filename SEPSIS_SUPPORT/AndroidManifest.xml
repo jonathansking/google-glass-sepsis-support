@@ -45,7 +45,7 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.WelcomeActivity"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
@@ -59,21 +59,21 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.RecentPatientActivity"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.OverviewActivity"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.QRScanner"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
@@ -97,14 +97,14 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.OptionsActivity"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.ErrorActivity"
             android:enabled="true"
-            android:label="@string/app_name"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         

@@ -29,8 +29,8 @@ public class RecentPatientActivity extends Activity
         super.onCreate(savedInstanceState);
 
         mGestureDetector = createGestureDetector(this);
-        createCards();
         
+        createCards();
         mCardScrollView = new CardScrollView(this);
         PatientCardScrollAdapter adapter = new PatientCardScrollAdapter();
         mCardScrollView.setAdapter(adapter);

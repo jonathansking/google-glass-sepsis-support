@@ -1,8 +1,5 @@
 package edu.ucdavis.glass.sepsis.support;
 
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +7,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
+
 public class ErrorActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
-	private TextView errorMessageTxtView;
 	
 	protected void onCreate(Bundle savedInstanceState)
 	{ 
@@ -25,8 +24,8 @@ public class ErrorActivity extends Activity
         String errorMessage = errorIntent.getStringExtra(Global.ERROR_MSG);
         setContentView(R.layout.error);
         
-        errorMessageTxtView = (TextView) findViewById(R.id.errorMessageTxtView);
-	    this.errorMessageTxtView.setText(errorMessage); 
+        TextView errorMessageTxtView = (TextView) findViewById(R.id.errorMessageTxtView);
+	    errorMessageTxtView.setText(errorMessage); 
 	}
 	
 	private GestureDetector createGestureDetector(Context context) 
@@ -46,14 +45,17 @@ public class ErrorActivity extends Activity
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {
+                	finish();
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	finish();
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+                	finish();
                     return true;
                 }
                 return false;

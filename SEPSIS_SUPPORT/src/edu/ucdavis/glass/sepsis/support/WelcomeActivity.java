@@ -41,41 +41,61 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
+        mGestureDetector = createGestureDetector(this);	
         setContentView(R.layout.welcome_screen);
-        mGestureDetector = createGestureDetector(this);
         
-        // load recent patients
-        FileInputStream fis;
-        try 
-        {
-            fis = openFileInput(Global.PATIENTS_FILE);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
-            ois.close();
-        } 
-        catch (Exception e) 
-        {
-        	// error
-        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading options failed." ); 
-			startActivity( errorIntent );
-        }
+		// make new patient deque
+		Global.recentPatients = new ArrayDeque<Patient>();
+        System.out.println("new patients before");
+		// make new options
+		Global.options = new OptionsActivity.Options();
+        System.out.println("new options before");
+        System.out.println(Global.options.screenTimeout.toString());
         
-        // load options
-        try 
-        {
-            fis = openFileInput(Global.OPTIONS_FILE);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.options = (OptionsActivity.Options) ois.readObject();
-            ois.close();
-        } 
-        catch (Exception e) 
-        {
-        	// error
-        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading options failed." ); 
-			startActivity( errorIntent );
-        }
+//        // load recent patients
+//        FileInputStream fis;
+//        try 
+//        {
+//            fis = openFileInput(Global.PATIENTS_FILE);
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
+//            ois.close();
+//            System.out.println("end of loading patients");
+//        } 
+//        catch (Exception e) 
+//        {
+//        	// error
+//        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+//			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading recent patients failed." ); 
+//			startActivity( errorIntent );
+//
+//            System.out.println("loading patients failed");
+//			// make new patient deque
+//			Global.recentPatients = new ArrayDeque<Patient>();
+//            System.out.println("new patients");
+//        }
+//        
+//        // load options
+//        try 
+//        {
+//            fis = openFileInput(Global.OPTIONS_FILE);
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            Global.options = (OptionsActivity.Options) ois.readObject();
+//            ois.close();
+//            System.out.println("end of loading options");
+//        } 
+//        catch (Exception e) 
+//        {
+//        	// error
+//        	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
+//			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Loading options failed." ); 
+//			startActivity( errorIntent );
+//
+//            System.out.println("loading options failed");
+//			// make new options
+//			Global.options = new OptionsActivity.Options();
+//            System.out.println("new options");
+//        }
     }
 	
 	@Override
@@ -90,11 +110,12 @@ public class WelcomeActivity extends Activity
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.recentPatients);
             oos.close();
+            System.out.println("end of saving patients");
         } 
         catch (Exception e) 
         {
         	Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Saving patient data failed." ); 
+			errorIntent.putExtra(Global.ERROR_MSG, "Exception, Saving recent patients failed." ); 
 			startActivity( errorIntent );
         }
         
@@ -105,6 +126,7 @@ public class WelcomeActivity extends Activity
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.options);
             oos.close();
+            System.out.println("end of saving options");
         } 
         catch (Exception e) 
         {

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -14,10 +15,10 @@ import com.google.android.glass.touchpad.GestureDetector;
 public class OptionsActivity extends Activity 
 {
 	// structure to save options
-	public class Options 
+	public static class Options 
 	{
-		public int screenTimeout;
-		public int numberOfRecentPatients;
+		public Integer screenTimeout;
+		public Integer numberOfRecentPatients;
 		
 		public Options() {
 			screenTimeout = 30;
@@ -31,9 +32,18 @@ public class OptionsActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
-
+	    
         setContentView(R.layout.options);
         mGestureDetector = createGestureDetector(this);
+        
+        TextView timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
+//	    this.timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
+	    timeoutOptionTxtView.setText("meow");
+		Global.options = new OptionsActivity.Options();
+        System.out.println(Global.options.screenTimeout.toString());
+        
+//        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
+//	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
     }
 	
 	@Override
