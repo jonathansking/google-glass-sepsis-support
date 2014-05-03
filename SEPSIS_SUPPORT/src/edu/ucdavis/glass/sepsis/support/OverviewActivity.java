@@ -52,7 +52,7 @@ public class OverviewActivity extends Activity
         super.onCreate(savedInstanceState);
         
         Intent recentPatientIntent = getIntent();
-        String patient_id = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
+        String patient_id = recentPatientIntent.getStringExtra(Global.PATIENT_ID);
         setContentView(R.layout.overview);
 
         mGestureDetector = createGestureDetector(this);
@@ -112,7 +112,8 @@ public class OverviewActivity extends Activity
 	            System.out.println( "returned string" + sb.toString() );
 	            return sb.toString();
 			}
-			catch(Exception e){
+			catch(Exception e)
+			{
 				return new String("Exception: " + e.getMessage());
 			}		
 		}
@@ -185,6 +186,4 @@ public class OverviewActivity extends Activity
         
         return false;
     }
-    
-    
 }

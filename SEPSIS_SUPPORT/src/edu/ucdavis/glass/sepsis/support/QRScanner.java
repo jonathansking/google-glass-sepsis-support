@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 public class QRScanner extends Activity 
 {
-	
 	public final static String PATIENT_ID = "Patient info";
 	
 	protected void onCreate(Bundle savedInstanceState)

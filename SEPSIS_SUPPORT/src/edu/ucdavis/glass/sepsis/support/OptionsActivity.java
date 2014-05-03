@@ -37,7 +37,8 @@ public class OptionsActivity extends Activity
     }
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.options_menu, menu);
 	    return true;
@@ -61,7 +62,8 @@ public class OptionsActivity extends Activity
 	    }
 	}
 	
-	int selectValueStartingAt( int s ){
+	int selectValueStartingAt( int s )
+	{
 		// make a bunch of cards allow the user to scroll through them and select one
 		// return the selected value
 		return 10; // for now

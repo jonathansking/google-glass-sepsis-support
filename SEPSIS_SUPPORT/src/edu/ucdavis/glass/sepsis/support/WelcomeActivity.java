@@ -33,9 +33,6 @@ import com.google.android.glass.touchpad.GestureDetector;
 
 public class WelcomeActivity extends Activity 
 {
-	private final String patientsFile = "patients_file.sav";
-	private final String optionsFile = "options.sav";
-	
 	private GestureDetector mGestureDetector;
 	
 	@SuppressWarnings("unchecked")
@@ -48,7 +45,7 @@ public class WelcomeActivity extends Activity
         FileInputStream fis;
         try 
         {
-            fis = openFileInput(patientsFile);
+            fis = openFileInput(Global.PATIENTS_FILE);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
             ois.close();
@@ -61,7 +58,7 @@ public class WelcomeActivity extends Activity
         // load options
         try 
         {
-            fis = openFileInput(optionsFile);
+            fis = openFileInput(Global.OPTIONS_FILE);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Global.options = (OptionsActivity.Options) ois.readObject();
             ois.close();
@@ -83,7 +80,7 @@ public class WelcomeActivity extends Activity
         // write out recent patients
         try 
         {
-        	FileOutputStream fos = openFileOutput(patientsFile, MODE_PRIVATE);
+        	FileOutputStream fos = openFileOutput(Global.PATIENTS_FILE, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.recentPatients);
             oos.close();
@@ -96,7 +93,7 @@ public class WelcomeActivity extends Activity
         // write out options
         try 
         {
-        	FileOutputStream fos = openFileOutput(optionsFile, MODE_PRIVATE);
+        	FileOutputStream fos = openFileOutput(Global.OPTIONS_FILE, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.options);
             oos.close();

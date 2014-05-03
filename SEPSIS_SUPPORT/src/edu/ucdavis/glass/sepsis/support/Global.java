@@ -4,6 +4,12 @@ import java.util.ArrayDeque;
 
 public class Global 
 {
+	// Constants
+	public static final String PATIENT_ID = "Patient info";
+	public static final String ERROR_MSG = "Error message";
+	public static final String OPTIONS_FILE = "options.sav";
+	public static final String PATIENTS_FILE = "patients_file.sav";
+	
 	// recent patient queue
 	public static int maxRecentPatients = 5; 
     public static ArrayDeque<Patient> recentPatients = new ArrayDeque<Patient>();
@@ -25,5 +31,4 @@ public class Global
     	for( Patient p : recentPatients )
     		System.out.println( p );
     }
-    
 }

@@ -58,6 +58,11 @@
     <string name="patient_status">Patient Status</string>
     <string name="patient_rompd">Patient ROMPD</string>
     <string name="patientBlood">Patient Blood</string>
+    
+    <!-- Error View -->
+    <string name="error">Error</string>
+    
+    
 
     
    

@@ -52,7 +52,7 @@ public class VitalsActivity extends Activity
         super.onCreate(savedInstanceState);
         
         Intent recentPatientIntent = getIntent();
-        String patient_id = recentPatientIntent.getStringExtra(RecentPatientActivity.PATIENT_ID);
+        String patient_id = recentPatientIntent.getStringExtra(Global.PATIENT_ID);
         setContentView(R.layout.overview);
 
         mGestureDetector = createGestureDetector(this);

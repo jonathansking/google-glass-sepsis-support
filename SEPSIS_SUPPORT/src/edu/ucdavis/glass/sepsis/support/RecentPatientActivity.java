@@ -15,8 +15,6 @@ import com.google.android.glass.widget.*;
 
 public class RecentPatientActivity extends Activity 
 {
-	
-	public final static String PATIENT_ID = "Patient info";
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
 
@@ -41,7 +39,7 @@ public class RecentPatientActivity extends Activity
         	{
         		//use position to get the position of the card and pass it to the overview activity
         		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-        		overviewIntent.putExtra(PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
+        		overviewIntent.putExtra(Global.PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
         		startActivity( overviewIntent );
         	}
         });
