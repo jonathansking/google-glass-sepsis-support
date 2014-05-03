@@ -17,12 +17,16 @@ public class Global
     // options
     public static OptionsActivity.Options options;
     
-    // adds patient to Queue, maintaining a max
+    // adds patient to Queue, maintaining a max, handles duplicates
     public static void pushRecentPatient(String id, String name) 
     {
-    	if( recentPatients.size() == maxRecentPatients )
+    	Patient p = new Patient(id, name);
+    	recentPatients.remove( p );
+    	
+    	if( recentPatients.size() >= maxRecentPatients )
     		recentPatients.removeLast();
-    	recentPatients.addFirst( new Patient(id, name) );
+
+		recentPatients.addFirst( p );
     }
     
     // debugging purposes

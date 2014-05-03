@@ -15,13 +15,19 @@ public class Patient
 	    
 	    public String toString() 
 	    {
-	    	return name + ": " + id;
+	    	return name + ", #" + id;
 	    }
 	    
 	    public Patient(Patient p) 
 	    {
 	    	id = p.id;
 	    	name = p.name;
+	    }
+	    
+	    @Override
+	    public boolean equals(Object o)
+	    {
+	    	return ( this.id.equals( ((Patient)o).id ) && this.name.equals( ((Patient)o).name ) );
 	    }
 	    
 	    public String getName() 
