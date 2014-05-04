@@ -54,9 +54,11 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener
         super.onCreate(savedInstanceState);
         
         // initialize
+        mGestureDetector = createGestureDetector(this);
+        
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
-        mGestureDetector = createGestureDetector(this);
+        mHeadGestureDetector.start();
         
         // catch patient id number from caller
         Intent recentPatientIntent = getIntent();
@@ -204,11 +206,13 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener
     @Override
     protected void onResume() {
         mHeadGestureDetector.start();
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
         mHeadGestureDetector.stop();
+        super.onPause();
     }
 
     @Override
