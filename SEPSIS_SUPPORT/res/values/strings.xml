@@ -60,7 +60,7 @@
     <string name="MAP_colon">MAP: </string>
     <string name="Temp_colon">Temperature: </string>
     <string name="State_colon">State: </string>
-    <string name="RespRate_colon">Respiratory Rate: </string>
+    <string name="RespRate_colon">Respiratory-Rate: </string>
     <string name="SBP_colon">SBP: </string>
     
     <!-- Medical Terms -->

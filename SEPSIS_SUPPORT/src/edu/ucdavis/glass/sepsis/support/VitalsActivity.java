@@ -20,6 +20,7 @@ package edu.ucdavis.glass.sepsis.support;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.*;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -137,6 +138,15 @@ public class VitalsActivity extends Activity
 			try {
 			    JSONObject json = new JSONObject(result);
 			    this.result_status = (String) json.get("result_status");
+			   //loop through a print keys and value
+			    Iterator<?> keys = json.keys();
+				while( keys.hasNext() ){
+			            String key = (String)keys.next();
+			            System.out.println( key + "  " + json.get(key));
+			         		        
+				}
+				//--end of loop
+				
 			    if (  result_status.equals("success") )
 			    {
 			    	this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
@@ -144,10 +154,10 @@ public class VitalsActivity extends Activity
 				    this.patientWBC.setText((String) json.get("WBC"));
 				    this.patientMAP.setText((String) json.get("MAP"));
 				    this.patientBacteria.setText((String) json.get("BacteriaPresent"));
-				    this.patientRespRate.setText((String) json.get("RespRate"));
+				    this.patientRespRate.setText((String) json.get("Respiratory-Rate"));
 				    this.patientSBP.setText((String) json.get("SBP"));
 				    this.patientTemp.setText((String) json.get("Temperature"));
-				    this.patientState.setText((String) json.get("StateName"));
+				    this.patientState.setText((String) json.get("State"));
 			    }
 			    else 
 			    {
