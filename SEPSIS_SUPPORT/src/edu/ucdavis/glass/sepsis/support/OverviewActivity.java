@@ -38,18 +38,24 @@ import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import com.polysfactory.headgesturedetector.*;
 
 
-public class OverviewActivity extends Activity 
+public class OverviewActivity extends Activity implements OnHeadGestureListener 
 {
 	private GestureDetector mGestureDetector;
 	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
 	private ProgressDialog pDialog;
+	private HeadGestureDetector mHeadGestureDetector;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+        
+        // initialize
+        mHeadGestureDetector = new HeadGestureDetector(this);
+        mHeadGestureDetector.setOnHeadGestureListener(this);
         mGestureDetector = createGestureDetector(this);
         
         // catch patient id number from caller
@@ -193,5 +199,30 @@ public class OverviewActivity extends Activity
             return mGestureDetector.onMotionEvent(event);
         
         return false;
+    }
+    
+    @Override
+    protected void onResume() {
+        mHeadGestureDetector.start();
+    }
+
+    @Override
+    protected void onPause() {
+        mHeadGestureDetector.stop();
+    }
+
+    @Override
+    public void onShakeToLeft() {
+        // Do something
+    }
+
+    @Override
+    public void onShakeToRight() {
+    	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+    }
+    
+    @Override
+    public void onNod(){
+    	// Do something
     }
 }
