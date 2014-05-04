@@ -40,7 +40,7 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 
-public class OverviewActivity extends Activity 
+public class EventsActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
 	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
@@ -52,9 +52,7 @@ public class OverviewActivity extends Activity
         super.onCreate(savedInstanceState);
         mGestureDetector = createGestureDetector(this);
         
-        // catch patient id number from caller
-        Intent recentPatientIntent = getIntent();
-        String patient_id = recentPatientIntent.getStringExtra(Global.PATIENT_ID);
+        String patient_id = Global.recentPatients.peek().getId();
         setContentView(R.layout.overview);
 
         patientIdTxtView = (TextView) findViewById(R.id.patientId);
@@ -80,8 +78,8 @@ public class OverviewActivity extends Activity
 		protected void onPreExecute()
 		{
 			super.onPreExecute();
-			pDialog = new ProgressDialog(OverviewActivity.this);
-			pDialog.setMessage("Loading Patient Overview. Please wait...");
+			pDialog = new ProgressDialog(EventsActivity.this);
+			pDialog.setMessage("Loading Patients Events. Please wait...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false); 
 			pDialog.show();
@@ -127,14 +125,14 @@ public class OverviewActivity extends Activity
 			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
 			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
 			    
-			    // add to recent patients, only do this in overviewActivity****************************************************
+			    // add to recent patients
 			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
 			}
 			catch(Exception e) 
 			{
 				// error
 	            System.out.println("unable to read json.");
-	            Global.alertUser(OverviewActivity.this, "Exception", "Unable to read json.");
+	            Global.alertUser(EventsActivity.this, "Exception", "Unable to read json.");
 			}
 		}
 	}

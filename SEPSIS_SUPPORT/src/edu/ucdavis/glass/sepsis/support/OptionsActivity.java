@@ -24,11 +24,12 @@ public class OptionsActivity extends Activity
         setContentView(R.layout.options);
         mGestureDetector = createGestureDetector(this);
         
-        TextView timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
-	    timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
-        
-        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
-	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
+        // stop crashing for now
+//        TextView timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
+//	    timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
+//        
+//        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
+//	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
     }
 	
 	@Override

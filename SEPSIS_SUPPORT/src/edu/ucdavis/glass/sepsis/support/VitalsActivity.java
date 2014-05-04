@@ -27,7 +27,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import android.content.Intent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -50,10 +49,9 @@ public class VitalsActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
-        
-        Intent recentPatientIntent = getIntent();
-        String patient_id = recentPatientIntent.getStringExtra(Global.PATIENT_ID);
-        setContentView(R.layout.overview);
+
+        String patient_id = Global.recentPatients.peek().getId();
+        setContentView(R.layout.vitals_layout);
 
         mGestureDetector = createGestureDetector(this);
         
