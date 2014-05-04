@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class QRScanner extends Activity 
+public class QRScannerActivity extends Activity 
 {
 	public final static String PATIENT_ID = "Patient info";
 	
@@ -32,9 +32,8 @@ public class QRScanner extends Activity
 	    	else if (resultCode == RESULT_CANCELED) 
 	    	{
 	    		// error
-				Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-				errorIntent.putExtra(Global.ERROR_MSG, "QR scan failed." ); 
-				startActivity( errorIntent );
+	            System.out.println("unable to read json.");
+	            Global.alertUser(QRScannerActivity.this, "Notification", "QR scan canceled.");
 	        }
     	}
     	super.onActivityResult(requestCode, resultCode, data);

@@ -66,9 +66,8 @@ public class RecentPatientActivity extends Activity
         
 	    // error, no recent patients
         if( mCards.isEmpty() ) {
-			Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-			errorIntent.putExtra(Global.ERROR_MSG, "There are no recent patients." ); 
-			startActivity( errorIntent );
+            System.out.println("no recent patients.");
+            Global.alertUser(RecentPatientActivity.this, "Notification", "No recent patients.");
         }
     }
     

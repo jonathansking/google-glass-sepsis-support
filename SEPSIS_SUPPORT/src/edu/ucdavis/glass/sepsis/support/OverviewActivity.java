@@ -133,9 +133,8 @@ public class OverviewActivity extends Activity
 			catch(Exception e) 
 			{
 				// error
-				Intent errorIntent = new Intent(getApplicationContext(), ErrorActivity.class);
-				errorIntent.putExtra(Global.ERROR_MSG, "Exception, unable to read json." ); 
-				startActivity( errorIntent );
+	            System.out.println("unable to read json.");
+	            Global.alertUser(OverviewActivity.this, "Exception", "Unable to read json.");
 			}
 		}
 	}
@@ -160,6 +159,8 @@ public class OverviewActivity extends Activity
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	// go to vitals view
+                	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 

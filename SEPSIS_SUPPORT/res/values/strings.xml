@@ -60,7 +60,8 @@
     <string name="patientBlood">Patient Blood</string>
     
     <!-- Error View -->
-    <string name="error">Error</string>
+    <string name="notification_title">Notification</string>
+    <string name="notification_dismiss">Tap to dismiss</string>
     
     
 

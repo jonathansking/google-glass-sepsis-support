@@ -13,19 +13,7 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 public class OptionsActivity extends Activity 
-{
-	// structure to save options
-	public static class Options 
-	{
-		public Integer screenTimeout;
-		public Integer numberOfRecentPatients;
-		
-		public Options() {
-			screenTimeout = 30;
-			numberOfRecentPatients = 5;
-		}
-	}
-	
+{	
 	private GestureDetector mGestureDetector;
 
 	@Override
@@ -37,13 +25,10 @@ public class OptionsActivity extends Activity
         mGestureDetector = createGestureDetector(this);
         
         TextView timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
-//	    this.timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
-	    timeoutOptionTxtView.setText("meow");
-		Global.options = new OptionsActivity.Options();
-        System.out.println(Global.options.screenTimeout.toString());
+	    timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
         
-//        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
-//	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
+        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
+	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
     }
 	
 	@Override
@@ -65,7 +50,7 @@ public class OptionsActivity extends Activity
 	        	Global.options.numberOfRecentPatients = selectValueStartingAt( Global.options.screenTimeout );
 	            return true;
 	        case R.id.reset_options:
-	        	Global.options = new Options();
+	        	Global.options = new Global.Options();
 	            return true;
 	        default:
 	            return false;
