@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -42,7 +43,8 @@ import com.google.android.glass.touchpad.GestureDetector;
 public class VitalsActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
-	private TextView patientIdTxtView, patientName, patientStatus, patientBlood, patientROMPD;
+	private TextView patientIdTxtView, patientName, patientWBC, patientMAP,
+						patientBacteria, patientRespRate, patientSBP, patientTemp, patientState;
 	private ProgressDialog pDialog;
 
 	@Override
@@ -57,22 +59,36 @@ public class VitalsActivity extends Activity
         
         patientIdTxtView = (TextView) findViewById(R.id.patientId);
         patientName = (TextView) findViewById(R.id.patientName);
-        patientStatus = (TextView) findViewById(R.id.vitals_patient_status);
-        patientBlood = (TextView) findViewById(R.id.vitals_patient_blood);
-        patientROMPD = (TextView) findViewById(R.id.vitals_patient_rompd);        
-        new LoadVitalsData(patientIdTxtView, patientName, patientStatus, patientBlood, patientROMPD).execute(patient_id);
+        patientBacteria = (TextView) findViewById(R.id.patientBacteria);
+        patientWBC = (TextView) findViewById(R.id.patientWBC);
+        patientMAP = (TextView) findViewById(R.id.patientMAP);    
+        patientRespRate = (TextView) findViewById(R.id.patientRespRate); 
+        patientSBP = (TextView) findViewById(R.id.patientSBP); 
+        patientTemp = (TextView) findViewById(R.id.patientTemp);
+        patientState = (TextView) findViewById(R.id.patientState);
+        new LoadVitalsData(patientIdTxtView, patientName, 
+        						patientBacteria, patientWBC, patientMAP, patientRespRate, patientSBP, patientTemp, patientState ).execute(patient_id);
 	}
 	
 	private class LoadVitalsData extends AsyncTask<String,Void,String> 
 	{
-		private TextView patientIdTxtView, patientName, patientStatus, patientBlood, patientROMPD;
-		public LoadVitalsData(TextView patientIdTxtView, TextView patientName, TextView patientStatus, TextView patientBlood, TextView patientROMPD) 
+		private TextView patientIdTxtView, patientName, patientWBC, patientMAP,
+		patientBacteria, patientRespRate, patientSBP, patientTemp, patientState;
+		
+		private String result_status;
+		public LoadVitalsData( TextView patientIdTxtView, TextView patientName, TextView patientBacteria,
+								TextView patientWBC, TextView patientMAP,TextView patientRespRate,TextView patientSBP,
+								TextView patientTemp,TextView patientState ) 
 		{
 			this.patientIdTxtView = patientIdTxtView;
 			this.patientName = patientName;
-			this.patientStatus = patientStatus;	
-			this.patientBlood = patientBlood;
-			this.patientROMPD = patientROMPD;
+			this.patientWBC = patientWBC;
+			this.patientMAP = patientMAP;
+			this.patientBacteria = patientBacteria;
+			this.patientRespRate = patientRespRate;
+			this.patientSBP = patientSBP;
+			this.patientTemp = patientTemp;
+			this.patientState = patientState;
 		}
 		
 		protected void onPreExecute()
@@ -91,7 +107,7 @@ public class VitalsActivity extends Activity
 			try
 			{
 				String patient_id = (String)arg0[0]; 
-				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
+				String link = "http://glass.herumla.com/?patient_id=" + patient_id + "&dataType=vitals" ;
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(link));
@@ -120,11 +136,25 @@ public class VitalsActivity extends Activity
 			System.out.println( result );
 			try {
 			    JSONObject json = new JSONObject(result);
-			    this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
-			    this.patientName.setText((String) json.get("name"));
-			    this.patientStatus.setText((String) json.get("sex"));
-			    this.patientROMPD.setText((String) json.get("hosp_admission"));
-			    this.patientBlood.setText((String) json.get("hosp_discharge"));
+			    this.result_status = (String) json.get("result_status");
+			    if (  result_status.equals("success") )
+			    {
+			    	this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
+				    this.patientName.setText((String) json.get("name"));
+				    this.patientWBC.setText((String) json.get("WBC"));
+				    this.patientMAP.setText((String) json.get("MAP"));
+				    this.patientBacteria.setText((String) json.get("BacteriaPresent"));
+				    this.patientRespRate.setText((String) json.get("RespRate"));
+				    this.patientSBP.setText((String) json.get("SBP"));
+				    this.patientTemp.setText((String) json.get("Temperature"));
+				    this.patientState.setText((String) json.get("StateName"));
+			    }
+			    else 
+			    {
+			    	System.out.println("No patient with that id exists");
+			    	Global.alertUser(VitalsActivity.this, "Exception", "No patient with that id exists");
+			    }
+			    
 			}
 			catch(Exception e) 
 			{

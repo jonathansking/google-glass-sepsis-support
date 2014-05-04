@@ -68,6 +68,7 @@ public class OverviewActivity extends Activity
 	private class LoadOverviewData extends AsyncTask<String,Void,String> 
 	{
 		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
+		private String result_status;
 		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) 
 		{
 			this.patientIdTxtView = patientIdTxtView;
@@ -93,7 +94,7 @@ public class OverviewActivity extends Activity
 			try
 			{
 				String patient_id = (String)arg0[0]; 
-				String link = "http://glass.herumla.com/?patient_id=" + patient_id ;
+				String link = "http://glass.herumla.com/?patient_id=" + patient_id + "&dataType=overview" ;
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(link));
@@ -121,14 +122,24 @@ public class OverviewActivity extends Activity
 			pDialog.dismiss();
 			try {
 			    JSONObject json = new JSONObject(result);
-			    this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
-			    this.patientName.setText((String) json.get("name"));
-			    this.patientSex.setText((String) json.get("sex"));
-			    this.patientHospAdm.setText((String) json.get("hosp_admission"));
-			    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+			    this.result_status = (String) json.get("result_status");
+			    if (  result_status.equals("success") )
+			    {
+			    	this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
+				    this.patientName.setText((String) json.get("name"));
+				    this.patientSex.setText((String) json.get("sex"));
+				    this.patientHospAdm.setText((String) json.get("hosp_admission"));
+				    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
+				    
+				    // add to recent patients, only do this in overviewActivity****************************************************
+				    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
+			    }
+			    else 
+			    {
+			    	System.out.println("No patient with that id exists");
+			    	Global.alertUser(OverviewActivity.this, "Exception", "No patient with that id exists");
+			    }
 			    
-			    // add to recent patients, only do this in overviewActivity****************************************************
-			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
 			}
 			catch(Exception e) 
 			{

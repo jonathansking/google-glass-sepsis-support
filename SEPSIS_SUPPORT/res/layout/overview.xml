@@ -23,8 +23,9 @@
     <TableRow
         style="@style/Row" >
         <TextView
+            android:id="@+id/HospAdmLabel"
         	style="@style/Heading.Sub.Row.Right"
-            android:text="Hospital Adm:" />
+            android:text="@string/Hosp_Adm_colon" />
         <TextView
             android:id="@+id/patientHospAdm"
         	style="@style/Heading.Sub.Row.Left"
@@ -34,29 +35,22 @@
     <TableRow
         style="@style/Row" >
         <TextView
+            android:id="@+id/HospDischLabel"
         	style="@style/Heading.Sub.Row.Right"
-            android:text="Hospital Disch:" />
+            android:text="@string/Hosp_Disch_colon" />
         <TextView
             android:id="@+id/patientHospDisch"
         	style="@style/Heading.Sub.Row.Left"
             android:text="@string/empty" />
     </TableRow>
+
  
     <TableRow
         style="@style/Row" >
         <TextView
+            android:id="@+id/SexLabel"
         	style="@style/Heading.Sub.Row.Right"
-            android:text="Encounter Number:" />
-        <TextView
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="Sex:" />
+            android:text="@string/Sex_colon" />
         <TextView
             android:id="@+id/patientSex"
         	style="@style/Heading.Sub.Row.Left"
@@ -66,8 +60,9 @@
     <TableRow
         style="@style/Row" >
         <TextView
+            android:id="@+id/ICUDaysLabel"
         	style="@style/Heading.Sub.Row.Right"
-            android:text="ICU Days:" />
+            android:text="@string/ICU_Days_colon" />
         <TextView
         	style="@style/Heading.Sub.Row.Left"
             android:text="@string/empty" />

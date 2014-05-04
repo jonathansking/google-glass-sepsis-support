@@ -35,6 +35,12 @@
     <string name="tap_scanner">Tap to scan patient QR code</string>
     <string name="swipe_recent_patients">Swipe to view recent patients</string>
     
+    <!--  Overview -->
+    <string name="Hosp_Adm_colon">Hospital Adm: </string>
+    <string name="Hosp_Disch_colon">Hospital Disch: </string>
+    <string name="Sex_colon">Sex: </string>
+    <string name="ICU_Days_colon">ICD Days: </string>
+    
     <!-- Recent Patients -->
     <string name="recent_patients">Recent Patients</string>
     <string name="no_patients">no recent patients&#8230;</string>
@@ -49,15 +55,20 @@
     
     <!-- Vitals -->
     <string name="vitals_screen_title">VITALS</string>
-    <string name="status_colon">Status:</string>
-    <string name="bloodcc_colon">BloodCC:</string>
-    <string name="rompd_colon">"ROMPD: "</string>
+    <string name="Bacteria_colon">Bacteria: </string>
+    <string name="WBC_colon">WBC: </string>
+    <string name="MAP_colon">MAP: </string>
+    <string name="Temp_colon">Temperature: </string>
+    <string name="State_colon">State: </string>
+    <string name="RespRate_colon">Respiratory Rate: </string>
+    <string name="SBP_colon">SBP: </string>
     
     <!-- Medical Terms -->
     <string name="sepsis">Sepsis</string>
     <string name="patient_status">Patient Status</string>
     <string name="patient_rompd">Patient ROMPD</string>
     <string name="patientBlood">Patient Blood</string>
+  
     
     <!-- Error View -->
     <string name="notification_title">Notification</string>
