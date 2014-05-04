@@ -1,116 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   	android:fillViewport="true"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/patientName"
+    	style="@style/Heading.Right"
+        android:text="@string/empty" />
     
-    tools:context=".EditEntry" >
-  <TableLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-    
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/patientName"
-        	style="@style/Heading.Right"
-            android:text="@string/empty" />
-        <TextView
-            android:id="@+id/patientId"
-            style="@style/Heading.Left"
-            android:text="@string/empty" />
-    </TableRow>
-    
-    <View
-    	android:layout_width="match_parent"
-        android:layout_height="2dip"
-        android:background="@color/white"/>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/bacteriaLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/Bacteria_colon" />
-        <TextView
-            android:id="@+id/patientBacteria"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/temperatureLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/Temp_colon" />
-        <TextView
-            android:id="@+id/patientTemp"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/respRateLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/RespRate_colon" />
-        <TextView
-            android:id="@+id/patientRespRate"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/WBCLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/WBC_colon" />
-        <TextView
-            android:id="@+id/patientWBC"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
- 
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/SBCLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/SBP_colon" />
-        <TextView
-            android:id="@+id/patientSBP"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
+    <TextView
+        android:id="@+id/patientId"
+        style="@style/Heading.Left"
+        android:text="@string/empty" />
+
+	<View
+		android:layout_width="match_parent"
+	    android:layout_height="2dip"
+	    android:background="@color/white"/>
+
+	<ListView
+	    android:id="@+id/listview"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" />
 	
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/MAPLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/MAP_colon" />
-        <TextView
-            android:id="@+id/patientMAP"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
-    
-    <TableRow
-        style="@style/Row" >
-        <TextView
-            android:id="@+id/StateLabel"
-        	style="@style/Heading.Sub.Row.Right"
-            android:text="@string/State_colon" />
-        <TextView
-            android:id="@+id/patientState"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
-    </TableRow>
-    
-</TableLayout>
-</ScrollView>
+</LinearLayout>
