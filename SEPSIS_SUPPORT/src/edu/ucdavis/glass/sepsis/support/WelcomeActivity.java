@@ -143,7 +143,7 @@ public class WelcomeActivity extends Activity
                 	// SHORT TERM SOLUTION, SKIP QR, MOSTLY FOR TESTING AND DEVELOPMENT EASE
                 	// pass FAKE QR message to the overview activity
     				Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-    				overviewIntent.putExtra("Patient info", 1 ); 
+    				overviewIntent.putExtra("Patient info", 2 ); 
     				startActivity( overviewIntent );
                     return true;
                 } 

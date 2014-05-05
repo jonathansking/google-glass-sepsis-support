@@ -5,20 +5,13 @@
     android:orientation="vertical" >
     
     <TextView
-        style="@style/Heading"
-	    android:text="@string/welcome" />
+            android:id="@+id/heading"
+        	style="@style/Heading"
+            android:text="@string/empty" />
     
     <View
     	android:layout_width="match_parent"
         android:layout_height="2dip"
         android:background="@color/white"/>
-    
-    <TextView
-        style="@style/Heading.Sub"
-	    android:text="@string/tap_scanner" />
-    
-    <TextView
-        style="@style/Heading.Sub"
-	    android:text="@string/swipe_recent_patients" />
 
 </LinearLayout>

@@ -19,10 +19,13 @@ package edu.ucdavis.glass.sepsis.support;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -31,25 +34,37 @@ import com.google.android.glass.touchpad.GestureDetector;
 public class VitalsActivity extends ListActivity {
 	
 	private GestureDetector mGestureDetector;
-	private ProgressDialog pDialog;
-	private JSONObject json;
 	
-	public void onCreate(Bundle icicle) 
+	public void onCreate(Bundle savedInstanceState) 
 	{
-		super.onCreate(icicle);
-	
-		String patient_id = Global.recentPatients.peek().getId();
-	    setContentView(R.layout.vitals_layout);
-	
-	    mGestureDetector = createGestureDetector(this);
+		super.onCreate(savedInstanceState);
+        mGestureDetector = createGestureDetector(this);
+        
+        // set up AsyncTask
+	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( VitalsActivity.this, "Loading Patients Vitals..." );
 	    
-
-        new LoadJSONAsyncTask( VitalsActivity.this, json, "Loading Patients Vitals..." ).execute(patient_id);
-	    
-	    
-		JSONArrayAdapter adapter = new JSONArrayAdapter(this, json);
-		setListAdapter(adapter);
+	    // run AsyncTask
+	    JSON.execute( Global.recentPatients.peek().getId(), "vitals" );
 		
+	    // create ListView with information from JSON
+	    try {
+			setListAdapter(new JSONObjectAdapter(this, JSON.get() ));
+			
+			// add header
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        View view = inflater.inflate(R.layout.header, null);
+
+	        TextView header = (TextView) view.findViewById(R.id.heading);
+	        header.setText("Vitals");
+	        
+	        this.getListView().addHeaderView(view);
+	        
+		} catch (Exception e) {
+			// error
+            System.out.println("unable to read json.");
+            Global.alertUser(this, "Exception", "Unable to read JSON.");
+            finish();
+		}
 	}
 
 	private GestureDetector createGestureDetector(Context context) 
@@ -95,7 +110,5 @@ public class VitalsActivity extends ListActivity {
             return mGestureDetector.onMotionEvent(event);
         
         return false;
-    }
-    
-    
+    } 
 }

@@ -14,85 +14,76 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class LoadJSONAsyncTask extends AsyncTask<String,Void,String> 
+public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject> 
 {
-	private JSONObject json;
-	private String result_status;
-	
 	private ProgressDialog pDialog;
-	private String pDialog_text;
-	private Context pDialog_context;
+	private String pDialogText;
+	private Context pDialogContext;
 	
-	public LoadJSONAsyncTask( Context context, JSONObject j, String progressText ) 
+	public LoadJSONAsyncTask( Context context, String progressText ) 
 	{
-		this.json = j;
-		this.pDialog_text = progressText;
-		this.pDialog_context = context;
+		this.pDialogText = progressText;
+		this.pDialogContext = context;
 	}
 	
 	protected void onPreExecute()
 	{
 		super.onPreExecute();
-		pDialog = new ProgressDialog(pDialog_context);
-		pDialog.setMessage(pDialog_text);
+		pDialog = new ProgressDialog(pDialogContext);
+		pDialog.setMessage(pDialogText);
 		pDialog.setIndeterminate(false);
 		pDialog.setCancelable(false); 
 		pDialog.show();
 	}
 	
 	@Override
-	protected String doInBackground(String...arg0) 
+	protected JSONObject doInBackground(String...arg0) 
 	{
-		try
+		try 
 		{
-			String patient_id = (String)arg0[0]; 
-			String link = "http://glass.herumla.com/?patient_id=" + patient_id + "&dataType=vitals" ;
+			// download JSON content
+			String patientId = (String)arg0[0]; 
+			String dataType = (String)arg0[1];
+			String link = "http://glass.herumla.com/?patient_id=" + patientId + "&dataType=" + dataType;
+			
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
             request.setURI(new URI(link));
             HttpResponse response = client.execute(request);
+            
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
             StringBuffer sb = new StringBuffer("");
-            String line="";
+            String line = new String();
+            
             while ((line = in.readLine()) != null) 
             {
             	sb.append(line);
             	break;
             }
             in.close();
-            return sb.toString();
-		}
-		catch(Exception e){
-			return new String("Exception: " + e.getMessage());
-		}		
-	}
-	
-	protected void onPostExecute(String result) 
-	{
-		pDialog.dismiss();
-		System.out.println( "OnPostExecute running");
-		System.out.println( result );
-		try {
-		    JSONObject json = new JSONObject(result);
-		    this.result_status = (String) json.get("result_status");
 			
-		    if (  result_status.equals("success") )
+            // make JSON
+			JSONObject json = new JSONObject( sb.toString() );
+			
+			// return if successful
+		    if (  ((String) json.get("result_status")).equals("success") )
 		    {
-		    	this.json = json;
+		    	return json;
 		    }
-		    else 
-		    {
-		    	System.out.println("No patient with that id exists");
-		    	Global.alertUser(pDialog_context, "Exception", "No patient with that id exists");
-		    }
-		    
 		}
 		catch(Exception e) 
 		{
 			// error
             System.out.println("unable to read json.");
-            Global.alertUser(pDialog_context, "Exception", "Unable to read json.");
+            Global.alertUser(pDialogContext, "Exception", "Unable to read JSON.");
 		}
+		
+    	// return if unsuccessful
+    	return new JSONObject();
+	}
+	
+	protected void onPostExecute() 
+	{
+		pDialog.dismiss();
 	}
 }
