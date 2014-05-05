@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class VitalsActivity extends ListActivity {
 	        TextView header = (TextView) view.findViewById(R.id.heading);
 	        header.setText("Vitals");
 	        
-	        this.getListView().addHeaderView(view);
+	        this.getListView().addHeaderView(view, null, false);
 	        
 		} catch (Exception e) {
 			// error
@@ -87,12 +88,14 @@ public class VitalsActivity extends ListActivity {
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	// go to policy
+                	startActivity( new Intent(getApplicationContext(), PolicyActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go back to overview
-                	finish();
+                	// go to overview
+                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 }
                 return false;

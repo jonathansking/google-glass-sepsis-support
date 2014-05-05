@@ -82,7 +82,8 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
     	return new JSONObject();
 	}
 	
-	protected void onPostExecute() 
+	@Override
+	protected void onPostExecute(JSONObject j) 
 	{
 		pDialog.dismiss();
 	}

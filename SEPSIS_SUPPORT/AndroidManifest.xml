@@ -107,6 +107,27 @@
             android:theme="@style/WelcomeTheme" >
         </activity>
         
+        <activity
+            android:name="edu.ucdavis.glass.sepsis.support.SupportActivity"
+            android:enabled="true"
+            android:noHistory="true"
+            android:theme="@style/WelcomeTheme" >
+        </activity>
+        
+        <activity
+            android:name="edu.ucdavis.glass.sepsis.support.PolicyActivity"
+            android:enabled="true"
+            android:noHistory="true"
+            android:theme="@style/WelcomeTheme" >
+        </activity>
+        
+        <activity
+            android:name="edu.ucdavis.glass.sepsis.support.EventsActivity"
+            android:enabled="true"
+            android:noHistory="true"
+            android:theme="@style/WelcomeTheme" >
+        </activity>
+        
     </application>
 
 </manifest>

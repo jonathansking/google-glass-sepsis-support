@@ -176,6 +176,8 @@ public class OverviewActivity extends Activity
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+                	// go to events view
+                	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 }
                 return false;

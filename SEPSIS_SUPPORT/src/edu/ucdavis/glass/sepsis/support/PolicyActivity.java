@@ -32,7 +32,7 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 
-public class EventsActivity extends ListActivity {
+public class PolicyActivity extends ListActivity {
 	
 	private GestureDetector mGestureDetector;
 	
@@ -42,10 +42,10 @@ public class EventsActivity extends ListActivity {
         mGestureDetector = createGestureDetector(this);
         
         // set up AsyncTask
-	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( EventsActivity.this, "Loading Patient's Events..." );
+	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( PolicyActivity.this, "Loading Patients Policy..." );
 	    
 	    // run AsyncTask
-	    JSON.execute( Global.recentPatients.peek().getId(), "overview" );
+	    JSON.execute( Global.recentPatients.peek().getId(), "policy" );
 		
 	    // create ListView with information from JSON
 	    try {
@@ -56,7 +56,7 @@ public class EventsActivity extends ListActivity {
 	        View view = inflater.inflate(R.layout.header, null);
 
 	        TextView header = (TextView) view.findViewById(R.id.heading);
-	        header.setText("Events");
+	        header.setText("Policy");
 	        
 	        this.getListView().addHeaderView(view, null, false);
 	        
@@ -88,14 +88,14 @@ public class EventsActivity extends ListActivity {
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	// go to overview
-                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+                	// go to support
+                	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go to support view
-                	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+                	// go to vitals
+                	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }
                 return false;
