@@ -30,16 +30,22 @@ import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import com.polysfactory.headgesturedetector.*;
 
 
-public class VitalsActivity extends ListActivity {
+public class VitalsActivity extends ListActivity implements OnHeadGestureListener
+{
 	
 	private GestureDetector mGestureDetector;
+	private HeadGestureDetector mHeadGestureDetector;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
         mGestureDetector = createGestureDetector(this);
+        mHeadGestureDetector = new HeadGestureDetector(this);
+        mHeadGestureDetector.setOnHeadGestureListener(this);
+        mHeadGestureDetector.start();
         
         // set up AsyncTask
 	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( VitalsActivity.this, "Loading Patients Vitals..." );
@@ -114,4 +120,33 @@ public class VitalsActivity extends ListActivity {
         
         return false;
     } 
+    
+    @Override
+    protected void onResume() {
+        mHeadGestureDetector.start();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mHeadGestureDetector.stop();
+        super.onPause();
+    }
+
+    @Override
+    public void onShakeToLeft() {
+    	// go to overview
+    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+    }
+
+    @Override
+    public void onShakeToRight() {
+    	// go to policy
+    	startActivity( new Intent(getApplicationContext(), PolicyActivity.class) );
+    }
+    
+    @Override
+    public void onNod(){
+    	// Do something
+    }
 }
