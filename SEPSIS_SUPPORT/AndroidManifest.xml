@@ -57,16 +57,16 @@
         </activity>
         
         <activity
-            android:name="edu.ucdavis.glass.sepsis.support.RecentPatientActivity"
+            android:name="edu.ucdavis.glass.sepsis.support.OptionsActivity"
             android:enabled="true"
             android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
-            android:name="edu.ucdavis.glass.sepsis.support.OverviewActivity"
+            android:name="edu.ucdavis.glass.sepsis.support.RecentPatientActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
@@ -94,7 +94,7 @@
         </activity>
         
         <activity
-            android:name="edu.ucdavis.glass.sepsis.support.OptionsActivity"
+            android:name="edu.ucdavis.glass.sepsis.support.OverviewActivity"
             android:enabled="true"
             android:noHistory="true"
             android:theme="@style/WelcomeTheme" >

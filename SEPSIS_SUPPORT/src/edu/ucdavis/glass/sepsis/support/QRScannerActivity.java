@@ -39,7 +39,7 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	    		// error
 		    	System.out.println("ERROR_2");
 	            System.out.println("unable to read json.");
-//	            Global.alertUser(this.getApplicationContext(), "Notification", "QR scan canceled.");
+//	            Global.alertUser(this, "Notification", "QR scan canceled.");
 	        }
     	}
     }
@@ -64,14 +64,15 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 		    	// error
 		    	System.out.println("ERROR_0");
 		    	System.out.println("No patient with that id exists");
-//		    	Global.alertUser(this.getApplicationContext(), "Notification", "No patient with that id exists");
+//		    	Global.alertUser(this, "Notification", "No patient with that id exists");
 		    }
 			
 	    } catch (Exception e) {
 			// error
 	    	System.out.println("ERROR_1");
             System.out.println("unable to read json.");
-//            Global.alertUser(this.getApplicationContext(), "Exception", "Unable to read JSON.");
+//            Global.alertUser(this, "Exception", "Unable to read JSON.");
 		}
+	    finish();
 	}
 }

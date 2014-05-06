@@ -71,7 +71,7 @@ public class RecentPatientActivity extends Activity
 	    // error, no recent patients
         if( mCards.isEmpty() ) {
             System.out.println("no recent patients.");
-            Global.alertUser(RecentPatientActivity.this, "Notification", "No recent patients.");
+            Global.alertUser(this, "Notification", "No recent patients.");
         }
     }
     

@@ -65,11 +65,8 @@ public class Global
     GestureDetector mGestureDetector;
     public static void alertUser( final Context context, String title, String message ) {
     	
-		final Dialog dialog = new Dialog(context);
+		Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.notification);
- 
-//		// set the custom dialog components - text, image and button
-//		dialog.setTitle( title );
 		
 		TextView notificationTitle = (TextView) dialog.findViewById(R.id.notification_title);
 		notificationTitle.setText( title );
@@ -77,43 +74,6 @@ public class Global
 		TextView text = (TextView) dialog.findViewById(R.id.notification_message);
 		text.setText( message );
 		
-//		// this won't work since we don't have buttons
-//		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//		// if button is clicked, close the custom dialog
-//		dialogButton.setOnClickListener(new OnClickListener() 
-//		{
-//			@Override
-//			public void onClick(View v) 
-//			{
-//				dialog.dismiss();
-//			}
-//		});
-		
-		GestureDetector gestureDetector = new GestureDetector(context);
-		
-        // create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() 
-        {
-            @Override
-            public boolean onGesture(Gesture gesture) 
-            {
-                if (gesture == Gesture.TAP) 
-                {
-                	dialog.dismiss();
-                    return true;
-                } 
-                return false;
-            }
-        });
- 
 		dialog.show();
-    }
-    
-    public boolean onGenericMotionEvent(MotionEvent event) 
-    {
-        if (mGestureDetector != null)
-            return mGestureDetector.onMotionEvent(event);
-        
-        return false;
     }
 }
