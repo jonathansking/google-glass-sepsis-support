@@ -33,7 +33,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class VitalsActivity extends ListActivity implements OnHeadGestureListener
+public class VitalsActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
 {
 	
 	private GestureDetector mGestureDetector;
@@ -48,14 +48,17 @@ public class VitalsActivity extends ListActivity implements OnHeadGestureListene
         mHeadGestureDetector.start();
         
         // set up AsyncTask
-	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( VitalsActivity.this, "Loading Patients Vitals..." );
+	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Vitals...", this );
 	    
 	    // run AsyncTask
-	    JSON.execute( Global.recentPatients.peek().getId(), "vitals" );
-		
+	    JSON.execute( "vitals" );
+	}
+
+	public void onTaskComplete(JSONObject json) 
+	{
 	    // create ListView with information from JSON
 	    try {
-			setListAdapter(new JSONObjectAdapter(this, JSON.get() ));
+			setListAdapter(new JSONObjectAdapter(this, json ));
 			
 			// add header
 			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

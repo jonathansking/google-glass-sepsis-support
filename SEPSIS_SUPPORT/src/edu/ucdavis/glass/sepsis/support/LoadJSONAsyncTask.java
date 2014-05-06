@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
@@ -16,14 +17,16 @@ import android.os.AsyncTask;
 
 public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject> 
 {
+    private Global.AsyncTaskCompleteListener<JSONObject> callback;
 	private ProgressDialog pDialog;
 	private String pDialogText;
 	private Context pDialogContext;
 	
-	public LoadJSONAsyncTask( Context context, String progressText ) 
+	public LoadJSONAsyncTask( Context context, String progressText, Global.AsyncTaskCompleteListener<JSONObject> cb ) 
 	{
 		this.pDialogText = progressText;
 		this.pDialogContext = context;
+        this.callback = cb;
 	}
 	
 	protected void onPreExecute()
@@ -39,12 +42,23 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 	@Override
 	protected JSONObject doInBackground(String...arg0) 
 	{
+		JSONObject result = new JSONObject();
+		try {
+			result.accumulate("result_status", "fail");
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try 
 		{
 			// download JSON content
-			String patientId = (String)arg0[0]; 
-			String dataType = (String)arg0[1];
-			String link = "http://glass.herumla.com/?patient_id=" + patientId + "&dataType=" + dataType;
+			String dataType = (String)arg0[0];
+			
+			Patient p = Global.recentPatients.peek();
+
+//			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType + "&stateNumber=" + p.getViewingState();
+			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType;
 			
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
@@ -70,21 +84,26 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 		    {
 		    	return json;
 		    }
+		    
 		}
 		catch(Exception e) 
 		{
 			// error
-            System.out.println("unable to read json.");
-            Global.alertUser(pDialogContext, "Exception", "Unable to read JSON.");
+			// don't put a notification here because we are in a background thread.
+
+		    // return if unsuccessful
+	    	return result;
 		}
+
+	    // return if unsuccessful
+    	return result;
 		
-    	// return if unsuccessful
-    	return new JSONObject();
 	}
 	
 	@Override
 	protected void onPostExecute(JSONObject j) 
 	{
 		pDialog.dismiss();
+	    callback.onTaskComplete(j);
 	}
 }

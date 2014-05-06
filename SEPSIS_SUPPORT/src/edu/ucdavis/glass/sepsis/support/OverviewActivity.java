@@ -17,23 +17,16 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import android.content.Intent;
-import android.app.Activity;
-import android.app.ProgressDialog;
+import android.app.ListActivity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -41,120 +34,55 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class OverviewActivity extends Activity implements OnHeadGestureListener 
+//class B implements AsyncTaskCompleteListener<String> {
+//
+//    public void onTaskComplete(String result) {
+//        // do whatever you need
+//    }
+//
+//    public void launchTask(String url) {
+//        A a = new A(context, this);
+//        a.execute(url);
+//    }
+//}
+
+public class OverviewActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
 {
 	private GestureDetector mGestureDetector;
-	private TextView patientIdTxtView, patientName,patientSex, patientHospAdm, patientHospDisch;
-	private ProgressDialog pDialog;
 	private HeadGestureDetector mHeadGestureDetector;
 
-	@Override
-    protected void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState) 
 	{
-        super.onCreate(savedInstanceState);
-        
-        // initialize
+		super.onCreate(savedInstanceState);
         mGestureDetector = createGestureDetector(this);
-        
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
-        
-        // catch patient id number from caller
-        Intent recentPatientIntent = getIntent();
-        String patient_id = recentPatientIntent.getStringExtra(Global.PATIENT_ID);
-        setContentView(R.layout.overview);
-
-        patientIdTxtView = (TextView) findViewById(R.id.patientId);
-        patientName = (TextView) findViewById(R.id.patientName);
-        patientSex = (TextView) findViewById(R.id.patientSex);
-        patientHospAdm = (TextView) findViewById(R.id.patientHospAdm);
-        patientHospDisch = (TextView) findViewById(R.id.patientHospDisch);        
-        new LoadOverviewData(patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm).execute(patient_id);
+   
+        AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Overview...", this );
+  	  	JSON.execute( "overview" );
 	}
 	
-	private class LoadOverviewData extends AsyncTask<String,Void,String> 
+	public void onTaskComplete(JSONObject json) 
 	{
-		private TextView patientIdTxtView, patientName, patientSex, patientHospDisch, patientHospAdm;
-		private String result_status;
-		public LoadOverviewData(TextView patientIdTxtView, TextView patientName, TextView patientSex, TextView patientHospDisch, TextView patientHospAdm) 
-		{
-			this.patientIdTxtView = patientIdTxtView;
-			this.patientName = patientName;
-			this.patientSex = patientSex;	
-			this.patientHospDisch = patientHospDisch;
-			this.patientHospAdm = patientHospAdm;
-		}
-		
-		protected void onPreExecute()
-		{
-			super.onPreExecute();
-			pDialog = new ProgressDialog(OverviewActivity.this);
-			pDialog.setMessage("Loading Patient Overview. Please wait...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false); 
-			pDialog.show();
-		}
-		
-		@Override
-		protected String doInBackground(String...arg0) 
-		{
-			try
-			{
-				String patient_id = (String)arg0[0]; 
-				String link = "http://glass.herumla.com/?patient_id=" + patient_id + "&dataType=overview" ;
-	            HttpClient client = new DefaultHttpClient();
-	            HttpGet request = new HttpGet();
-	            request.setURI(new URI(link));
-	            HttpResponse response = client.execute(request);
-	            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		// create ListView with information from JSON
+	    try {
+			setListAdapter(new JSONObjectAdapter(this, json ));
+			
+			// add header
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        View view = inflater.inflate(R.layout.header, null);
 
-	            StringBuffer sb = new StringBuffer("");
-	            String line="";
-	            while ((line = in.readLine()) != null) 
-	            {
-	            	sb.append(line);
-	            	break;
-	            }
-	            in.close();
-	            return sb.toString();
-			}
-			catch(Exception e)
-			{
-				return new String("Exception: " + e.getMessage());
-			}		
-		}
-		
-		protected void onPostExecute(String result) 
-		{
-			pDialog.dismiss();
-			try {
-			    JSONObject json = new JSONObject(result);
-			    this.result_status = (String) json.get("result_status");
-			    if (  result_status.equals("success") )
-			    {
-			    	this.patientIdTxtView.setText("#" + (String) json.get("patient_id"));
-				    this.patientName.setText((String) json.get("name"));
-				    this.patientSex.setText((String) json.get("sex"));
-				    this.patientHospAdm.setText((String) json.get("hosp_admission"));
-				    this.patientHospDisch.setText((String) json.get("hosp_discharge"));
-				    
-				    // add to recent patients, only do this in overviewActivity****************************************************
-				    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name") );
-			    }
-			    else 
-			    {
-			    	System.out.println("No patient with that id exists");
-			    	Global.alertUser(OverviewActivity.this, "Exception", "No patient with that id exists");
-			    }
-			    
-			}
-			catch(Exception e) 
-			{
-				// error
-	            System.out.println("unable to read json.");
-	            Global.alertUser(OverviewActivity.this, "Exception", "Unable to read json.");
-			}
+	        TextView header = (TextView) view.findViewById(R.id.heading);
+	        header.setText("Overview");
+	        
+	        this.getListView().addHeaderView(view, null, false);
+	        
+		} catch (Exception e) {
+			// error
+            System.out.println("unable to read json.");
+            Global.alertUser(this, "Exception", "Unable to read JSON.");
+            finish();
 		}
 	}
 	
@@ -219,11 +147,13 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener
 
     @Override
     public void onShakeToLeft() {
-        // Do something
+    	// go to events view
+    	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     }
 
     @Override
     public void onShakeToRight() {
+    	// go to vitals view
     	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     }
     

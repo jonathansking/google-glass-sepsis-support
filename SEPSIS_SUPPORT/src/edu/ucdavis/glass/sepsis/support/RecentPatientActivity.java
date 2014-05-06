@@ -43,10 +43,14 @@ public class RecentPatientActivity extends Activity
         	@Override
         	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) 
         	{
-        		//use position to get the position of the card and pass it to the overview activity
-        		Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-        		overviewIntent.putExtra(Global.PATIENT_ID, ((Patient)Global.recentPatients.toArray()[position]).getId() ); // :)
-        		startActivity( overviewIntent );
+        		// use position to get the user name and id
+        		Patient p = (Patient)Global.recentPatients.toArray()[position];
+
+        		// move recent patient to front of deque
+			    Global.pushRecentPatient( p.getId(), p.getName(), p.getCurrentState() );
+
+            	// go to overview
+            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
         	}
         });
     }

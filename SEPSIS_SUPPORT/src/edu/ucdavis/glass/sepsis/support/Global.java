@@ -12,6 +12,12 @@ import android.widget.TextView;
 
 public class Global 
 {
+	
+	interface AsyncTaskCompleteListener<T> 
+	{
+		   public void onTaskComplete(T result);
+	}
+	
 	// Constants
 	public static final String PATIENT_ID = "Patient info";
 	public static final String OPTIONS_FILE = "options.sav";
@@ -37,9 +43,9 @@ public class Global
 	}
     
     // adds patient to Queue, maintaining a max, handles duplicates
-    public static void pushRecentPatient(String id, String name) 
+    public static void pushRecentPatient(String id, String name, String currentState) 
     {
-    	Patient p = new Patient(id, name);
+    	Patient p = new Patient(id, name, currentState);
     	recentPatients.remove( p );
     	
     	if( recentPatients.size() >= maxRecentPatients )
@@ -57,7 +63,7 @@ public class Global
     
     // error dialog
     GestureDetector mGestureDetector;
-    public static void alertUser( Context context, String title, String message ) {
+    public static void alertUser( final Context context, String title, String message ) {
     	
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.notification);
@@ -96,18 +102,6 @@ public class Global
                 	dialog.dismiss();
                     return true;
                 } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_RIGHT) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_LEFT) 
-                {
-                    return true;
-                }
                 return false;
             }
         });

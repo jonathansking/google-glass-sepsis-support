@@ -27,19 +27,16 @@ public class JSONObjectAdapter extends BaseAdapter implements ListAdapter
 	
 	public int getCount()
 	{
-        System.out.println( "getCount: " + json.length() );
 	    return json.length();
 	}
 	
 	public Object getItem(int position)
 	{
-        System.out.println( "getItem: " + position );
 	    return position;
 	}
 	
 	public long getItemId(int position)
 	{
-        System.out.println( "getItemID: " + position );
 		return position;
 	}
 	

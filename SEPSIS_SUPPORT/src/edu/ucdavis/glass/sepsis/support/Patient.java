@@ -4,13 +4,18 @@ public class Patient
 {
 	    private String id;
 	    private String name;
+	    private Integer[] states;
+	    private String currentState;
+	    private String viewingState;
 //	    picture?
 //	    first loaded?
 
-	    public Patient(String i, String n) 
+	    public Patient(String i, String n, String s) 
 	    {
 	    	id = i;
 	    	name = n;
+	    	currentState = s;
+	    	viewingState = currentState;
 	    }
 	    
 	    public String toString() 
@@ -38,5 +43,15 @@ public class Patient
 	    public String getId() 
 	    {
 	    	return id;
+	    }
+	    
+	    public String getCurrentState() 
+	    {
+	    	return currentState;
+	    }
+	    
+	    public String getViewingState() 
+	    {
+	    	return currentState;
 	    }
 }
