@@ -1,6 +1,6 @@
 package edu.ucdavis.glass.sepsis.support;
 
-public class Patient 
+public class Patient implements java.io.Serializable
 {
 	    private String id;
 	    private String name;

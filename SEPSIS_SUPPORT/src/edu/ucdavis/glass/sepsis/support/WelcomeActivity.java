@@ -53,16 +53,17 @@ public class WelcomeActivity extends Activity
             ObjectInputStream ois = new ObjectInputStream(fis);
             Global.options = (Global.Options) ois.readObject();
             ois.close();
+            System.out.println("loading options complete");
         } 
         catch (Exception e) 
         {
         	// error
             System.out.println("loading options failed");
             Global.alertUser(WelcomeActivity.this, "Exception", "Loading options failed.");
-
+            e.printStackTrace();
 			// make new options
-            System.out.println("new options");
-			Global.options = new Global.Options();
+            //System.out.println("new options");
+			//Global.options = new Global.Options();
         }
         
         // load recent patients
@@ -73,16 +74,17 @@ public class WelcomeActivity extends Activity
             ObjectInputStream ois = new ObjectInputStream(fis);
             Global.recentPatients = (ArrayDeque<Patient>) ois.readObject();
             ois.close();
+            System.out.println("loading patients complete");
         } 
         catch (Exception e) 
         {
         	// error
             System.out.println("loading patients failed");
             Global.alertUser(WelcomeActivity.this, "Exception", "Loading patients failed.");
-
+            e.printStackTrace();
 			// make new patient deque
-            System.out.println("new patients");
-			Global.recentPatients = new ArrayDeque<Patient>();
+            //System.out.println("new patients");
+			//Global.recentPatients = new ArrayDeque<Patient>();
         }
     }
 	
@@ -99,12 +101,14 @@ public class WelcomeActivity extends Activity
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.recentPatients);
             oos.close();
+            System.out.println("saving patients completed");
         } 
         catch (Exception e) 
         {
-        	// error
+        	// error        	
             System.out.println("saving patients failed");
             Global.alertUser(WelcomeActivity.this, "Exception", "Saving recent patients failed.");
+            e.printStackTrace();
         }
         
         // write out options
@@ -115,12 +119,14 @@ public class WelcomeActivity extends Activity
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Global.options);
             oos.close();
+            System.out.println("saving options completed");
         } 
         catch (Exception e) 
         {
         	// error
             System.out.println("saving options failed");
             Global.alertUser(WelcomeActivity.this, "Exception", "Saving options failed.");
+            e.printStackTrace();
         }
     }
 	

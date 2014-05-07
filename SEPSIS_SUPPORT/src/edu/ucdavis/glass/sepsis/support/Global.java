@@ -2,12 +2,10 @@ package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayDeque;
 
-import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.MotionEvent;
 import android.widget.TextView;
 
 public class Global 
@@ -25,13 +23,13 @@ public class Global
 	
 	// recent patient queue
 	public static int maxRecentPatients = 5; 
-    public static ArrayDeque<Patient> recentPatients;
+    public static ArrayDeque<Patient> recentPatients =  new ArrayDeque<Patient>();
     
     // options
-    public static Options options;
+    public static Options options = new Global.Options();
     
 	// structure to save options
-	public static class Options 
+	public static class Options implements java.io.Serializable
 	{
 		public Integer screenTimeout;
 		public Integer numberOfRecentPatients;
