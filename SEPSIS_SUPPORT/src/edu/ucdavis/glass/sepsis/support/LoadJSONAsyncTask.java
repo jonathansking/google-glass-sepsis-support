@@ -57,8 +57,8 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 			
 			Patient p = Global.recentPatients.peek();
 
-//			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType + "&stateNumber=" + p.getViewingState();
-			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType;
+			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType + "&stateNumber=" + p.getViewingState();
+//			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType;
 			
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();

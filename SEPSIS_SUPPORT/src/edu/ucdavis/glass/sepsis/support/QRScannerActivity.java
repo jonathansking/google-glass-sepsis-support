@@ -31,7 +31,7 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", "-1" );
 
 	    	    // run AsyncTask
-	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( "overview" );
+	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( "patient" );
 	   
 	    	}
 	    	else if (resultCode == RESULT_CANCELED) 
@@ -53,8 +53,18 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
     	    Global.recentPatients.pop();
 			
 			if ( (json.get("result_status").toString()).equals("success") )
-		    {
-			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name"), "202" );
+		    {	
+		    	// get states from json
+		    	JSONArray jsonStates = json.getJSONObject("state_ids");
+		    	ArrayList<String> patientStates = new ArrayList<String>();
+
+		    	for(int i = 0; i < jsonStates.length(); i++)
+				{
+				    patientStates.add( jsonStates.getJSONObject(i).toString() );
+				}
+
+				// create patient
+			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name"), patientStates );
 
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
