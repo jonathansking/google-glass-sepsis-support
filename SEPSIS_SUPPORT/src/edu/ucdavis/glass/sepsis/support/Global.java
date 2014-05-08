@@ -22,7 +22,6 @@ public class Global
 	public static final String PATIENTS_FILE = "patients_file.sav";
 	
 	// recent patient queue
-	public static int maxRecentPatients = 5; 
     public static ArrayDeque<Patient> recentPatients =  new ArrayDeque<Patient>();
     
     // options
@@ -31,8 +30,8 @@ public class Global
 	// structure to save options
 	public static class Options implements java.io.Serializable
 	{
-		public Integer screenTimeout;
-		public Integer numberOfRecentPatients;
+		public int screenTimeout;
+		public int numberOfRecentPatients;
 		
 		public Options() {
 			screenTimeout = 30;
@@ -46,7 +45,7 @@ public class Global
     	Patient p = new Patient(id, name, currentState);
     	recentPatients.remove( p );
     	
-    	if( recentPatients.size() >= maxRecentPatients )
+    	if( recentPatients.size() >= options.numberOfRecentPatients )
     		recentPatients.removeLast();
 
 		recentPatients.addFirst( p );

@@ -33,8 +33,7 @@
             android:text="@string/num_recent_patients" />
         <TextView
             android:id="@+id/recentPatientOption"
-        	style="@style/Heading.Sub.Row.Left"
-            android:text="@string/empty" />
+        	style="@style/Heading.Sub.Row.Left"/>
     </TableRow>
 
 </TableLayout>

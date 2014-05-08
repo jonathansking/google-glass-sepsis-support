@@ -2,12 +2,14 @@ package edu.ucdavis.glass.sepsis.support;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -15,21 +17,21 @@ import com.google.android.glass.touchpad.GestureDetector;
 public class OptionsActivity extends Activity 
 {	
 	private GestureDetector mGestureDetector;
-
-	@Override
+	private TextView recentPatientOptionTxtView;
+	private TextView timeoutOptionTxtView;
+	
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
 	    
         setContentView(R.layout.options);
         mGestureDetector = createGestureDetector(this);
+
+        timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
+	    timeoutOptionTxtView.setText(String.valueOf(Global.options.screenTimeout));
         
-        // stop crashing for now
-//        TextView timeoutOptionTxtView = (TextView) findViewById(R.id.timeoutOption);
-//	    timeoutOptionTxtView.setText(Global.options.screenTimeout.toString());
-//        
-//        TextView recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
-//	    recentPatientOptionTxtView.setText(Global.options.numberOfRecentPatients);
+        recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
+	    recentPatientOptionTxtView.setText(String.valueOf(Global.options.numberOfRecentPatients));
     }
 	
 	@Override
@@ -40,24 +42,52 @@ public class OptionsActivity extends Activity
 	    return true;
 	}
 
-	public boolean onMenuItemClick(MenuItem item) 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 	    switch (item.getItemId()) 
 	    {
 	        case R.id.set_screen_timeout:
-	        	Global.options.screenTimeout = selectValueStartingAt( Global.options.screenTimeout );
+	        	startActivityForResult(new Intent(OptionsActivity.this, ScreenTimeoutSetting.class), 0);
 	            return true;
 	        case R.id.set_num_recent_patients:
-	        	Global.options.numberOfRecentPatients = selectValueStartingAt( Global.options.screenTimeout );
+	        	startActivityForResult(new Intent(OptionsActivity.this, MaxPatientSetting.class), 1);
 	            return true;
 	        case R.id.reset_options:
 	        	Global.options = new Global.Options();
 	            return true;
 	        default:
-	            return false;
+	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) 
+    {
+    	super.onActivityResult(requestCode, resultCode, data);
+
+    	if(resultCode == RESULT_CANCELED)
+    	{
+    		Toast.makeText(OptionsActivity.this,"Settings are not saved",Toast.LENGTH_SHORT).show();
+    	}
+    	else
+    	{
+	    	if (requestCode == 0)
+	    	{
+	    		int screenTimeoutSetting = data.getExtras().getInt("New Screen Timeout Setting", Global.options.screenTimeout);
+	    		System.out.println("here is line 77");
+	    		Global.options.screenTimeout = screenTimeoutSetting;
+	    		timeoutOptionTxtView.setText(String.valueOf(Global.options.screenTimeout));
+	    		System.out.println("here is line 80");
+	    	}
+	    	else if(requestCode == 1)
+	    	{
+	    		int maxPatientSetting = data.getExtras().getInt("New Max Patients Setting", Global.options.numberOfRecentPatients);
+	    		//System.out.println(maxPatientSetting);
+	    		Global.options.numberOfRecentPatients = maxPatientSetting;
+	    		recentPatientOptionTxtView.setText(String.valueOf(Global.options.numberOfRecentPatients));
+	    	}
+    	}
+    }
 	int selectValueStartingAt( int s )
 	{
 		// make a bunch of cards allow the user to scroll through them and select one
@@ -95,6 +125,15 @@ public class OptionsActivity extends Activity
                 	return true;
                 }
                 return false;
+            }
+        });
+
+        
+        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
+            @Override
+            public boolean onScroll(float displacement, float delta, float velocity) {
+                // do something on scrolling
+            	return true;
             }
         });
         

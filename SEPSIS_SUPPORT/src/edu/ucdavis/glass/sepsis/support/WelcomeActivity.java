@@ -31,6 +31,8 @@ import android.view.MotionEvent;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+import edu.ucdavis.glass.sepsis.support.Global.Options;
+
 public class WelcomeActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
@@ -51,7 +53,7 @@ public class WelcomeActivity extends Activity
             System.out.println("loading options...");
             fis = openFileInput(Global.OPTIONS_FILE);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            Global.options = (Global.Options) ois.readObject();
+            Global.options = (Options) ois.readObject();
             ois.close();
             System.out.println("loading options complete");
         } 
