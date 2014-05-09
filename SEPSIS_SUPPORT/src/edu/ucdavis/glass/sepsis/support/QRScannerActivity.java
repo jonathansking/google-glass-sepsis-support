@@ -1,5 +1,8 @@
 package edu.ucdavis.glass.sepsis.support;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -28,7 +31,9 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	    	if (resultCode == RESULT_OK)
 	    	{	
 	    	    // push dummy patient to run AsycTask
-	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", "-1" );
+	    		ArrayList<String> sigh = new ArrayList<String>();
+	    		sigh.add("-1");
+	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", sigh );
 
 	    	    // run AsyncTask
 	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( "patient" );
@@ -51,17 +56,22 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
     	    
     	    // pop dummy
     	    Global.recentPatients.pop();
-			
+			System.out.println(json.get("result_status").toString());
 			if ( (json.get("result_status").toString()).equals("success") )
 		    {	
 		    	// get states from json
-		    	JSONArray jsonStates = json.getJSONObject("state_ids");
+		    	JSONArray jsonStates = json.getJSONArray("state_ids");
 		    	ArrayList<String> patientStates = new ArrayList<String>();
 
 		    	for(int i = 0; i < jsonStates.length(); i++)
 				{
-				    patientStates.add( jsonStates.getJSONObject(i).toString() );
+				    patientStates.add( jsonStates.get(i).toString() );
+		    		//System.out.println(jsonStates.get(i).toString());
 				}
+		    	
+		    	
+		    	for( String s : patientStates)
+		    		System.out.println( s );
 
 				// create patient
 			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name"), patientStates );

@@ -59,6 +59,7 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 
 			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType + "&stateNumber=" + p.getViewingState();
 //			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType;
+			System.out.println(link);
 			
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
@@ -80,7 +81,7 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 			JSONObject json = new JSONObject( sb.toString() );
 			
 			// return if successful
-		    if (  ((String) json.get("result_status")).equals("success") )
+		    if (  (json.get("result_status").toString()).equals("success") )
 		    {
 		    	return json;
 		    }

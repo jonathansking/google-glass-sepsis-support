@@ -1,6 +1,7 @@
 package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 import com.google.android.glass.touchpad.GestureDetector;
 
@@ -40,9 +41,9 @@ public class Global
 	}
     
     // adds patient to Queue, maintaining a max, handles duplicates
-    public static void pushRecentPatient(String id, String name, String currentState) 
+    public static void pushRecentPatient(String id, String name, ArrayList<String> states) 
     {
-    	Patient p = new Patient(id, name, currentState);
+    	Patient p = new Patient(id, name, states);
     	recentPatients.remove( p );
     	
     	if( recentPatients.size() >= options.numberOfRecentPatients )

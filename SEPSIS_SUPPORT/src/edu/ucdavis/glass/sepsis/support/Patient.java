@@ -1,5 +1,7 @@
 package edu.ucdavis.glass.sepsis.support;
 
+import java.util.ArrayList;
+
 public class Patient implements java.io.Serializable
 {
 	    private String id;
@@ -14,8 +16,8 @@ public class Patient implements java.io.Serializable
 	    {
 	    	id = i;
 	    	name = n;
-	    	states = cs;
-	    	currentState = ss.get(0);
+	    	states = ss;
+	    	currentState = states.get(0);
 
 	    	// by default so current state
 	    	viewingState = currentState;
@@ -46,6 +48,11 @@ public class Patient implements java.io.Serializable
 	    public String getId() 
 	    {
 	    	return id;
+	    }
+	    
+	    public ArrayList<String> getStates() 
+	    {
+	    	return states;
 	    }
 	    
 	    public String getCurrentState() 
