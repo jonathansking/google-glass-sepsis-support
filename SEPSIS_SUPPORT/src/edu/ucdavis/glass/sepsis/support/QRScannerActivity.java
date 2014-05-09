@@ -31,9 +31,9 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	    	if (resultCode == RESULT_OK)
 	    	{	
 	    	    // push dummy patient to run AsycTask
-	    		ArrayList<String> sigh = new ArrayList<String>();
-	    		sigh.add("-1");
-	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", sigh );
+	    		ArrayList<Integer> l = new ArrayList<Integer>();
+	    		l.add(-1);
+	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", l );
 
 	    	    // run AsyncTask
 	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( "patient" );
@@ -61,17 +61,12 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 		    {	
 		    	// get states from json
 		    	JSONArray jsonStates = json.getJSONArray("state_ids");
-		    	ArrayList<String> patientStates = new ArrayList<String>();
+		    	ArrayList<Integer> patientStates = new ArrayList<Integer>();
 
 		    	for(int i = 0; i < jsonStates.length(); i++)
 				{
-				    patientStates.add( jsonStates.get(i).toString() );
-		    		//System.out.println(jsonStates.get(i).toString());
+				    patientStates.add( Integer.parseInt(jsonStates.get(i).toString()) );
 				}
-		    	
-		    	
-		    	for( String s : patientStates)
-		    		System.out.println( s );
 
 				// create patient
 			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name"), patientStates );

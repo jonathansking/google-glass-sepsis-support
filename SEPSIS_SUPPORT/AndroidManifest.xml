@@ -32,6 +32,7 @@
     <uses-permission android:name="com.google.android.glass.permission.DEVELOPMENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -62,6 +63,13 @@
             android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
+        
+        <activity
+            android:name="edu.ucdavis.glass.sepsis.support.ValueSelectorActivity"
+            android:enabled="true"
+            android:noHistory="false"
+            android:theme="@style/WelcomeTheme" >
+        </activity> 
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.RecentPatientActivity"
@@ -96,7 +104,7 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.OverviewActivity"
             android:enabled="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
@@ -126,21 +134,7 @@
             android:enabled="true"
             android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
-        </activity>
-        
-        <activity
-            android:name="edu.ucdavis.glass.sepsis.support.MaxPatientSetting"
-            android:enabled="true"
-            android:noHistory="false"
-            android:theme="@style/WelcomeTheme" >
-        </activity>        
-        
-        <activity
-            android:name="edu.ucdavis.glass.sepsis.support.ScreenTimeoutSetting"
-            android:enabled="true"
-            android:noHistory="false"
-            android:theme="@style/WelcomeTheme" >
-        </activity>        
+        </activity>   
         
     </application>
 

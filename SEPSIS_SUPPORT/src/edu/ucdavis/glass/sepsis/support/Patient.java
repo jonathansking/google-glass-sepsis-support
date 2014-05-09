@@ -6,13 +6,13 @@ public class Patient implements java.io.Serializable
 {
 	    private String id;
 	    private String name;
-	    private ArrayList<String> states;
-	    private String currentState;
-	    private String viewingState;
+	    private ArrayList<Integer> states;
+	    private Integer currentState;
+	    private Integer viewingState;
 //	    picture?
 //	    first loaded?
 
-	    public Patient(String i, String n, ArrayList<String> ss) 
+	    public Patient(String i, String n, ArrayList<Integer> ss) 
 	    {
 	    	id = i;
 	    	name = n;
@@ -50,18 +50,23 @@ public class Patient implements java.io.Serializable
 	    	return id;
 	    }
 	    
-	    public ArrayList<String> getStates() 
+	    public ArrayList<Integer> getStates() 
 	    {
 	    	return states;
 	    }
 	    
-	    public String getCurrentState() 
+	    public Integer getCurrentState() 
 	    {
 	    	return currentState;
 	    }
 	    
-	    public String getViewingState() 
+	    public Integer getViewingState() 
 	    {
 	    	return viewingState;
+	    }
+	    
+	    public void setViewingState( int v ) 
+	    {
+	    	viewingState = v;
 	    }
 }

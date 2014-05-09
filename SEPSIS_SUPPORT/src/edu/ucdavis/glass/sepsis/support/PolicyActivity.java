@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -35,9 +36,9 @@ import com.polysfactory.headgesturedetector.*;
 
 public class PolicyActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
 {
-	
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
+	private ListView mListView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -68,6 +69,7 @@ public class PolicyActivity extends ListActivity implements OnHeadGestureListene
 	        header.setText("Policy");
 	        
 	        this.getListView().addHeaderView(view, null, false);
+	        mListView = this.getListView();
 	        
 		} catch (Exception e) {
 			// error
@@ -106,6 +108,11 @@ public class PolicyActivity extends ListActivity implements OnHeadGestureListene
                 	// go to vitals
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
+                }
+                else if (gesture == Gesture.LONG_PRESS) 
+                {	
+                	mListView.setScrollY( mListView.getScrollY()+100 );
+                	return true;
                 }
                 return false;
             }

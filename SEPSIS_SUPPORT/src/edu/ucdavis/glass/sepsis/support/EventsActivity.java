@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -35,9 +36,9 @@ import com.polysfactory.headgesturedetector.*;
 
 public class EventsActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
 {
-	
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
+	private ListView mListView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -51,7 +52,7 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
 	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Events...", this );
 	    
 	    // run AsyncTask
-	    JSON.execute( "overview" );
+	    JSON.execute( "events" );
 	}
 
 	public void onTaskComplete(JSONObject json) 
@@ -68,6 +69,7 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
 	        header.setText("Events");
 	        
 	        this.getListView().addHeaderView(view, null, false);
+	        mListView = this.getListView();
 	        
 		} catch (Exception e) {
 			// error
@@ -106,6 +108,11 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
                 	// go to support view
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
+                }
+                else if (gesture == Gesture.LONG_PRESS) 
+                {	
+                	mListView.setScrollY( mListView.getScrollY()+100 );
+                	return true;
                 }
                 return false;
             }

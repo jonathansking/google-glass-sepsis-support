@@ -56,6 +56,9 @@ public class WelcomeActivity extends Activity
             Global.options = (Options) ois.readObject();
             ois.close();
             System.out.println("loading options complete");
+            
+            // set screen timeout
+    		android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, Global.options.screenTimeout*1000);
         } 
         catch (Exception e) 
         {

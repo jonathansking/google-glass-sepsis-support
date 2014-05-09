@@ -1,5 +1,7 @@
 package edu.ucdavis.glass.sepsis.support;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,10 +50,16 @@ public class OptionsActivity extends Activity
 	    switch (item.getItemId()) 
 	    {
 	        case R.id.set_screen_timeout:
-	        	startActivityForResult(new Intent(OptionsActivity.this, ScreenTimeoutSetting.class), 0);
+//	        	startActivityForResult(new Intent(OptionsActivity.this, ScreenTimeoutSetting.class), 0);
+	        	Intent intent_st = new Intent(this, ValueSelectorActivity.class);
+	        	intent_st.putExtra("values", makeIntegerArrayList(15, 200, 5));
+	        	startActivityForResult(intent_st, 0);
 	            return true;
 	        case R.id.set_num_recent_patients:
-	        	startActivityForResult(new Intent(OptionsActivity.this, MaxPatientSetting.class), 1);
+//	        	startActivityForResult(new Intent(OptionsActivity.this, MaxPatientSetting.class), 1);
+	        	Intent intent_nrp = new Intent(this, ValueSelectorActivity.class);
+	        	intent_nrp.putExtra("values", makeIntegerArrayList(0, 20, 1));
+	        	startActivityForResult(intent_nrp, 1);
 	            return true;
 	        case R.id.reset_options:
 	        	Global.options = new Global.Options();
@@ -67,33 +75,26 @@ public class OptionsActivity extends Activity
 
     	if(resultCode == RESULT_CANCELED)
     	{
-    		Toast.makeText(OptionsActivity.this,"Settings are not saved",Toast.LENGTH_SHORT).show();
+    		Toast.makeText(OptionsActivity.this,"Settings were not saved.",Toast.LENGTH_SHORT).show();
     	}
     	else
     	{
 	    	if (requestCode == 0)
 	    	{
-	    		int screenTimeoutSetting = data.getExtras().getInt("New Screen Timeout Setting", Global.options.screenTimeout);
-	    		System.out.println("here is line 77");
+	    		int screenTimeoutSetting = data.getExtras().getInt("selected_value", Global.options.screenTimeout);
 	    		Global.options.screenTimeout = screenTimeoutSetting;
 	    		timeoutOptionTxtView.setText(String.valueOf(Global.options.screenTimeout));
-	    		System.out.println("here is line 80");
+
+	    		android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, Global.options.screenTimeout*1000);
 	    	}
 	    	else if(requestCode == 1)
 	    	{
-	    		int maxPatientSetting = data.getExtras().getInt("New Max Patients Setting", Global.options.numberOfRecentPatients);
-	    		//System.out.println(maxPatientSetting);
+	    		int maxPatientSetting = data.getExtras().getInt("selected_value", Global.options.numberOfRecentPatients);
 	    		Global.options.numberOfRecentPatients = maxPatientSetting;
 	    		recentPatientOptionTxtView.setText(String.valueOf(Global.options.numberOfRecentPatients));
 	    	}
     	}
     }
-	int selectValueStartingAt( int s )
-	{
-		// make a bunch of cards allow the user to scroll through them and select one
-		// return the selected value
-		return 10; // for now
-	}
 	
 	private GestureDetector createGestureDetector(Context context) 
 	{
@@ -140,7 +141,6 @@ public class OptionsActivity extends Activity
         return gestureDetector;
     }
 
-    // send generic motion events to the gesture detector
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) 
     {
@@ -148,5 +148,17 @@ public class OptionsActivity extends Activity
             return mGestureDetector.onMotionEvent(event);
         
         return false;
+    }
+    
+    private ArrayList<Integer> makeIntegerArrayList(int min, int max, int increment) 
+    {
+	    ArrayList<Integer> l = new ArrayList<Integer>();
+	
+	    for( Integer i=min; i<max; i+=increment )
+	    {
+	    	l.add(i);
+	    }
+	    
+	    return l;
     }
 }

@@ -41,7 +41,7 @@ public class Global
 	}
     
     // adds patient to Queue, maintaining a max, handles duplicates
-    public static void pushRecentPatient(String id, String name, ArrayList<String> states) 
+    public static void pushRecentPatient(String id, String name, ArrayList<Integer> states) 
     {
     	Patient p = new Patient(id, name, states);
     	recentPatients.remove( p );
