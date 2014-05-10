@@ -39,7 +39,7 @@
     <string name="Hosp_Adm_colon">Hospital Adm: </string>
     <string name="Hosp_Disch_colon">Hospital Disch: </string>
     <string name="Sex_colon">Sex: </string>
-    <string name="ICU_Days_colon">ICD Days: </string>
+    <string name="ICU_Days_colon">ICU Days: </string>
     
     <!-- Recent Patients -->
     <string name="recent_patients">Recent Patients</string>
@@ -82,6 +82,7 @@
 	
 	<!-- Max Patient Setting -->
 	<string name="screen_timeout_setting">Screen Timeout Setting</string>
+	<string name="dob_colon">"DOB: "</string>
     
    
 

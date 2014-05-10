@@ -42,6 +42,10 @@
         <item name="android:textSize">40px</item>
     </style>
     
+    <style name="Heading.Sub.Sub">
+        <item name="android:textSize">24px</item>
+    </style>
+    
     <style name="Heading.Sub.Row">
         <item name="android:textSize">35px</item>
 	    <item name="android:paddingTop">1dp</item>
