@@ -33,10 +33,12 @@ public class Global
 	{
 		public int screenTimeout;
 		public int numberOfRecentPatients;
+		public int eventsDisplay;
 		
 		public Options() {
 			screenTimeout = 30;
 			numberOfRecentPatients = 5;
+			eventsDisplay = 10;
 		}
 	}
     
