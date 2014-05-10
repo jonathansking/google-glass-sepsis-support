@@ -5,15 +5,8 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/toVitals"
-        style="@style/Heading.Sub.Sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vitals" />
-
-    <TextView
         android:id="@+id/toDS"
-        style="@style/Heading.Sub.Sub"
+        style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -21,23 +14,20 @@
         android:text="Decision\nSupport" />
 
     <TextView
-        android:id="@+id/patientId"
-        style="@style/Heading.Sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="26dp"
-        android:layout_toLeftOf="@+id/toDS"
-        android:text="PatientID" />
-
-    <TextView
         android:id="@+id/patientName"
-        style="@style/Heading.Sub"
+        style="@style/GlassText.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/patientId"
         android:text="Patient Name" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_alignBottom="@+id/toDS"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white" />
     
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -47,11 +37,9 @@
         android:layout_below="@+id/toDS" >
 
         <FrameLayout
-            android:measureAllChildren="true"
-            android:layout_width="164dp"
-            android:layout_height="209dp"
-            
-             >
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:measureAllChildren="true" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -60,8 +48,8 @@
                 android:src="@drawable/default_user" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center|bottom"
                 android:text="Patient"
                 android:textColor="#000000"
@@ -73,26 +61,26 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
-            <TableRow style="@style/Row" >
+            <TableRow style="@style/LeftJustRow" >
 
                 <TextView
                     android:id="@+id/DOBLabel"
-                    style="@style/Heading.Sub.Row"
+                    style="@style/GlassText.Row"                    
                     android:text="@string/dob_colon" />
 
                 <TextView
                     android:id="@+id/patientDOB"
-                    style="@style/Heading.Sub.Row"
+                    style="@style/GlassText.Row"                    
                     android:text="@string/empty" />
 
                 <TextView
                     android:id="@+id/SexLabel"
-                    style="@style/Heading.Sub.Row.Right"
+                    style="@style/GlassText.Row"
                     android:text="@string/Sex_colon" />
 
                 <TextView
                     android:id="@+id/patientSex"
-                    style="@style/Heading.Sub.Row.Right"
+                    style="@style/GlassText.Row"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -142,9 +130,9 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/TextView02"
+                    android:id="@+id/StateLabel"
                     style="@style/Heading.Sub.Row.Right"
-                    android:text="@string/ICU_Days_colon" />
+                    android:text="@string/State_colon" />
 
                 <TextView
                     android:id="@+id/TextView01"
@@ -152,14 +140,64 @@
                     android:text="@string/empty" />
             </TableRow>
 
-        </TableLayout>
+        </TableLayout>        
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
+   		android:layout_width="match_parent"
         android:layout_height="2dip"
-        android:layout_alignBottom="@+id/toDS"
-        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/overview_bottom_table"
         android:background="@color/white" />
+
+    <TableLayout
+        android:id="@+id/overview_bottom_table"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1" >
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/Heading.Sub.Row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Summary" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/toVitals"
+        style="@style/GlassText.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/patientName"
+        android:layout_alignBottom="@+id/patientName"
+        android:layout_alignParentLeft="true"
+        android:text="Vitals" />
+
+    <TextView
+        android:id="@+id/patientId"
+        style="@style/GlassText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/toDS"
+        android:text="#ID#" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </FrameLayout>
 
 </RelativeLayout>
