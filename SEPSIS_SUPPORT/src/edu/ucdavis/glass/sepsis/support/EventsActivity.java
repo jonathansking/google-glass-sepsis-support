@@ -91,9 +91,12 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
         	state.setTextAppearance(this, R.style.GlassText_Small);
         	state.setText("BS");
         	eventRow.addView(state);
+        	
+        	// Add row to table
+        	eventsTableLO.addView(eventRow);
         }
         
-        /*******************************/
+        /* Set view done*/
         
         
         // set up AsyncTask
