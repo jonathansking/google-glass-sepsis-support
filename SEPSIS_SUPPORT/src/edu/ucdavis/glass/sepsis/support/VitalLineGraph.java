@@ -77,18 +77,19 @@ public class VitalLineGraph{
 		mRenderer.addSeriesRenderer(renderer3);
 		mRenderer.addSeriesRenderer(renderer4);
 		mRenderer.addSeriesRenderer(renderer5);
+		mRenderer.setXAxisMax(10.0); //can set scale here
 		
 		// Customization time for Temperature
 		renderer.setColor(Color.CYAN);
 		renderer.setFillPoints(true);
 		// Customization time for Respiratory
-		renderer2.setColor(Color.MAGENTA);
+		renderer2.setColor(Color.rgb(255, 0, 255));
 		renderer2.setFillPoints(true);
 		// Customization time for WBC
-		renderer2.setColor(Color.WHITE);
+		renderer2.setColor(Color.rgb(255,255,255));
 		renderer2.setFillPoints(true);
 		// Customization time for SBP
-		renderer2.setColor(Color.RED);
+		renderer2.setColor(Color.rgb(255,0,0));
 		renderer2.setFillPoints(true);
 		// Customization time for MAP
 		renderer2.setColor(Color.BLUE);
