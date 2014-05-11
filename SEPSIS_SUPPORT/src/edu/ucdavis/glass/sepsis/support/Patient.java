@@ -63,6 +63,53 @@ public class Patient implements java.io.Serializable
 				state = s;
 			}
 		}
+		
+		// make dummy patient
+	    public Patient( ) 
+	    {
+	    	id = "999";
+	    	json = new JSONObject();
+	    	
+			// Overview
+			name = "name";
+		    dob = "dob";
+		    gender = "gender";
+		    admissionTimestamp = "admission_timestamp";
+		    currentState = "current_state";
+		    
+		    // Decision Support
+		    optimalAction = "optimal_action";
+		    alternativeAction = "alternative_action";
+		    nextProbableState = "next_probable_state";
+	    
+		    // Events
+		    events = new ArrayList<Event>();
+		    
+		    for(int k = 0; k < 10; k++)
+			{
+		    	events.add( new Event(
+		    			"time_stamp",
+		    			"event",
+		    			"attribute"
+    			) );
+			}
+
+		    // Vitals
+		    vitals = new ArrayList<Vital>();
+		    
+		    for(int k = 0; k < 10; k++)
+			{
+		    	vitals.add( new Vital(
+		    			"bacteria_in_blood",
+		    			"temperature",
+		    			"respiratory_rate",
+		    			"wbc",
+		    			"sbp",
+		    			"map",
+		    			"state"
+    			) );
+			}
+	    }
 
 	    public Patient( String i, JSONObject j ) 
 	    {
