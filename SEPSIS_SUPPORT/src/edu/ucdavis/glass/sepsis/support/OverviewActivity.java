@@ -40,12 +40,17 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+		System.out.println("OnCreate Overview");
+		
+		/* set view for overview */
+        setContentView(R.layout.overview);
+		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        /* set view for overview */
         
         /* Set view done*/
 	}

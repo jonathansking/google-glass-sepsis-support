@@ -142,11 +142,12 @@ public class WelcomeActivity extends Activity
                 if (gesture == Gesture.TAP) 
                 {
 //                	startActivity( new Intent(getApplicationContext(), QRScannerActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {
-                    return true;
+                	return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {

@@ -127,7 +127,8 @@ public class RecentPatientActivity extends Activity
             {
                 if (gesture == Gesture.TAP) 
                 {
-                    return true;
+                	System.out.println("Tap on Patient");
+                	return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {

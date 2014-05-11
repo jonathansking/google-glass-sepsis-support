@@ -6,14 +6,14 @@
 
     <TextView
         android:id="@+id/toVitals"
-        style="@style/Heading.Sub.Sub"
+        style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vitals" />
 
     <TextView
         android:id="@+id/toDS"
-        style="@style/Heading.Sub.Sub"
+        style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -21,23 +21,22 @@
         android:text="Decision\nSupport" />
 
     <TextView
-        android:id="@+id/patientId"
-        style="@style/Heading.Sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="26dp"
-        android:layout_toLeftOf="@+id/toDS"
-        android:text="PatientID" />
-
-    <TextView
         android:id="@+id/patientName"
-        style="@style/Heading.Sub"
+        style="@style/GlassText.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/patientId"
         android:text="Patient Name" />
+    
+    <TextView
+        android:id="@+id/patientId"
+        style="@style/GlassText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/toDS"
+        android:text="IDN" />
     
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -47,11 +46,9 @@
         android:layout_below="@+id/toDS" >
 
         <FrameLayout
-            android:measureAllChildren="true"
-            android:layout_width="164dp"
-            android:layout_height="209dp"
-            
-             >
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:measureAllChildren="true" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -161,5 +158,7 @@
         android:layout_alignBottom="@+id/toDS"
         android:layout_alignParentLeft="true"
         android:background="@color/white" />
+
+    
 
 </RelativeLayout>
