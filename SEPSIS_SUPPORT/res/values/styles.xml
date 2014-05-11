@@ -50,6 +50,23 @@
 	    <item name="android:paddingBottom">1dp</item>
     </style>
     
+    <style name="GlassText.Row.Right">
+        <item name="android:layout_gravity">right</item>
+        <item name="android:gravity">right</item>
+    </style>
+    
+    <style name="GlassText.Row.Left">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:gravity">left</item>
+    </style>
+    
+    <style name="GlassText.Row.Right.Thin">
+        <item name="android:textSize">16sp</item>
+	    <item name="android:paddingTop">0.5dp</item>
+	    <item name="android:paddingBottom">0.5dp</item>
+    </style>
+    
+    
 	
     <style name="Heading">
         <item name="android:layout_width">fill_parent</item>

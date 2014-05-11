@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -48,7 +49,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         
         /* set up graph */
         setContentView(R.layout.vitals);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.vitalsLeftLayout);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.vitalsLeftLayout);
     	VitalLineGraph vitalGraph = new VitalLineGraph(); 
     	mChart = vitalGraph.getGraph(this);
         layout.addView(mChart);

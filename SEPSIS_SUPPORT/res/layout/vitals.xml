@@ -38,156 +38,146 @@
         android:layout_centerHorizontal="true"
         android:text="Vitals" />
 
-    <GridLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/vitals"
         android:columnCount="1" >
-        
-        <LinearLayout
-            android:id="@+id/vitalsLeftLayout"
-            android:layout_width="430dp"
-            android:layout_height="match_parent"
-            android:layout_column="0"
-            android:layout_gravity="left|top"
-            android:layout_row="0" 
-            android:orientation="horizontal">
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/vitalsRightLayout"
-            android:layout_width="165dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_column="0"
             android:layout_gravity="right|top"
             android:layout_row="0"
             android:orientation="vertical" >
-		
-            <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/bacInBloodTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="BAC in Blood:" />
-	
-	        <TextView
-	            android:id="@+id/bibField"
-	            style="@style/GlassText.XSmall"
-	            android:text="Yes" />
 
-	    	</TableRow>
-	    
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/tempTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="Temp:" />
-	
-	        <TextView
-	            android:id="@+id/tempField"
-	            style="@style/GlassText.XSmall"
-	            android:text="38 &#176;C" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    
+                <TextView
+                    android:id="@+id/bacInBloodTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="BACinBlood:" />
+
+                <TextView
+                    android:id="@+id/bibField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="Yes" />
+            </TableRow>
+
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/RRTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="RR:" />
-	
-	        <TextView
-	            android:id="@+id/RRField"
-	            style="@style/GlassText.XSmall"
-	            android:text="20" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    	
+                <TextView
+                    android:id="@+id/tempTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="Temp:" />
+
+                <TextView
+                    android:id="@+id/tempField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="38 °C" />
+            </TableRow>
+
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/WBCTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="WBC:" />
-	
-	        <TextView
-	            android:id="@+id/WBCField"
-	            style="@style/GlassText.XSmall"
-	            android:text="12.9" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    	
+                <TextView
+                    android:id="@+id/RRTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="RR:" />
+
+                <TextView
+                    android:id="@+id/RRField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="20" />
+            </TableRow>
+
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/SBPTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="SBP:" />
-	
-	        <TextView
-	            android:id="@+id/SBPField"
-	            style="@style/GlassText.XSmall"
-	            android:text="91.8" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    	
+                <TextView
+                    android:id="@+id/WBCTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="WBC:" />
+
+                <TextView
+                    android:id="@+id/WBCField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="12.9" />
+            </TableRow>
+
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/MAPTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="MAP:" />
-	
-	        <TextView
-	            android:id="@+id/MAPField"
-	            style="@style/GlassText.XSmall"
-	            android:text="72.3" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    	
+                <TextView
+                    android:id="@+id/SBPTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="SBP:" />
+
+                <TextView
+                    android:id="@+id/SBPField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="91.8" />
+            </TableRow>
+
             <TableRow
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:baselineAligned="true" >
-	
-	        <TextView
-	            android:id="@+id/stateTextView"
-	            style="@style/GlassText.XSmall"
-	            android:text="Temp:" />
-	
-	        <TextView
-	            android:id="@+id/stateField"
-	            style="@style/GlassText.XSmall"
-	            android:text="SIRS" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
 
-	    	</TableRow>
-	    	
+                <TextView
+                    android:id="@+id/MAPTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="MAP:" />
+
+                <TextView
+                    android:id="@+id/MAPField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="72.3" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true" >
+
+                <TextView
+                    android:id="@+id/stateTextView"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="Temp:" />
+
+                <TextView
+                    android:id="@+id/stateField"
+                    style="@style/GlassText.Row.Right.Thin"
+                    android:text="SIRS" />
+            </TableRow>
         </LinearLayout>
 
-    </GridLayout>
+        <FrameLayout
+            android:id="@+id/vitalsLeftLayout"
+            android:layout_width="430dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/vitalsRightLayout" >
+
+        </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
