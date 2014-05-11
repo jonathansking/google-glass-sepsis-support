@@ -47,6 +47,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.start();
         
         /* set up graph */
+        setContentView(R.layout.vitals);
         LinearLayout layout = (LinearLayout) findViewById(R.id.vitalsLeftLayout);
     	VitalLineGraph vitalGraph = new VitalLineGraph(); 
     	mChart = vitalGraph.getGraph(this);

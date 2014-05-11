@@ -48,7 +48,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.start();
         
         /* set view for events */
-        
+        setContentView(R.layout.events);
         TableLayout eventsTableLO = (TableLayout) findViewById(R.id.eventsTableLayout);
         
         //create rows
