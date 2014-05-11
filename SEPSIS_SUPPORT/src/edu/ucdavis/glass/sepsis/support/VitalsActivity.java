@@ -16,6 +16,8 @@
  */
 
 package edu.ucdavis.glass.sepsis.support;
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
@@ -26,6 +28,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ public class VitalsActivity extends ListActivity implements OnHeadGestureListene
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
+	private GraphicalView mChart; //graphs
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -48,9 +52,16 @@ public class VitalsActivity extends ListActivity implements OnHeadGestureListene
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
+        /* set up graph */
+        LinearLayout layout = (LinearLayout) findViewById(R.id.vitalsLeftLayout);
+    	VitalLineGraph vitalGraph = new VitalLineGraph(); 
+    	mChart = vitalGraph.getGraph(this);
+        layout.addView(mChart);
+        /****************/
+            
         // set up AsyncTask
 	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Vitals...", this );
-	    
+
 	    // run AsyncTask
 	    JSON.execute( "vitals" );
 	}
