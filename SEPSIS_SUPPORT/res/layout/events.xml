@@ -10,16 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-     android:text="Decision\nSupport" />
+     android:text="&#10096; Decision\nSupport" />
     
     <TextView
         android:id="@+id/eventsToVitals"
-        style="@style/GlassText.Small"
+        style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Vitals" />
+        android:text="Vitals &#10097;" />
 
     <View
         android:id="@+id/separator"

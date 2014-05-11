@@ -16,12 +16,23 @@
  */
 
 package edu.ucdavis.glass.sepsis.support;
+<<<<<<< HEAD
+=======
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.json.JSONObject;
+>>>>>>> xmlprog
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+<<<<<<< HEAD
+=======
+import android.view.View;
+import android.widget.LinearLayout;
+>>>>>>> xmlprog
 import android.widget.ListView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -34,6 +45,7 @@ public class VitalsActivity extends ListActivity implements OnHeadGestureListene
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
+	private GraphicalView mChart; //graphs
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -43,9 +55,48 @@ public class VitalsActivity extends ListActivity implements OnHeadGestureListene
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
+<<<<<<< HEAD
         /* set view for vitals */
         
         /* Set view done*/
+=======
+        /* set up graph */
+        LinearLayout layout = (LinearLayout) findViewById(R.id.vitalsLeftLayout);
+    	VitalLineGraph vitalGraph = new VitalLineGraph(); 
+    	mChart = vitalGraph.getGraph(this);
+        layout.addView(mChart);
+        /****************/
+            
+        // set up AsyncTask
+	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Vitals...", this );
+
+	    // run AsyncTask
+	    JSON.execute( "vitals" );
+	}
+
+	public void onTaskComplete(JSONObject json) 
+	{
+	    // create ListView with information from JSON
+	    try {
+			setListAdapter(new JSONObjectAdapter(this, json ));
+			
+			// add header
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        View view = inflater.inflate(R.layout.header, null);
+
+	        TextView header = (TextView) view.findViewById(R.id.heading);
+	        header.setText("Vitals");
+	        
+	        this.getListView().addHeaderView(view, null, false);
+	        mListView = this.getListView();
+	        
+		} catch (Exception e) {
+			// error
+            System.out.println("unable to read json.");
+            Global.alertUser(this, "Exception", "Unable to read JSON.");
+            finish();
+		}
+>>>>>>> xmlprog
 	}
 
 	private GestureDetector createGestureDetector(Context context) 
