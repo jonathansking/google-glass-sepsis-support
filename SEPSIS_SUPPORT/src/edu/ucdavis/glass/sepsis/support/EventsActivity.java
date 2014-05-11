@@ -37,7 +37,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class EventsActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
+public class EventsActivity extends ListActivity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
@@ -97,37 +97,6 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
         }
         
         /* Set view done*/
-        
-        
-        // set up AsyncTask
-	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Events...", this );
-	    
-	    // run AsyncTask
-	    JSON.execute( "events" );
-	}
-
-	public void onTaskComplete(JSONObject json) 
-	{	    
-		// create ListView with information from JSON
-	    try {
-			setListAdapter(new JSONObjectAdapter(this, json ));
-			
-			// add header
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        View view = inflater.inflate(R.layout.header, null);
-
-	        TextView header = (TextView) view.findViewById(R.id.heading);
-	        header.setText("Events");
-	        
-	        this.getListView().addHeaderView(view, null, false);
-	        mListView = this.getListView();
-	        
-		} catch (Exception e) {
-			// error
-            System.out.println("unable to read json.");
-            Global.alertUser(this, "Exception", "Unable to read JSON.");
-            finish();
-		}
 	}
 
 	private GestureDetector createGestureDetector(Context context) 
