@@ -89,7 +89,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	eventRow.addView(state);
         	
         	// Add row to table
-        	eventsTableLO.addView(eventRow);
+        	eventsTableLO.addView(eventRow, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
         }
         
         /* Set view done*/

@@ -35,7 +35,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
-	private ListView mListView;
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -97,7 +96,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
                 }
                 else if (gesture == Gesture.LONG_PRESS) 
                 {	
-                	mListView.setScrollY( mListView.getScrollY()+100 );
                 	return true;
                 }
                 return false;
