@@ -11,12 +11,6 @@ import android.widget.TextView;
 
 public class Global 
 {
-	
-	interface AsyncTaskCompleteListener<T> 
-	{
-		   public void onTaskComplete(T result);
-	}
-	
 	// Constants
 	public static final String PATIENT_ID = "Patient info";
 	public static final String OPTIONS_FILE = "options.sav";

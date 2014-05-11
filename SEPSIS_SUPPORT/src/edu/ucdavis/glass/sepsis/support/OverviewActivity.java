@@ -16,28 +16,22 @@
  */
 
 package edu.ucdavis.glass.sepsis.support;
-import java.util.ArrayList;
 
 import org.json.JSONObject;
 
 import android.content.Intent;
 import android.app.ListActivity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class OverviewActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
+public class OverviewActivity extends ListActivity implements OnHeadGestureListener, AsyncTaskCompleteListener<JSONObject>
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
@@ -50,61 +44,17 @@ public class OverviewActivity extends ListActivity implements OnHeadGestureListe
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
-
-        // set up AsyncTask
-        AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Overview...", this );
-	    
-	    // run AsyncTask
-  	  	JSON.execute( "overview" );
+        
+        /* set view for overview */
+        
+        /* Set view done*/
 	}
 	
 	public void onTaskComplete(JSONObject json) 
 	{
-		// create ListView with information from JSON
-	    try {
-			setListAdapter(new JSONObjectAdapter(this, json ));
-			
-			// add header
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        View view = inflater.inflate(R.layout.header, null);
-
-	        TextView header = (TextView) view.findViewById(R.id.heading);
-//	        header.setText("Overview");
-	        header.setText( Global.recentPatients.peek().getName() );
-	        
-	        this.getListView().addHeaderView(view, null, false);
-	        mListView = this.getListView();
-	        
-		} catch (Exception e) {
-			// error
-            System.out.println("unable to read json.");
-            Global.alertUser(this, "Exception", "Unable to read JSON.");
-            finish();
-		}
+    	// reload overview
+    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 	}
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) 
-    {
-    	super.onActivityResult(requestCode, resultCode, data);
-
-    	if(resultCode == RESULT_CANCELED)
-    	{
-    		Toast.makeText(OverviewActivity.this,"Viewing state was not changed.",Toast.LENGTH_SHORT).show();
-    	}
-    	else
-    	{
-	    	if (requestCode == 0)
-	    	{
-	    		Patient p = Global.recentPatients.peek();
-	    		int v = data.getExtras().getInt("selected_value", p.getViewingState());
-	    		p.setViewingState(v);
-	    		
-	    		System.out.println("HERE");
-            	// reload overview
-            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-	    	}
-    	}
-    }
 	
 	private GestureDetector createGestureDetector(Context context) 
 	{
@@ -118,9 +68,12 @@ public class OverviewActivity extends ListActivity implements OnHeadGestureListe
             {
                 if (gesture == Gesture.TAP) 
                 {
-                	Intent i = new Intent(getApplicationContext(), ValueSelectorActivity.class);
-    	        	i.putExtra( "values", Global.recentPatients.peek().getStates() );
-    	        	startActivityForResult(i, 0);
+//                    // set up AsyncTask
+//                    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Updating all patient's info...", this );
+//            	    
+//            	    // run AsyncTask
+//              	  	JSON.execute( "overview" );
+              	  	
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
@@ -129,14 +82,12 @@ public class OverviewActivity extends ListActivity implements OnHeadGestureListe
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	// go to vitals view
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go to events view
-                	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 }
                 else if (gesture == Gesture.LONG_PRESS) 
@@ -193,16 +144,15 @@ public class OverviewActivity extends ListActivity implements OnHeadGestureListe
         super.onPause();
     }
 
+    // headgestures
     @Override
-    public void onShakeToLeft() {
-    	// go to events view
-    	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+    public void onShakeToRight() {
+    	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     }
 
     @Override
-    public void onShakeToRight() {
-    	// go to vitals view
-    	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+    public void onShakeToLeft() {
+    	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     }
     
     @Override

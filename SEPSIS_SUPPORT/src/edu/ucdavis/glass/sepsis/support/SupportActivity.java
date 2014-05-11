@@ -16,25 +16,20 @@
  */
 
 package edu.ucdavis.glass.sepsis.support;
-import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class SupportActivity extends ListActivity implements OnHeadGestureListener, Global.AsyncTaskCompleteListener<JSONObject>
+public class SupportActivity extends ListActivity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
@@ -48,35 +43,9 @@ public class SupportActivity extends ListActivity implements OnHeadGestureListen
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        // set up AsyncTask
-	    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Loading Patient's Support...", this );
-	    
-	    // run AsyncTask
-	    JSON.execute( "support" );
-	}
-
-	public void onTaskComplete(JSONObject json) 
-	{
-	    // create ListView with information from JSON
-	    try {
-			setListAdapter(new JSONObjectAdapter(this, json ));
-			
-			// add header
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        View view = inflater.inflate(R.layout.header, null);
-
-	        TextView header = (TextView) view.findViewById(R.id.heading);
-	        header.setText("Support");
-	        
-	        this.getListView().addHeaderView(view, null, false);
-	        mListView = this.getListView();
-	        
-		} catch (Exception e) {
-			// error
-            System.out.println("unable to read json.");
-            Global.alertUser(this, "Exception", "Unable to read JSON.");
-            finish();
-		}
+        /* set view for support */
+        
+        /* Set view done*/
 	}
 
 	private GestureDetector createGestureDetector(Context context) 
@@ -99,14 +68,12 @@ public class SupportActivity extends ListActivity implements OnHeadGestureListen
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	// go to events
-                	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go to policy
-                	startActivity( new Intent(getApplicationContext(), PolicyActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 }
                 else if (gesture == Gesture.LONG_PRESS) 
@@ -143,15 +110,14 @@ public class SupportActivity extends ListActivity implements OnHeadGestureListen
         super.onPause();
     }
 
+    // headgestures
     @Override
-    public void onShakeToLeft() {
-    	// go to policy
-    	startActivity( new Intent(getApplicationContext(), PolicyActivity.class) );
+    public void onShakeToRight() {
+    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
     }
 
     @Override
-    public void onShakeToRight() {
-    	// go to events
+    public void onShakeToLeft() {
     	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     }
     

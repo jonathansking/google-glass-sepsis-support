@@ -16,16 +16,12 @@
  */
 
 package edu.ucdavis.glass.sepsis.support;
-import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -119,14 +115,12 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	// go to overview
-                	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go to support view
-                	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }
                 else if (gesture == Gesture.LONG_PRESS) 
@@ -163,16 +157,15 @@ public class EventsActivity extends ListActivity implements OnHeadGestureListene
         super.onPause();
     }
 
+    // headgestures
     @Override
-    public void onShakeToLeft() {
-    	// go to support view
+    public void onShakeToRight() {
     	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     }
 
     @Override
-    public void onShakeToRight() {
-    	// go to overview
-    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+    public void onShakeToLeft() {
+    	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     }
     
     @Override
