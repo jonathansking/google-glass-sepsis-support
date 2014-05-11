@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.TableRow.LayoutParams;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
