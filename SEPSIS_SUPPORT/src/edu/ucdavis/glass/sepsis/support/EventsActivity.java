@@ -17,7 +17,7 @@
 
 package edu.ucdavis.glass.sepsis.support;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class EventsActivity extends ListActivity implements OnHeadGestureListener
+public class EventsActivity extends Activity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;

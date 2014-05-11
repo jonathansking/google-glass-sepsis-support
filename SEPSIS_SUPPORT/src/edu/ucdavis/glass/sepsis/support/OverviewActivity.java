@@ -20,7 +20,7 @@ package edu.ucdavis.glass.sepsis.support;
 import org.json.JSONObject;
 
 import android.content.Intent;
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -31,7 +31,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
 
 
-public class OverviewActivity extends ListActivity implements OnHeadGestureListener, AsyncTaskCompleteListener<JSONObject>
+public class OverviewActivity extends Activity implements OnHeadGestureListener, AsyncTaskCompleteListener<JSONObject>
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;

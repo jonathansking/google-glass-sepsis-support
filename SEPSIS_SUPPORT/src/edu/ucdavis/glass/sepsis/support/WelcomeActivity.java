@@ -141,11 +141,6 @@ public class WelcomeActivity extends Activity
                 } 
                 else if (gesture == Gesture.TWO_TAP) 
                 {
-                	// SHORT TERM SOLUTION, SKIP QR, MOSTLY FOR TESTING AND DEVELOPMENT EASE
-                	// pass FAKE QR message to the overview activity
-    				Intent overviewIntent = new Intent(getApplicationContext(), OverviewActivity.class);
-    				overviewIntent.putExtra("Patient info", 2 ); 
-    				startActivity( overviewIntent );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
