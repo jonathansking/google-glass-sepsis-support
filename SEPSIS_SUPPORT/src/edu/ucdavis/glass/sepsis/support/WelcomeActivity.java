@@ -64,11 +64,7 @@ public class WelcomeActivity extends Activity
         {
         	// error
             System.out.println("loading options failed");
-            Global.alertUser(WelcomeActivity.this, "Exception", "Loading options failed.");
             e.printStackTrace();
-			// make new options
-            //System.out.println("new options");
-			//Global.options = new Global.Options();
         }
         
         // load recent patients
@@ -85,11 +81,7 @@ public class WelcomeActivity extends Activity
         {
         	// error
             System.out.println("loading patients failed");
-            Global.alertUser(WelcomeActivity.this, "Exception", "Loading patients failed.");
             e.printStackTrace();
-			// make new patient deque
-            //System.out.println("new patients");
-			//Global.recentPatients = new ArrayDeque<Patient>();
         }
     }
 	
@@ -112,7 +104,6 @@ public class WelcomeActivity extends Activity
         {
         	// error        	
             System.out.println("saving patients failed");
-            Global.alertUser(WelcomeActivity.this, "Exception", "Saving recent patients failed.");
             e.printStackTrace();
         }
         
@@ -130,7 +121,6 @@ public class WelcomeActivity extends Activity
         {
         	// error
             System.out.println("saving options failed");
-            Global.alertUser(WelcomeActivity.this, "Exception", "Saving options failed.");
             e.printStackTrace();
         }
     }

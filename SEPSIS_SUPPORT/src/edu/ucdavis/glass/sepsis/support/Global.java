@@ -1,13 +1,8 @@
 package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 
-import com.google.android.glass.touchpad.GestureDetector;
-
-import android.app.Dialog;
-import android.content.Context;
-import android.widget.TextView;
+import org.json.JSONObject;
 
 public class Global 
 {
@@ -23,6 +18,7 @@ public class Global
     public static Options options = new Global.Options();
     
 	// structure to save options
+	@SuppressWarnings("serial")
 	public static class Options implements java.io.Serializable
 	{
 		public int screenTimeout;
@@ -37,9 +33,9 @@ public class Global
 	}
     
     // adds patient to Queue, maintaining a max, handles duplicates
-    public static void pushRecentPatient(String id, String name, ArrayList<Integer> states) 
+    public static void pushRecentPatient(String id, JSONObject j) 
     {
-    	Patient p = new Patient(id, name, states);
+    	Patient p = new Patient(id, j);
     	recentPatients.remove( p );
     	
     	if( recentPatients.size() >= options.numberOfRecentPatients )
@@ -55,19 +51,20 @@ public class Global
     		System.out.println( p );
     }
     
-    // error dialog
-    GestureDetector mGestureDetector;
-    public static void alertUser( final Context context, String title, String message ) {
-    	
-		Dialog dialog = new Dialog(context);
-		dialog.setContentView(R.layout.notification);
-		
-		TextView notificationTitle = (TextView) dialog.findViewById(R.id.notification_title);
-		notificationTitle.setText( title );
-		
-		TextView text = (TextView) dialog.findViewById(R.id.notification_message);
-		text.setText( message );
-		
-		dialog.show();
-    }
+    // this is causing window leaks, we need a new solution
+//    // error dialog
+//    GestureDetector mGestureDetector;
+//    public static void alertUser( final Context context, String title, String message ) {
+//    	
+//		Dialog dialog = new Dialog(context);
+//		dialog.setContentView(R.layout.notification);
+//		
+//		TextView notificationTitle = (TextView) dialog.findViewById(R.id.notification_title);
+//		notificationTitle.setText( title );
+//		
+//		TextView text = (TextView) dialog.findViewById(R.id.notification_message);
+//		text.setText( message );
+//		
+//		dialog.show();
+//    }
 }

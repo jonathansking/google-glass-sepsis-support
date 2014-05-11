@@ -1,16 +1,15 @@
 package edu.ucdavis.glass.sepsis.support;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class QRScannerActivity extends Activity implements Global.AsyncTaskCompleteListener<JSONObject> 
+public class QRScannerActivity extends Activity implements AsyncTaskCompleteListener<JSONObject> 
 {
+	private String scannedID;
+	
 	protected void onCreate(Bundle savedInstanceState)
 	{ 
 	    super.onCreate(savedInstanceState);
@@ -30,13 +29,11 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
     	{
 	    	if (resultCode == RESULT_OK)
 	    	{	
-	    	    // push dummy patient to run AsycTask
-	    		ArrayList<Integer> l = new ArrayList<Integer>();
-	    		l.add(-1);
-	    	    Global.pushRecentPatient( data.getStringExtra("SCAN_RESULT"), "dummy", l );
-
+	    		// get result id
+	    		scannedID = data.getStringExtra("SCAN_RESULT");
+	    		
 	    	    // run AsyncTask
-	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( "patient" );
+	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( scannedID );
 	   
 	    	}
 	    	else if (resultCode == RESULT_CANCELED) 
@@ -44,7 +41,6 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	    		// error
 		    	System.out.println("ERROR_2");
 	            System.out.println("unable to read json.");
-//	            Global.alertUser(this, "Notification", "QR scan canceled.");
 	        }
     	}
     }
@@ -53,23 +49,11 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 	{
 		// add patient 
 	    try {
-    	    
-    	    // pop dummy
-    	    Global.recentPatients.pop();
-			System.out.println(json.get("result_status").toString());
+	    	
 			if ( (json.get("result_status").toString()).equals("success") )
 		    {	
-		    	// get states from json
-		    	JSONArray jsonStates = json.getJSONArray("state_ids");
-		    	ArrayList<Integer> patientStates = new ArrayList<Integer>();
-
-		    	for(int i = 0; i < jsonStates.length(); i++)
-				{
-				    patientStates.add( Integer.parseInt(jsonStates.get(i).toString()) );
-				}
-
 				// create patient
-			    Global.pushRecentPatient( json.getString("patient_id"), json.getString("name"), patientStates );
+			    Global.pushRecentPatient( scannedID, json );
 
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
@@ -79,14 +63,12 @@ public class QRScannerActivity extends Activity implements Global.AsyncTaskCompl
 		    	// error
 		    	System.out.println("ERROR_0");
 		    	System.out.println("No patient with that id exists");
-//		    	Global.alertUser(this, "Notification", "No patient with that id exists");
 		    }
 			
 	    } catch (Exception e) {
 			// error
 	    	System.out.println("ERROR_1");
             System.out.println("unable to read json.");
-//            Global.alertUser(this, "Exception", "Unable to read JSON.");
 		}
 	    finish();
 	}

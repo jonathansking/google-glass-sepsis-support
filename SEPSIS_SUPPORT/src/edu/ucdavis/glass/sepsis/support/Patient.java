@@ -9,8 +9,8 @@ import org.json.JSONObject;
 @SuppressWarnings("serial")
 public class Patient implements java.io.Serializable
 {
-		// ID
-    	public String id;
+		public String id;
+		public JSONObject json;
     	
 		// Overview
 	    public String name;
@@ -69,6 +69,7 @@ public class Patient implements java.io.Serializable
 		    try 
 		    {
 		    	id = i;
+		    	json = j;
 		    	
 				// Overview
 				name = j.getString( "name" );

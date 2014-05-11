@@ -47,7 +47,7 @@ public class RecentPatientActivity extends Activity
         		Patient p = (Patient)Global.recentPatients.toArray()[position];
 
         		// move recent patient to front of deque
-			    Global.pushRecentPatient( p.getId(), p.getName(), p.getStates() );
+			    Global.pushRecentPatient( p.id, p.json );
 
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
@@ -61,8 +61,8 @@ public class RecentPatientActivity extends Activity
         for( Patient p : Global.recentPatients )
         {
         	Card c = new Card(this);
-        	c.setText( p.getName() );
-        	c.setFootnote( p.getId() );
+        	c.setText( p.name );
+        	c.setFootnote( p.id );
         	c.setImageLayout(Card.ImageLayout.LEFT);
         	c.addImage(R.drawable.default_user);
         	mCards.add(c);
@@ -71,7 +71,6 @@ public class RecentPatientActivity extends Activity
 	    // error, no recent patients
         if( mCards.isEmpty() ) {
             System.out.println("no recent patients.");
-            Global.alertUser(this, "Notification", "No recent patients.");
         }
     }
     

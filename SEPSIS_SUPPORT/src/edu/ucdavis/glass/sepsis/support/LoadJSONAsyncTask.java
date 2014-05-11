@@ -17,12 +17,12 @@ import android.os.AsyncTask;
 
 public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject> 
 {
-    private Global.AsyncTaskCompleteListener<JSONObject> callback;
+    private AsyncTaskCompleteListener<JSONObject> callback;
 	private ProgressDialog pDialog;
 	private String pDialogText;
 	private Context pDialogContext;
 	
-	public LoadJSONAsyncTask( Context context, String progressText, Global.AsyncTaskCompleteListener<JSONObject> cb ) 
+	public LoadJSONAsyncTask( Context context, String progressText, AsyncTaskCompleteListener<JSONObject> cb ) 
 	{
 		this.pDialogText = progressText;
 		this.pDialogContext = context;
@@ -53,12 +53,9 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 		try 
 		{
 			// download JSON content
-			String dataType = (String)arg0[0];
-			
-			Patient p = Global.recentPatients.peek();
+			String id = (String)arg0[0];
 
-			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType + "&stateNumber=" + p.getViewingState();
-//			String link = "http://glass.herumla.com/?patient_id=" + p.getId() + "&dataType=" + dataType;
+			String link = "http://glass.herumla.com/?patient_id=" + id;
 			System.out.println(link);
 			
             HttpClient client = new DefaultHttpClient();
