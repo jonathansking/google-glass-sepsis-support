@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="❰ Events" />
+        android:text="@string/vitals_to_events" />
 
     <TextView
         android:id="@+id/vitalsToOverview"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Overview ❱" />
+        android:text="@string/vitals_to_overview" />
 
     <View
         android:id="@+id/vitalsSeparator"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Vitals" />
+        android:text="@string/vitals_screen_title" />
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"

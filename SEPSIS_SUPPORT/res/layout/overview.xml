@@ -5,45 +5,27 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/toVitals"
+        android:id="@+id/overviewToVitals"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vitals" />
+        android:text="❰ Vitals" />
 
     <TextView
-        android:id="@+id/toDS"
+        android:id="@+id/overviewToDS"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Decision\nSupport" />
+        android:text="Decision ❱\nSupport" />
 
-    <TextView
-        android:id="@+id/patientName"
-        style="@style/GlassText.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/patientId"
-        android:text="Patient Name" />
-    
-    <TextView
-        android:id="@+id/patientId"
-        style="@style/GlassText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/toDS"
-        android:text="IDN" />
-    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/toDS" >
+        android:layout_below="@+id/overviewToDS" >
 
         <FrameLayout
             android:layout_width="100dp"
@@ -73,22 +55,22 @@
             <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/DOBLabel"
-                    style="@style/Heading.Sub.Row"
+                    android:id="@+id/overviewDOBLabel"
+                    style="@style/Heading.Sub.Row.Right"
                     android:text="@string/dob_colon" />
 
                 <TextView
-                    android:id="@+id/patientDOB"
-                    style="@style/Heading.Sub.Row"
+                    android:id="@+id/overviewDOBField"
+                    style="@style/Heading.Sub.Row.Right"
                     android:text="@string/empty" />
 
                 <TextView
-                    android:id="@+id/SexLabel"
+                    android:id="@+id/overviewSexLabel"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/Sex_colon" />
 
                 <TextView
-                    android:id="@+id/patientSex"
+                    android:id="@+id/overviewSexField"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
@@ -96,12 +78,12 @@
             <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/HospAdmLabel"
+                    android:id="@+id/overviewHospAdmLabel"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/Hosp_Adm_colon" />
 
                 <TextView
-                    android:id="@+id/patientHospAdm"
+                    android:id="@+id/overviewHospAdmField"
                     style="@style/Heading.Sub.Row.Left"
                     android:text="@string/empty" />
             </TableRow>
@@ -109,12 +91,12 @@
             <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/HospDischLabel"
+                    android:id="@+id/overviewHospDischLabel"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/Hosp_Disch_colon" />
 
                 <TextView
-                    android:id="@+id/patientHospDisch"
+                    android:id="@+id/overviewHospDischField"
                     style="@style/Heading.Sub.Row.Left"
                     android:text="@string/empty" />
             </TableRow>
@@ -122,43 +104,147 @@
             <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/ICUDaysLabel"
+                    android:id="@+id/overviewICUDaysLabel"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/ICU_Days_colon" />
 
                 <TextView
-                    android:id="@+id/ICUDays"
+                    android:id="@+id/overviewICUDays"
                     style="@style/Heading.Sub.Row.Left"
                     android:text="@string/empty" />
-
             </TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+            <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/TextView02"
+                    android:id="@+id/overviewCurentStateLabel"
                     style="@style/Heading.Sub.Row.Right"
-                    android:text="@string/ICU_Days_colon" />
+                    android:text="@string/Current_State" />
 
                 <TextView
-                    android:id="@+id/TextView01"
+                    android:id="@+id/overviewCurentStateField"
                     style="@style/Heading.Sub.Row.Left"
                     android:text="@string/empty" />
             </TableRow>
-
         </TableLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dip"
-        android:layout_alignBottom="@+id/toDS"
+        android:layout_alignBottom="@+id/overViewToDS"
         android:layout_alignParentLeft="true"
         android:background="@color/white" />
 
+    <TextView
+        android:id="@+id/patientName"
+        style="@style/GlassText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="164dp"
+        android:layout_toRightOf="@+id/overViewToVitals"
+        android:text="Patient Name" />
+
+    <TextView
+        android:id="@+id/patientId"
+        style="@style/GlassText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/patientName"
+        android:text="IDN" />
+
+    <View
+        android:id="@+id/overviewSeparator2"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:background="@color/white" />
     
+    <TextView
+        android:id="@+id/overviewSummary"
+        style="@style/GlassText.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/overviewSeparator2"
+        android:text="Summary:" />
+
+    <TableLayout
+        android:id="@+id/overviewTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/overviewSeparator2"
+        android:layout_toRightOf="@+id/overviewSummary"
+        android:stretchColumns="*" >
+	 
+        <TableRow
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="RR"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="HR"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="SBP"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="WBC"/>
+	        
+	    </TableRow>
+	    
+    	<TableRow
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:id="@+id/summaryRRField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/empty"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:id="@+id/summaryHRField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/empty"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:id="@+id/summarySBPField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/empty"/>
+	        
+	        <TextView
+	        style="@style/GlassText.XSmall"
+	        android:id="@+id/summaryField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/empty"/>
+	        
+	    </TableRow>
+
+    </TableLayout>
 
 </RelativeLayout>

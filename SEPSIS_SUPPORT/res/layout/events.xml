@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-     android:text="&#10096; Decision\nSupport" />
+     android:text="@string/events_to_DS" />
     
     <TextView
         android:id="@+id/eventsToVitals"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Vitals &#10097;" />
+        android:text="@string/events_to_vitals" />
 
     <View
         android:id="@+id/separator"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Events" />
+        android:text="@string/events_screen_title" />
     
 	<TableLayout
 	    android:id="@+id/eventsTableLayout"
@@ -46,7 +46,6 @@
 	    android:stretchColumns="2,3,4,5">
 	    
 	    <TableRow
-	        android:id="@+id/eventsTableRow1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:baselineAligned="true" >
@@ -54,27 +53,27 @@
 	        <TextView
 	            android:id="@+id/eventsRank"
 	            style="@style/GlassText.XSmall"
-	            android:text="Rank" />
+	            android:text="@string/Rank" />
 	
 	        <TextView
 	            android:id="@+id/eventsTime"
 	            style="@style/GlassText.Small"
-	            android:text="Time Stamp" />
+	            android:text="@string/Time" />
 	
 	        <TextView
 	            android:id="@+id/eventsEvent"
 	            style="@style/GlassText.Small"
-	            android:text="Event" />
+	            android:text="@string/Event" />
 	
 	        <TextView
 	            android:id="@+id/eventsAttribute"
 	            style="@style/GlassText.Small"
-	            android:text="Attribute" />
+	            android:text="@string/Att" />
 
 	        <TextView
 	            android:id="@+id/eventsState"
 	            style="@style/GlassText.Small"
-	            android:text="States" />
+	            android:text="@string/State" />
 
 	    </TableRow>
 	</TableLayout>

@@ -40,6 +40,7 @@
     <string name="Hosp_Disch_colon">Hospital Disch: </string>
     <string name="Sex_colon">Sex: </string>
     <string name="ICU_Days_colon">ICU Days: </string>
+    <string name="Current_State">Current State: </string>
     
     <!-- Recent Patients -->
     <string name="recent_patients">Recent Patients</string>
@@ -47,7 +48,7 @@
    
     
     <!-- Options -->
-    <string name="options">Options</string>
+    <string name="options">OPTIONS</string>
     <string name="num_recent_patients">Number of recent patients</string>
     <string name="screen_timeout">Screen timeout</string>
     <string name="set_screen_timeout">Set screen timeout</string>
@@ -56,6 +57,8 @@
     
     <!-- Vitals -->
     <string name="vitals_screen_title">VITALS</string>
+    <string name="vitals_to_events">&#10096; Events</string>
+    <string name="vitals_to_overview">Overview &#10097;</string>
     <string name="Bacteria_colon">Bacteria: </string>
     <string name="WBC_colon">WBC: </string>
     <string name="MAP_colon">MAP: </string>
@@ -63,6 +66,25 @@
     <string name="State_colon">State: </string>
     <string name="RespRate_colon">Respiratory-Rate: </string>
     <string name="SBP_colon">SBP: </string>
+    
+    <!-- Events -->
+    <string name="events_screen_title">EVENTS</string>
+    <string name="events_to_DS">&#10096; Decision\nSupport</string>
+    <string name="events_to_vitals">Vitals &#10097;</string>
+    <string name="Rank">Rank</string>
+    <string name="Time">Time Stamp </string>
+    <string name="Event">Event </string>
+    <string name="Att">Attribute </string>
+    <string name="State">Attribute </string>
+    
+    <!-- Decision Support -->
+    <string name="DS_screen_title">DECISION SUPPORT</string>
+    <string name="DS_to_overview">&#10096; Overview</string>
+    <string name="DS_to_events">Events &#10097;</string>
+    <string name="CurrentState_colon">Current State:</string>
+    <string name="OptAct_colon">Optimal Action:</string>
+    <string name="AltAct_colon">Alternative Action:</string>
+    <string name="NextState_colon">Next State:</string>
     
     <!-- Medical Terms -->
     <string name="sepsis">Sepsis</string>

@@ -100,7 +100,7 @@
     </style>
     
     <style name="Heading.Sub.Row">
-        <item name="android:textSize">35px</item>
+        <item name="android:textSize">20px</item>
 	    <item name="android:paddingTop">1dp</item>
 	    <item name="android:paddingBottom">1dp</item>
     </style>

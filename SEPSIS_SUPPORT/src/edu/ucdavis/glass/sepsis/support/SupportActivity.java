@@ -44,7 +44,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.start();
         
         /* set view for support */
-        
+        setContentView(R.layout.decision_support);
         /* Set view done*/
 	}
 

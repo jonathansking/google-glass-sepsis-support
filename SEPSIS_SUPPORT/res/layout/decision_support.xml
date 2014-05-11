@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventsRelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/DSToOverview"
+        style="@style/GlassText.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/DS_to_overview" />
+
+    <TextView
+        android:id="@+id/DSToEvents"
+        style="@style/GlassText.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/DS_to_events" />
+
+    <View
+        android:id="@+id/DSSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_alignBottom="@+id/DSToOverview"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/vitals"
+        style="@style/GlassText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/DS_screen_title" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@+id/DSSeparator" 
+	    android:stretchColumns="*">
+ 
+        <TableRow
+	        android:id="@+id/DSTableRow1"
+	        style="@style/Row" >
+	
+	        <TextView
+	            android:id="@+id/DSCurrentState"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/CurrentState_colon"
+	            android:gravity="left" />
+	
+	        <TextView
+	            android:id="@+id/DSCurrentStateField"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/empty" />
+	        
+	    </TableRow>
+	    
+        <TableRow
+	        android:id="@+id/DSTableRow2"
+	        style="@style/Row" >
+	
+	        <TextView
+	            android:id="@+id/DSOptAct"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/OptAct_colon"
+	            android:gravity="left" />
+	
+	        <TextView
+	            android:id="@+id/DSOptActField"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/empty" />
+	        
+	    </TableRow>
+	    
+        <TableRow
+	        android:id="@+id/DSTableRow3"
+	        style="@style/Row" >
+	
+	        <TextView
+	            android:id="@+id/DSAltAct"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/AltAct_colon"
+	            android:gravity="left" />
+	
+	        <TextView
+	            android:id="@+id/DSAltActField"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/empty" />
+	        
+	    </TableRow>
+        
+        <TableRow
+	        android:id="@+id/DSTableRow4"
+	        style="@style/Row" >
+	
+	        <TextView
+	            android:id="@+id/DSNextState"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/NextState_colon"
+	            android:gravity="left" />
+	
+	        <TextView
+	            android:id="@+id/DSNextStateField"
+	            style="@style/Heading.Sub.Row.Left"
+	            android:text="@string/empty" />
+	        
+	    </TableRow>
+	    
+    </TableLayout>
+
+</RelativeLayout>
