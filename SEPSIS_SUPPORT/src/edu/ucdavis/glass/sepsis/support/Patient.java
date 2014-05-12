@@ -32,8 +32,9 @@ public class Patient implements java.io.Serializable
 			public String timeStamp;
 			public String event;
 			public String attribute;
+			public String state;
 			
-			public Event( String ts, String e, String a) {
+			public Event( String ts, String e, String a, String s) {
 				timeStamp = ts;
 				event = e;
 				attribute = a;
@@ -41,30 +42,89 @@ public class Patient implements java.io.Serializable
 		}
 		
 		// Vitals
+		public String bacteriaInBlood;
 	    public ArrayList<Vital> vitals;
 	    
 		public static class Vital implements java.io.Serializable
 		{
-			public String bacteriaInBlood;
 			public String temperature;
 			public String respiratoryRate;
 			public String WBC;
 			public String SBP;
 			public String MAP;
-			public String state;
 			
-			public Vital( String bib, String t, String rr, String wbc, String sbp, String map, String s) {
-				bacteriaInBlood= bib;
+			public Vital( String t, String rr, String wbc, String sbp, String map) {
 				temperature = t;
 				respiratoryRate = rr;
 				WBC = wbc;
 				SBP = sbp;
 				MAP = map;
-				state = s;
 			}
 		}
-		
-		// make dummy patient
+
+	    public Patient( String i, JSONObject j ) 
+	    {
+		    try 
+		    {
+		    	id = i;
+		    	json = j;
+		    	
+				// Overview
+		    	JSONObject o = j.getJSONObject("Overview");
+				name = o.getString( "name" );
+			    dob = o.getString( "dob" );
+			    gender = o.getString( "gender" );
+			    admissionTimestamp = o.getString( "admission_time_stamp" );
+			    currentState = o.getString( "current_state" );
+			    
+			    // Decision Support
+		    	JSONObject d = j.getJSONObject("Decision_Support");
+			    optimalAction = d.getString( "optimal_action" );
+			    alternativeAction = d.getString( "alternative_action" );
+			    nextProbableState = d.getString( "next_probable_state" );
+		    
+			    // Events
+			    events = new ArrayList<Event>();
+			    
+		    	JSONArray es = j.getJSONArray("Events");
+			    for(int k = 0; k < es.length(); k++)
+				{
+			    	JSONObject e = (JSONObject) es.get(k);
+			    	events.add( new Event(
+			    			e.getString( "time_stamp" ),
+			    			e.getString( "event" ),
+			    			e.getString( "attribute" ),
+			    			e.getString( "state" )
+	    			) );
+				}
+
+			    // Vitals
+		    	JSONObject vs = j.getJSONObject("Vitals");
+		    	bacteriaInBlood = vs.getString( "bacteria_in_blood" );
+		    	
+		    	JSONArray ovs = vs.getJSONArray("other_vitals");
+			    vitals = new ArrayList<Vital>();
+			    
+			    for(int k = 0; k < ovs.length(); k++)
+				{
+			    	JSONObject v = (JSONObject) ovs.get(k);
+			    	vitals.add( new Vital(
+			    			v.getString( "temperature" ),
+			    			v.getString( "respiratory_rate" ),
+			    			v.getString( "WBC" ),
+			    			v.getString( "SBP" ),
+			    			v.getString( "MAP" )
+	    			) );
+				}
+			} 
+		    catch (JSONException e) 
+		    {
+				System.out.println( "Reading JSON failed." );
+				e.printStackTrace();
+			}
+	    }
+	    
+		// make dummy patient for testing purposes
 	    public Patient( ) 
 	    {
 	    	id = "999";
@@ -90,82 +150,23 @@ public class Patient implements java.io.Serializable
 		    	events.add( new Event(
 		    			"time_stamp",
 		    			"event",
-		    			"attribute"
+		    			"attribute",
+		    			"state"
     			) );
 			}
 
 		    // Vitals
 		    vitals = new ArrayList<Vital>();
-		    
+		    bacteriaInBlood = "bacteria_in_blood";
 		    for(int k = 0; k < 10; k++)
 			{
 		    	vitals.add( new Vital(
-		    			"bacteria_in_blood",
 		    			"temperature",
 		    			"respiratory_rate",
 		    			"wbc",
 		    			"sbp",
-		    			"map",
-		    			"state"
+		    			"map"
     			) );
-			}
-	    }
-
-	    public Patient( String i, JSONObject j ) 
-	    {
-		    try 
-		    {
-		    	id = i;
-		    	json = j;
-		    	
-				// Overview
-				name = j.getString( "name" );
-			    dob = j.getString( "dob" );
-			    gender = j.getString( "gender" );
-			    admissionTimestamp = j.getString( "admission_timestamp" );
-			    currentState = j.getString( "current_state" );
-			    
-			    // Decision Support
-			    optimalAction = j.getString( "optimal_action" );
-			    alternativeAction = j.getString( "alternative_action" );
-			    nextProbableState = j.getString( "next_probable_state" );
-		    
-			    // Events
-			    events = new ArrayList<Event>();
-			    
-		    	JSONArray es = j.getJSONArray("events");
-			    for(int k = 0; k < es.length(); k++)
-				{
-			    	JSONObject e = (JSONObject) es.get(k);
-			    	events.add( new Event(
-			    			e.getString( "time_stamp" ),
-			    			e.getString( "event" ),
-			    			e.getString( "attribute" )
-	    			) );
-				}
-
-			    // Vitals
-			    vitals = new ArrayList<Vital>();
-			    
-		    	JSONArray vs = j.getJSONArray("events");
-			    for(int k = 0; k < vs.length(); k++)
-				{
-			    	JSONObject v = (JSONObject) vs.get(k);
-			    	vitals.add( new Vital(
-			    			v.getString( "bacteria_in_blood" ),
-			    			v.getString( "temperature" ),
-			    			v.getString( "respiratory_rate" ),
-			    			v.getString( "wbc" ),
-			    			v.getString( "sbp" ),
-			    			v.getString( "map" ),
-			    			v.getString( "state" )
-	    			) );
-				}
-			} 
-		    catch (JSONException e) 
-		    {
-				System.out.println( "Reading JSON failed." );
-				e.printStackTrace();
 			}
 	    }
 	    

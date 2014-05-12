@@ -46,11 +46,6 @@ public class WelcomeActivity extends Activity
         mGestureDetector = createGestureDetector(this);	
         setContentView(R.layout.welcome_screen);
         
-        //=============================================================================
-        // add dummy patient for now
-        // disabled qrscanner for now as well
-        Global.recentPatients.add( new Patient() );
-        
         // load options
         FileInputStream fis;
         try 
@@ -141,8 +136,7 @@ public class WelcomeActivity extends Activity
             {
                 if (gesture == Gesture.TAP) 
                 {
-//                	startActivity( new Intent(getApplicationContext(), QRScannerActivity.class) );
-                	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+                	startActivity( new Intent(getApplicationContext(), QRScannerActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.TWO_TAP) 

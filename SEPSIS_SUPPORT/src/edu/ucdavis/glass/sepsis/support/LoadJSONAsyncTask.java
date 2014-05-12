@@ -8,7 +8,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
@@ -42,16 +41,12 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 	@Override
 	protected JSONObject doInBackground(String...arg0) 
 	{
-		JSONObject result = new JSONObject();
-		try {
-			result.accumulate("result_status", "fail");
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		JSONObject fail = new JSONObject();
 		
 		try 
 		{
+			fail.accumulate("result_status", "fail");
+			
 			// download JSON content
 			String id = (String)arg0[0];
 
@@ -75,26 +70,25 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
             in.close();
 			
             // make JSON
-			JSONObject json = new JSONObject( sb.toString() );
+			JSONObject success = new JSONObject( sb.toString() );
 			
 			// return if successful
-		    if (  (json.get("result_status").toString()).equals("success") )
+		    if (  (success.get("result_status").toString()).equals("success") )
 		    {
-		    	return json;
+		    	return success;
 		    }
 		    
 		}
 		catch(Exception e) 
 		{
-			// error
-			// don't put a notification here because we are in a background thread.
-
 		    // return if unsuccessful
-	    	return result;
+	    	System.out.println("patient doesn't exist.");
+	    	return fail;
 		}
 
 	    // return if unsuccessful
-    	return result;
+    	System.out.println("patient doesn't exist.");
+    	return fail;
 		
 	}
 	

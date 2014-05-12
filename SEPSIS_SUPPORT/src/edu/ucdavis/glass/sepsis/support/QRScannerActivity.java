@@ -33,13 +33,12 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 	    		scannedID = data.getStringExtra("SCAN_RESULT");
 	    		
 	    	    // run AsyncTask
-	    	    new LoadJSONAsyncTask( this, "Checking for patient in database...", this ).execute( scannedID );
+	    	    new LoadJSONAsyncTask( this, "Loading patient from database...", this ).execute( scannedID );
 	   
 	    	}
 	    	else if (resultCode == RESULT_CANCELED) 
 	    	{
 	    		// error
-		    	System.out.println("ERROR_2");
 	            System.out.println("unable to read json.");
 	        }
     	}
@@ -48,8 +47,8 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 	public void onTaskComplete(JSONObject json) 
 	{
 		// add patient 
-	    try {
-	    	
+	    try 
+	    {	
 			if ( (json.get("result_status").toString()).equals("success") )
 		    {	
 				// create patient
@@ -58,17 +57,9 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 		    }
-		    else 
-		    {
-		    	// error
-		    	System.out.println("ERROR_0");
-		    	System.out.println("No patient with that id exists");
-		    }
 			
 	    } catch (Exception e) {
 			// error
-	    	System.out.println("ERROR_1");
-            System.out.println("unable to read json.");
 		}
 	    finish();
 	}
