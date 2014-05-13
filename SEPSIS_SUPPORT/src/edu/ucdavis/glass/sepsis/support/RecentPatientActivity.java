@@ -47,7 +47,7 @@ public class RecentPatientActivity extends Activity
         		Patient p = (Patient)Global.recentPatients.toArray()[position];
 
         		// move recent patient to front of deque
-//			    Global.pushRecentPatient( p.id, p.json );
+			    Global.pushRecentPatient( p.id, p.json );
 
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
