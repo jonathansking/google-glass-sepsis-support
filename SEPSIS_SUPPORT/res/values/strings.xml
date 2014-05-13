@@ -37,10 +37,12 @@
     
     <!--  Overview -->
     <string name="Hosp_Adm_colon">Hospital Adm: </string>
-    <string name="Hosp_Disch_colon">Hospital Disch: </string>
-    <string name="Sex_colon">Sex: </string>
-    <string name="ICU_Days_colon">ICU Days: </string>
+    <string name="Gender_colon">Gender: </string>
     <string name="Current_State">Current State: </string>
+    <string name="RR">RR</string>
+    <string name="MAP">MAP</string>
+    <string name="SBP">SBP</string>
+    <string name="WBC">WBC</string>
     
     <!-- Recent Patients -->
     <string name="recent_patients">Recent Patients</string>

@@ -7,6 +7,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import edu.ucdavis.glass.sepsis.support.Patient.Vital;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -14,86 +15,60 @@ public class VitalLineGraph{
 
 	public GraphicalView getGraph(Context context) {
 		
-		// Temperature data
-		int[] x = { 1, 2, 3, 4, 5, 6, 7}; // x values!
-		int[] y =  { 40, 41, 37, 39, 40, 38, 40 }; // y values!
-		TimeSeries series = new TimeSeries("Temp"); 
-		for( int i = 0; i < x.length; i++)
-		{
-			series.add(x[i], y[i]);
-		}
+		Patient p = Global.recentPatients.peek();
+		// create series for each graph
+		TimeSeries TempSeries = new TimeSeries("Temp");
+		TimeSeries RRSeries = new TimeSeries("RR");
+		TimeSeries WBCSeries = new TimeSeries("WBC");
+		TimeSeries SBPSeries = new TimeSeries("SBP"); 
+		TimeSeries MAPSeries = new TimeSeries("MAP");
 		
-		// Respiratory rate
-		int[] x2 = { 1, 2, 3, 4, 5, 6, 7}; // x values!
-		int[] y2 =  { 21, 20, 3, 18, 3, 2, 19}; // y values!
-		TimeSeries series2 = new TimeSeries("RR"); 
-		for( int i = 0; i < x2.length; i++)
+		int xAxis = 0; // USE 0,1,2,3,... as X axis for now, might need to change.
+		for(Vital i : p.vitals)
 		{
-			series2.add(x2[i], y2[i]);
-		}
-		
-		// WBC rate
-		int[] x3 = { 1, 2, 3, 4, 5, 6, 7}; // x values!
-		int[] y3 =  { 19, 20, 23, 20, 22, 20, 21}; // y values!
-		TimeSeries series3 = new TimeSeries("WBC"); 
-		for( int i = 0; i < x3.length; i++)
-		{
-			series3.add(x3[i], y3[i]);
-		}
-		
-		// SBP rate
-		int[] x4 = { 1, 2, 3, 4, 5, 6, 7}; // x values!
-		int[] y4 =  { 92, 90, 91, 93, 89, 91, 92}; // y values!
-		TimeSeries series4 = new TimeSeries("SBP"); 
-		for( int i = 0; i < x4.length; i++)
-		{
-			series4.add(x4[i], y4[i]);
-		}
-		
-		// SBP rate
-		int[] x5 = { 1, 2, 3, 4, 5, 6, 7}; // x values!
-		int[] y5 =  { 72, 70, 71, 73, 69, 71, 72}; // y values!
-		TimeSeries series5 = new TimeSeries("MAP"); 
-		for( int i = 0; i < x5.length; i++)
-		{
-			series5.add(x5[i], y5[i]);
+			TempSeries.add(xAxis, Integer.parseInt(i.temperature));
+			RRSeries.add(xAxis, Integer.parseInt(i.respiratoryRate));
+			WBCSeries.add(xAxis, Integer.parseInt(i.WBC));
+			SBPSeries.add(xAxis, Integer.parseInt(i.SBP));
+			MAPSeries.add(xAxis, Integer.parseInt(i.MAP));
+			xAxis++;
 		}
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		dataset.addSeries(series);
-		dataset.addSeries(series2);
-		dataset.addSeries(series3);
-		dataset.addSeries(series4);
-		dataset.addSeries(series5);
+		dataset.addSeries(TempSeries);
+		dataset.addSeries(RRSeries);
+		dataset.addSeries(WBCSeries);
+		dataset.addSeries(SBPSeries);
+		dataset.addSeries(MAPSeries);
 		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); // Holds a collection of XYSeriesRenderer and customizes the graph
-		XYSeriesRenderer renderer = new XYSeriesRenderer(); // This will be used to customize series 1
-		XYSeriesRenderer renderer2 = new XYSeriesRenderer(); // This will be used to customize series 2
-		XYSeriesRenderer renderer3 = new XYSeriesRenderer(); // This will be used to customize series 2
-		XYSeriesRenderer renderer4 = new XYSeriesRenderer(); // This will be used to customize series 2
-		XYSeriesRenderer renderer5 = new XYSeriesRenderer(); // This will be used to customize series 2
-		mRenderer.addSeriesRenderer(renderer);
-		mRenderer.addSeriesRenderer(renderer2);
-		mRenderer.addSeriesRenderer(renderer3);
-		mRenderer.addSeriesRenderer(renderer4);
-		mRenderer.addSeriesRenderer(renderer5);
-		mRenderer.setXAxisMax(10.0); //can set scale here
+		XYSeriesRenderer TempRenderer = new XYSeriesRenderer(); // This will be used to customize series 1
+		XYSeriesRenderer RRrenderer = new XYSeriesRenderer(); // This will be used to customize series 2
+		XYSeriesRenderer WBCrenderer = new XYSeriesRenderer(); // This will be used to customize series 3
+		XYSeriesRenderer SBPrenderer = new XYSeriesRenderer(); // This will be used to customize series 4
+		XYSeriesRenderer MAPrenderer = new XYSeriesRenderer(); // This will be used to customize series 5
+		mRenderer.addSeriesRenderer(TempRenderer);
+		mRenderer.addSeriesRenderer(RRrenderer);
+		mRenderer.addSeriesRenderer(WBCrenderer);
+		mRenderer.addSeriesRenderer(SBPrenderer);
+		mRenderer.addSeriesRenderer(MAPrenderer);
+		mRenderer.setXAxisMax(7.5); //can set scale here
 		
 		// Customization time for Temperature
-		renderer.setColor(Color.CYAN);
-		renderer.setFillPoints(true);
+		TempRenderer.setColor(Color.CYAN);
+		TempRenderer.setFillPoints(true);
 		// Customization time for Respiratory
-		renderer2.setColor(Color.rgb(255, 0, 255));
-		renderer2.setFillPoints(true);
+		RRrenderer.setColor(Color.rgb(255, 0, 255));
+		RRrenderer.setFillPoints(true);
 		// Customization time for WBC
-		renderer2.setColor(Color.rgb(255,255,255));
-		renderer2.setFillPoints(true);
+		WBCrenderer.setColor(Color.WHITE);
+		WBCrenderer.setFillPoints(true);
 		// Customization time for SBP
-		renderer2.setColor(Color.rgb(255,0,0));
-		renderer2.setFillPoints(true);
+		SBPrenderer.setColor(Color.RED);
+		SBPrenderer.setFillPoints(true);
 		// Customization time for MAP
-		renderer2.setColor(Color.BLUE);
-		renderer2.setFillPoints(true);
+		MAPrenderer.setColor(Color.BLUE);
+		MAPrenderer.setFillPoints(true);
 		
 		GraphicalView graph = ChartFactory.getLineChartView(context, dataset, mRenderer);
 		return graph;

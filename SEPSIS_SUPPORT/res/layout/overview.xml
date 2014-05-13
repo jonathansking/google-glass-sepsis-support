@@ -28,8 +28,8 @@
         android:layout_below="@+id/overviewToDS" >
 
         <FrameLayout
-            android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_width="99dp"
+            android:layout_height="match_parent"
             android:measureAllChildren="true" >
 
             <ImageView
@@ -39,8 +39,8 @@
                 android:src="@drawable/default_user" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center|bottom"
                 android:text="Patient"
                 android:textColor="#000000"
@@ -63,16 +63,21 @@
                     android:id="@+id/overviewDOBField"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/empty" />
+                
+            </TableRow>
+            
+            <TableRow style="@style/Row" >
 
                 <TextView
-                    android:id="@+id/overviewSexLabel"
+                    android:id="@+id/overviewGenderLabel"
                     style="@style/Heading.Sub.Row.Right"
-                    android:text="@string/Sex_colon" />
+                    android:text="@string/Gender_colon" />
 
                 <TextView
-                    android:id="@+id/overviewSexField"
+                    android:id="@+id/overviewGenderField"
                     style="@style/Heading.Sub.Row.Right"
                     android:text="@string/empty" />
+                
             </TableRow>
 
             <TableRow style="@style/Row" >
@@ -84,32 +89,6 @@
 
                 <TextView
                     android:id="@+id/overviewHospAdmField"
-                    style="@style/Heading.Sub.Row.Left"
-                    android:text="@string/empty" />
-            </TableRow>
-
-            <TableRow style="@style/Row" >
-
-                <TextView
-                    android:id="@+id/overviewHospDischLabel"
-                    style="@style/Heading.Sub.Row.Right"
-                    android:text="@string/Hosp_Disch_colon" />
-
-                <TextView
-                    android:id="@+id/overviewHospDischField"
-                    style="@style/Heading.Sub.Row.Left"
-                    android:text="@string/empty" />
-            </TableRow>
-
-            <TableRow style="@style/Row" >
-
-                <TextView
-                    android:id="@+id/overviewICUDaysLabel"
-                    style="@style/Heading.Sub.Row.Right"
-                    android:text="@string/ICU_Days_colon" />
-
-                <TextView
-                    android:id="@+id/overviewICUDays"
                     style="@style/Heading.Sub.Row.Left"
                     android:text="@string/empty" />
             </TableRow>
@@ -189,25 +168,25 @@
 	        style="@style/GlassText.XSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="RR"/>
+	        android:text="@string/RR"/>
 	        
 	        <TextView
 	        style="@style/GlassText.XSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="HR"/>
+	        android:text="@string/MAP"/>
 	        
 	        <TextView
 	        style="@style/GlassText.XSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="SBP"/>
+	        android:text="@string/SBP"/>
 	        
 	        <TextView
 	        style="@style/GlassText.XSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="WBC"/>
+	        android:text="@string/WBC"/>
 	        
 	    </TableRow>
 	    
@@ -224,7 +203,7 @@
 	        
 	        <TextView
 	        style="@style/GlassText.XSmall"
-	        android:id="@+id/summaryHRField"
+	        android:id="@+id/summaryMAPField"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/empty"/>
@@ -238,7 +217,7 @@
 	        
 	        <TextView
 	        style="@style/GlassText.XSmall"
-	        android:id="@+id/summaryField"
+	        android:id="@+id/summaryWBCField"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/empty"/>

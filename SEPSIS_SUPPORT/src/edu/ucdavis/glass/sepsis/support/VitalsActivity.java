@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -47,13 +48,39 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        /* set up graph */
         setContentView(R.layout.vitals);
+        loadView();
+	}
+	
+	private void loadView()
+	{
+		Patient p = Global.recentPatients.peek();
+		/* set up graph */
         FrameLayout layout = (FrameLayout) findViewById(R.id.vitalsLeftLayout);
     	VitalLineGraph vitalGraph = new VitalLineGraph(); 
     	mChart = vitalGraph.getGraph(this);
         layout.addView(mChart);
         /****************/
+        
+        /* set data */
+        //retrieve data field
+        TextView BACInBloodView = (TextView) findViewById(R.id.bacInBloodTextView);// bacteria in blood 
+		TextView tempView = (TextView) findViewById(R.id.tempTextView);// temperature
+		TextView RRView = (TextView) findViewById(R.id.RRTextView);// respiratory rate
+		TextView WBCView = (TextView) findViewById(R.id.WBCTextView);// WBC
+		TextView MAPView = (TextView) findViewById(R.id.MAPTextView);// MAP
+		TextView SBPView = (TextView) findViewById(R.id.SBPTextView);//SBP
+		TextView stateView = (TextView) findViewById(R.id.stateTextView);// State
+		
+		//set data
+		BACInBloodView.setText(p.bacteriaInBlood);
+		tempView.setText(p.vitals.get(p.vitals.size()-1).temperature);
+		RRView.setText(p.vitals.get(p.vitals.size()-1).respiratoryRate);
+		WBCView.setText(p.vitals.get(p.vitals.size()-1).WBC);
+		MAPView.setText(p.vitals.get(p.vitals.size()-1).MAP);
+		SBPView.setText(p.vitals.get(p.vitals.size()-1).SBP);
+		stateView.setText(p.currentState);
+    	/************/
 	}
 
 	private GestureDetector createGestureDetector(Context context) 

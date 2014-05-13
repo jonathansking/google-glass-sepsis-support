@@ -66,12 +66,12 @@
                 <TextView
                     android:id="@+id/bacInBloodTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="BACinBlood:" />
+                    android:text="@string/Bacteria_colon" />
 
                 <TextView
                     android:id="@+id/bibField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="Yes" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -82,12 +82,12 @@
                 <TextView
                     android:id="@+id/tempTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="Temp:" />
+                    android:text="@string/Temp_colon" />
 
                 <TextView
                     android:id="@+id/tempField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="38 °C" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -98,12 +98,12 @@
                 <TextView
                     android:id="@+id/RRTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="RR:" />
+                    android:text="@string/RespRate_colon" />
 
                 <TextView
                     android:id="@+id/RRField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="20" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -114,12 +114,12 @@
                 <TextView
                     android:id="@+id/WBCTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="WBC:" />
+                    android:text="@string/WBC_colon" />
 
                 <TextView
                     android:id="@+id/WBCField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="12.9" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -130,12 +130,12 @@
                 <TextView
                     android:id="@+id/SBPTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="SBP:" />
+                    android:text="@string/SBP_colon" />
 
                 <TextView
                     android:id="@+id/SBPField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="91.8" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -146,12 +146,12 @@
                 <TextView
                     android:id="@+id/MAPTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="MAP:" />
+                    android:text="@string/MAP_colon" />
 
                 <TextView
                     android:id="@+id/MAPField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="72.3" />
+                    android:text="@string/empty" />
             </TableRow>
 
             <TableRow
@@ -162,12 +162,12 @@
                 <TextView
                     android:id="@+id/stateTextView"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="Temp:" />
+                    android:text="@string/State_colon" />
 
                 <TextView
                     android:id="@+id/stateField"
                     style="@style/GlassText.Row.Right.Thin"
-                    android:text="SIRS" />
+                    android:text="@string/empty" />
             </TableRow>
         </LinearLayout>
 

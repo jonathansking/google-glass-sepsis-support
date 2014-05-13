@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -42,16 +43,43 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 		
 		System.out.println("OnCreate Overview");
 		
-		/* set view for overview */
-        setContentView(R.layout.overview);
-		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        
-        /* Set view done*/
+        setContentView(R.layout.overview);
+		loadView();
+	}
+	
+	private void loadView()
+	{
+		Patient p = Global.recentPatients.peek();
+		/* set view for overview */
+		//Retrieve data field
+		TextView pNameView = (TextView) findViewById(R.id.patientName);// name
+		TextView pIdView = (TextView) findViewById(R.id.patientId);// ID
+		TextView pDOBView = (TextView) findViewById(R.id.overviewDOBField);// DOB
+		TextView pGenderView = (TextView) findViewById(R.id.overviewGenderField);// Gender
+		TextView pHospAdmView = (TextView) findViewById(R.id.overviewHospAdmField);// Hospital Admission
+		TextView pStateView = (TextView) findViewById(R.id.overviewCurentStateField);//Current State
+		TextView sumRRView = (TextView) findViewById(R.id.summaryRRField);//Sum: RR
+		TextView sumMAPView = (TextView) findViewById(R.id.summaryMAPField);//Sum: MAP
+		TextView sumSBPView = (TextView) findViewById(R.id.summarySBPField);//Sum: SBP
+		TextView sumWBCView = (TextView) findViewById(R.id.summaryWBCField);//Sum: WBC
+		
+		//set data
+		pNameView.setText(p.name);
+    	pIdView.setText(p.id);
+    	pDOBView.setText(p.dob);
+    	pGenderView.setText(p.gender);
+    	pHospAdmView.setText(p.admissionTimestamp);
+    	pStateView.setText(p.gender);
+    	sumRRView.setText(p.vitals.get(p.vitals.size()-1).respiratoryRate);
+    	sumMAPView.setText(p.vitals.get(p.vitals.size()-1).MAP);
+    	sumSBPView.setText(p.vitals.get(p.vitals.size()-1).SBP);
+    	sumWBCView.setText(p.vitals.get(p.vitals.size()-1).WBC);
+    	
 	}
 	
 	public void onTaskComplete(JSONObject json) 

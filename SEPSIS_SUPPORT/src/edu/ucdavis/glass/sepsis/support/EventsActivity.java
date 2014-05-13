@@ -49,7 +49,13 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         
         /* set view for events */
         setContentView(R.layout.events);
-        TableLayout eventsTableLO = (TableLayout) findViewById(R.id.eventsTableLayout);
+        loadView();
+	}
+	
+	private void loadView()
+	{
+        Patient p = Global.recentPatients.peek();
+		TableLayout eventsTableLO = (TableLayout) findViewById(R.id.eventsTableLayout);
         
         //create rows
         for (int i = 0; i < Global.options.eventsDisplay; i++) //MAX_EVENT is the maximum events will be display, not yet created
@@ -58,40 +64,37 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	TableRow eventRow = new TableRow(this);
         	eventRow.setLayoutParams(new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
         	
-        	// Create Text View for RANK and add to table row
-        	TextView rank = new TextView(this);
+        	// Create Text View for events
+        	TextView rank = new TextView(this);// index
+        	TextView time = new TextView(this);// time stamp
+        	TextView event = new TextView(this);// event
+        	TextView attr = new TextView(this);// attribute
+        	TextView state = new TextView(this);// state
+        	
+        	//set style
         	rank.setTextAppearance(this, R.style.GlassText_XSmall);
-        	rank.setText(String.valueOf(i+1));
+        	time.setTextAppearance(this, R.style.GlassText_XSmall);
+        	event.setTextAppearance(this, R.style.GlassText_XSmall);
+        	attr.setTextAppearance(this, R.style.GlassText_XSmall);
+        	state.setTextAppearance(this, R.style.GlassText_XSmall);
+        	
+        	//set data
+        	rank.setText(String.valueOf(i+1));// index
+        	time.setText(p.events.get(i).timeStamp);// time stamp
+        	event.setText(p.events.get(i).event);// event
+        	attr.setText(p.events.get(i).attribute);// attribute
+        	state.setText(p.events.get(i).state);// state
+        	
+        	//add to table row
         	eventRow.addView(rank);
-        	
-        	// Create Text View for TIME and add to table row
-        	TextView time = new TextView(this);
-        	time.setTextAppearance(this, R.style.GlassText_Small);
-        	time.setText("5/11 00:00");
         	eventRow.addView(time);
-        	
-        	// Create Text View for EVENT and add to table row
-        	TextView event = new TextView(this);
-        	event.setTextAppearance(this, R.style.GlassText_Small);
-        	event.setText("Event #" + String.valueOf(i+1));
         	eventRow.addView(event);
-        	
-        	// Create Text View for ATTRIBUTE and add to table row
-        	TextView attr = new TextView(this);
-        	attr.setTextAppearance(this, R.style.GlassText_Small);
-        	attr.setText("Attribute #" + String.valueOf(i+1));
         	eventRow.addView(attr);
-        	
-        	// Create Text View for STATES and add to table row
-        	TextView state = new TextView(this);
-        	state.setTextAppearance(this, R.style.GlassText_Small);
-        	state.setText("BS");
         	eventRow.addView(state);
         	
         	// Add row to table
         	eventsTableLO.addView(eventRow, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
         }
-        
         /* Set view done*/
 	}
 
