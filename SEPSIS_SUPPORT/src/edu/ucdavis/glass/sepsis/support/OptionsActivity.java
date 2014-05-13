@@ -21,6 +21,7 @@ public class OptionsActivity extends Activity
 	private GestureDetector mGestureDetector;
 	private TextView recentPatientOptionTxtView;
 	private TextView timeoutOptionTxtView;
+	private TextView headGestureTxtView;
 	
     protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -34,6 +35,12 @@ public class OptionsActivity extends Activity
         
         recentPatientOptionTxtView = (TextView) findViewById(R.id.recentPatientOption);
 	    recentPatientOptionTxtView.setText(String.valueOf(Global.options.numberOfRecentPatients));
+	    
+	    headGestureTxtView = (TextView) findViewById(R.id.headGesture);
+	    if(Global.options.headGesture)
+	    	headGestureTxtView.setText("ON");
+	    else
+	    	headGestureTxtView.setText("OFF");
     }
 	
 	@Override
@@ -52,14 +59,25 @@ public class OptionsActivity extends Activity
 	        case R.id.set_screen_timeout:
 //	        	startActivityForResult(new Intent(OptionsActivity.this, ScreenTimeoutSetting.class), 0);
 	        	Intent intent_st = new Intent(this, ValueSelectorActivity.class);
+	        	ArrayList<Integer> valueList = makeIntegerArrayList(15, 200, 5);
+	        	valueList.add(-1);
 	        	intent_st.putExtra("values", makeIntegerArrayList(15, 200, 5));
+	        	intent_st.putExtra("requestCode", 0);
 	        	startActivityForResult(intent_st, 0);
 	            return true;
 	        case R.id.set_num_recent_patients:
 //	        	startActivityForResult(new Intent(OptionsActivity.this, MaxPatientSetting.class), 1);
 	        	Intent intent_nrp = new Intent(this, ValueSelectorActivity.class);
-	        	intent_nrp.putExtra("values", makeIntegerArrayList(0, 20, 1));
+	        	intent_nrp.putExtra("values", makeIntegerArrayList(0, 21, 1));
+	        	intent_nrp.putExtra("requestCode",1);
 	        	startActivityForResult(intent_nrp, 1);
+	            return true;
+	        case R.id.set_head_gesture:
+//	        	startActivityForResult(new Intent(OptionsActivity.this, MaxPatientSetting.class), 1);
+	        	Intent intent_hg = new Intent(this, ValueSelectorActivity.class);
+	        	intent_hg.putExtra("values", makeIntegerArrayList(0, 2, 1));
+	        	intent_hg.putExtra("requestCode",2);
+	        	startActivityForResult(intent_hg, 2);
 	            return true;
 	        case R.id.reset_options:
 	        	Global.options = new Global.Options();
@@ -92,6 +110,15 @@ public class OptionsActivity extends Activity
 	    		int maxPatientSetting = data.getExtras().getInt("selected_value", Global.options.numberOfRecentPatients);
 	    		Global.options.numberOfRecentPatients = maxPatientSetting;
 	    		recentPatientOptionTxtView.setText(String.valueOf(Global.options.numberOfRecentPatients));
+	    	}
+	    	else if(requestCode == 2)
+	    	{
+	    		boolean headGestureSetting = data.getExtras().getBoolean("selected_value", Global.options.headGesture);
+	    		Global.options.headGesture = headGestureSetting;
+	    		if(Global.options.headGesture)
+	    	    	headGestureTxtView.setText("ON");
+	    	    else
+	    	    	headGestureTxtView.setText("OFF");
 	    	}
     	}
     }

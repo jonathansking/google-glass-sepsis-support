@@ -55,6 +55,7 @@
     <string name="screen_timeout">Screen timeout</string>
     <string name="set_screen_timeout">Set screen timeout</string>
     <string name="set_num_recent_patients">Set number of recent patients</string>
+    <string name="head_gesture">Head Gesture</string>
     <string name="reset_options">Reset to default options</string>
     
     <!-- Vitals -->

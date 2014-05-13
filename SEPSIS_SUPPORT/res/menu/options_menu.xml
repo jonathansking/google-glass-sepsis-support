@@ -9,6 +9,9 @@
        android:title="@string/set_num_recent_patients"
        android:icon="@drawable/ic_cross"/>
    <item
+       android:id="@+id/set_head_gesture"
+       android:title="@string/head_gesture" />
+   <item
        android:id="@+id/reset_options"
        android:title="@string/reset_options"
        android:icon="@drawable/ic_stop" />

@@ -26,7 +26,7 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
     private AudioManager mAudioManager;
 	private GestureDetector mGestureDetector;
 	private Context mContext;
-
+	private int requestCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -37,7 +37,7 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
         
         // get card values from intent
         cardValues = getIntent().getIntegerArrayListExtra("values");
-        
+        requestCode = getIntent().getIntExtra("requestCode",-1);
         // set up view
         mCardScrollView = new CardScrollView(this) {
             @Override
@@ -76,7 +76,17 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
     public boolean onGesture(Gesture gesture) {
         if (gesture == Gesture.TAP) {
         	Intent resultIntent = new Intent();
-            resultIntent.putExtra("selected_value", cardValues.get(mCardScrollView.getSelectedItemPosition()) );
+        	if(2 == requestCode)
+        	{
+        		if(0 == cardValues.get(mCardScrollView.getSelectedItemPosition()) )
+        			resultIntent.putExtra("selected_value", false);	
+        		else
+        			resultIntent.putExtra("selected_value", true);
+        	}
+        	else
+            {
+        		resultIntent.putExtra("selected_value", cardValues.get(mCardScrollView.getSelectedItemPosition()) );
+            }
             setResult(RESULT_OK, resultIntent);
             mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
             finish();
@@ -114,8 +124,21 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
             view = vi.inflate(R.layout.card_select_value, null);
 
             TextView left = (TextView) view.findViewById(R.id.value);
-
-            left.setText( cardValues.get(position).toString() );
+            
+            if (2 == requestCode)
+            {
+            	if(cardValues.get(position) == 0)
+	            	left.setText( "OFF" );
+	            else
+	            	left.setText( "ON" );
+            }
+            else
+            {
+            	if(cardValues.get(position) == -1)
+	            	left.setText( "Never" );
+	            else
+	            	left.setText( cardValues.get(position).toString() );
+            }
             
             return  view;
         }

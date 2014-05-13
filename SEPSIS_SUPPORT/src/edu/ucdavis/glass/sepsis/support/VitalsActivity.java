@@ -149,12 +149,18 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     // headgestures
     @Override
     public void onShakeToRight() {
-    	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+    	if(Global.options.headGesture)
+    	{
+    		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+    	}
     }
 
     @Override
     public void onShakeToLeft() {
-    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+    	if(Global.options.headGesture)
+    	{
+    		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+    	}
     }
     
     @Override
