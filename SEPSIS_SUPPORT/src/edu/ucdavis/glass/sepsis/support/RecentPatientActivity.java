@@ -17,6 +17,9 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RecentPatientActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
@@ -47,7 +50,12 @@ public class RecentPatientActivity extends Activity
         		Patient p = (Patient)Global.recentPatients.toArray()[position];
 
         		// move recent patient to front of deque
-			    Global.pushRecentPatient( p.id, p.json );
+			    try {
+					Global.pushRecentPatient( p.id, new JSONObject(p.json) );
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );

@@ -2,6 +2,9 @@ package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,8 +17,8 @@ import org.json.JSONObject;
 public class Patient implements java.io.Serializable
 {
 		public String id;
-		public JSONObject json;
-    	
+		//public JSONObject json;
+    	public String json;
 		// Overview
 	    public String name;
 	    public String dob;
@@ -77,7 +80,7 @@ public class Patient implements java.io.Serializable
 		    try 
 		    {
 		    	id = i;
-		    	json = j;
+		    	json = j.toString();
 		    	
 				// Overview
 		    	JSONObject o = j.getJSONObject("Overview");
@@ -141,7 +144,7 @@ public class Patient implements java.io.Serializable
 	    public Patient( )
 	    {
 	    	id = "999";
-	    	json = new JSONObject();
+	    	json = new JSONObject().toString();
 	    	
 			// Overview
 			name = "name";
