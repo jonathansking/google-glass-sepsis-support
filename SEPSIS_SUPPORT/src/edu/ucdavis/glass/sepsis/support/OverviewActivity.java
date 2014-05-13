@@ -102,7 +102,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
                 {
 //                    // set up AsyncTask
 //                    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Updating all patient's info...", this );
-//            	    
 //            	    // run AsyncTask
 //              	  	JSON.execute( "overview" );
               	  	

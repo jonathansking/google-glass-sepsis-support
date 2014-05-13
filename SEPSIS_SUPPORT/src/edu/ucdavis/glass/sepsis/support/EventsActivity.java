@@ -40,7 +40,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
-	//private ScrollView eventsScrollView;
+	private ScrollView eventsScrollView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -53,7 +53,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         /* set view for events */
         setContentView(R.layout.events);
         loadView();
-        //eventsScrollView = (ScrollView) findViewById(R.id.eventsScrollView);
+        eventsScrollView = (ScrollView) findViewById(R.id.eventsScrollView);
 	}
 	
 	private void loadView()
@@ -138,20 +138,22 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
                 }
                 else if (gesture == Gesture.LONG_PRESS) 
                 {	
-                	mListView.setScrollY( mListView.getScrollY()+100 );
+                	//mListView.setScrollY( mListView.getScrollY()+100 );
                 	return true;
                 }
                 return false;
             }
         });
-//        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
-//            @Override
-//            public boolean onScroll(float displacement, float delta, float velocity) {
-//				
-//				eventsScrollView.smoothScrollTo(0,x*360);
-//            	return true;
-//            }
-//        });
+        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
+            @Override
+            public boolean onScroll(float displacement, float delta, float velocity) {
+				if(displacement > 0)
+					eventsScrollView.smoothScrollTo(0,100);
+				else
+					eventsScrollView.smoothScrollTo(0,0);
+            	return true;
+            }
+        });
         return gestureDetector;
     }
 
