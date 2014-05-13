@@ -5,21 +5,21 @@
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/vitalsToEvents"
+        android:id="@+id/vitalsToOverview"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="@string/vitals_to_events" />
+        android:text="@string/vitals_to_overview" />
 
     <TextView
-        android:id="@+id/vitalsToOverview"
+        android:id="@+id/vitalsToEvents"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/vitals_to_overview" />
+        android:text="@string/vitals_to_events" />
 
     <View
         android:id="@+id/vitalsSeparator"
@@ -49,7 +49,7 @@
 
         <LinearLayout
             android:id="@+id/vitalsRightLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"

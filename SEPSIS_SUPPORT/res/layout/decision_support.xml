@@ -5,21 +5,21 @@
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/DSToOverview"
+        android:id="@+id/DSToEvents"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="@string/DS_to_overview" />
+        android:text="@string/DS_to_events" />
 
     <TextView
-        android:id="@+id/DSToEvents"
+        android:id="@+id/DSToOverview"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/DS_to_events" />
+        android:text="@string/DS_to_overview" />
 
     <View
         android:id="@+id/DSSeparator"

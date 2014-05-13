@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -85,6 +84,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	public void onTaskComplete(JSONObject json) 
 	{
     	// reload overview
+		finish();
     	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 	}
 	

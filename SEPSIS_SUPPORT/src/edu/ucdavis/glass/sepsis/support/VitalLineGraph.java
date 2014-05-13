@@ -26,11 +26,11 @@ public class VitalLineGraph{
 		int xAxis = 0; // USE 0,1,2,3,... as X axis for now, might need to change.
 		for(Vital i : p.vitals)
 		{
-			TempSeries.add(xAxis, Integer.parseInt(i.temperature));
-			RRSeries.add(xAxis, Integer.parseInt(i.respiratoryRate));
-			WBCSeries.add(xAxis, Integer.parseInt(i.WBC));
-			SBPSeries.add(xAxis, Integer.parseInt(i.SBP));
-			MAPSeries.add(xAxis, Integer.parseInt(i.MAP));
+			TempSeries.add(xAxis, Double.parseDouble(i.temperature));
+			RRSeries.add(xAxis, Double.parseDouble(i.respiratoryRate));
+			WBCSeries.add(xAxis, Double.parseDouble(i.WBC));
+			SBPSeries.add(xAxis, Double.parseDouble(i.SBP));
+			MAPSeries.add(xAxis, Double.parseDouble(i.MAP));
 			xAxis++;
 		}
 		
@@ -42,17 +42,17 @@ public class VitalLineGraph{
 		dataset.addSeries(MAPSeries);
 		
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); // Holds a collection of XYSeriesRenderer and customizes the graph
-		XYSeriesRenderer TempRenderer = new XYSeriesRenderer(); // This will be used to customize series 1
-		XYSeriesRenderer RRrenderer = new XYSeriesRenderer(); // This will be used to customize series 2
-		XYSeriesRenderer WBCrenderer = new XYSeriesRenderer(); // This will be used to customize series 3
-		XYSeriesRenderer SBPrenderer = new XYSeriesRenderer(); // This will be used to customize series 4
-		XYSeriesRenderer MAPrenderer = new XYSeriesRenderer(); // This will be used to customize series 5
+		XYSeriesRenderer TempRenderer = new XYSeriesRenderer();
+		XYSeriesRenderer RRrenderer = new XYSeriesRenderer();
+		XYSeriesRenderer WBCrenderer = new XYSeriesRenderer();
+		XYSeriesRenderer SBPrenderer = new XYSeriesRenderer();
+		XYSeriesRenderer MAPrenderer = new XYSeriesRenderer();
 		mRenderer.addSeriesRenderer(TempRenderer);
 		mRenderer.addSeriesRenderer(RRrenderer);
 		mRenderer.addSeriesRenderer(WBCrenderer);
 		mRenderer.addSeriesRenderer(SBPrenderer);
 		mRenderer.addSeriesRenderer(MAPrenderer);
-		mRenderer.setXAxisMax(7.5); //can set scale here
+		mRenderer.setXAxisMax(12.0); //can set scale here
 		
 		// Customization time for Temperature
 		TempRenderer.setColor(Color.CYAN);

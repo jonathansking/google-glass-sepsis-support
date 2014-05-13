@@ -21,7 +21,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
+import android.widget.ScrollView;
 import android.widget.TableRow.LayoutParams;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -38,6 +40,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
+	//private ScrollView eventsScrollView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -50,6 +53,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         /* set view for events */
         setContentView(R.layout.events);
         loadView();
+        //eventsScrollView = (ScrollView) findViewById(R.id.eventsScrollView);
 	}
 	
 	private void loadView()
@@ -63,6 +67,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	//Create Table row
         	TableRow eventRow = new TableRow(this);
         	eventRow.setLayoutParams(new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+        	eventRow.setGravity(Gravity.CENTER);
         	
         	// Create Text View for events
         	TextView rank = new TextView(this);// index
@@ -72,11 +77,16 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	TextView state = new TextView(this);// state
         	
         	//set style
-        	rank.setTextAppearance(this, R.style.GlassText_XSmall);
-        	time.setTextAppearance(this, R.style.GlassText_XSmall);
-        	event.setTextAppearance(this, R.style.GlassText_XSmall);
-        	attr.setTextAppearance(this, R.style.GlassText_XSmall);
-        	state.setTextAppearance(this, R.style.GlassText_XSmall);
+        	rank.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	time.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	event.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	attr.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	state.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	rank.setGravity(Gravity.CENTER);
+        	time.setGravity(Gravity.CENTER);
+        	event.setGravity(Gravity.CENTER);
+        	attr.setGravity(Gravity.CENTER);
+        	state.setGravity(Gravity.CENTER);
         	
         	//set data
         	rank.setText(String.valueOf(i+1));// index
@@ -134,7 +144,14 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
                 return false;
             }
         });
-        
+//        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
+//            @Override
+//            public boolean onScroll(float displacement, float delta, float velocity) {
+//				
+//				eventsScrollView.smoothScrollTo(0,x*360);
+//            	return true;
+//            }
+//        });
         return gestureDetector;
     }
 

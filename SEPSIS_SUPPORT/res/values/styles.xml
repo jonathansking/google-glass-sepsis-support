@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="GlassText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -41,7 +41,11 @@
     </style>
     
     <style name="GlassText.XSmall">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    
+    <style name="GlassText.XXSmall">
+        <item name="android:textSize">12sp</item>
     </style>
     
     <style name="GlassText.Row">

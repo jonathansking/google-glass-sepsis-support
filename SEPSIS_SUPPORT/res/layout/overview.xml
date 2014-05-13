@@ -5,20 +5,20 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/overviewToVitals"
+        android:id="@+id/overviewToDS"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="❰ Vitals" />
+        android:text="❰ Decision \nSupport" />
 
     <TextView
-        android:id="@+id/overviewToDS"
+        android:id="@+id/overviewToVitals"
         style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Decision ❱\nSupport" />
+        android:text="Vitals ❱" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -108,13 +108,6 @@
         </TableLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dip"
-        android:layout_alignBottom="@+id/overViewToDS"
-        android:layout_alignParentLeft="true"
-        android:background="@color/white" />
-
     <TextView
         android:id="@+id/patientName"
         style="@style/GlassText.Small"
@@ -127,7 +120,7 @@
 
     <TextView
         android:id="@+id/patientId"
-        style="@style/GlassText"
+        style="@style/GlassText.XSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -154,8 +147,7 @@
     <TableLayout
         android:id="@+id/overviewTableLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/overviewSeparator2"
         android:layout_toRightOf="@+id/overviewSummary"
         android:stretchColumns="*" >
@@ -225,5 +217,20 @@
 	    </TableRow>
 
     </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_alignBottom="@+id/overviewToDS"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white" />
+
+    <TextView
+        style="@style/GlassText.XXSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overviewTableLayout"
+        android:layout_centerHorizontal="true"
+        android:text="Tap to Refresh" />
 
 </RelativeLayout>

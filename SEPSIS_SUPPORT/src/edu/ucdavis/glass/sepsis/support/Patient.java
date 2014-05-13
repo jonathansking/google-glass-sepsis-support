@@ -1,6 +1,10 @@
 package edu.ucdavis.glass.sepsis.support;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +38,16 @@ public class Patient implements java.io.Serializable
 			public String attribute;
 			public String state;
 			
-			public Event( String ts, String e, String a, String s) {
-				timeStamp = ts;
+			public Event( String ts, String e, String a, String s) throws ParseException {
+				//parse time stamp to simpler format for display purpose
+				SimpleDateFormat parseFormat = new SimpleDateFormat("M/dd/yyyy hh:mm a");
+				SimpleDateFormat displayFormat = new SimpleDateFormat("M/dd/yy HH:mm", Locale.US);
+				Date tsDate = parseFormat.parse(ts);
+				
+				timeStamp = displayFormat.format(tsDate).toString();
 				event = e;
 				attribute = a;
+				state = s;
 			}
 		}
 		
@@ -62,7 +72,7 @@ public class Patient implements java.io.Serializable
 			}
 		}
 
-	    public Patient( String i, JSONObject j ) 
+	    public Patient( String i, JSONObject j )
 	    {
 		    try 
 		    {
@@ -121,11 +131,14 @@ public class Patient implements java.io.Serializable
 		    {
 				System.out.println( "Reading JSON failed." );
 				e.printStackTrace();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 	    }
 	    
 		// make dummy patient for testing purposes
-	    public Patient( ) 
+	    public Patient( )
 	    {
 	    	id = "999";
 	    	json = new JSONObject();
@@ -147,12 +160,17 @@ public class Patient implements java.io.Serializable
 		    
 		    for(int k = 0; k < 10; k++)
 			{
-		    	events.add( new Event(
-		    			"time_stamp",
-		    			"event",
-		    			"attribute",
-		    			"state"
-    			) );
+		    	try {
+					events.add( new Event(
+							"time_stamp",
+							"event",
+							"attribute",
+							"state"
+					) );
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		    // Vitals

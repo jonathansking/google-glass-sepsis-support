@@ -64,13 +64,13 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         
         /* set data */
         //retrieve data field
-        TextView BACInBloodView = (TextView) findViewById(R.id.bacInBloodTextView);// bacteria in blood 
-		TextView tempView = (TextView) findViewById(R.id.tempTextView);// temperature
-		TextView RRView = (TextView) findViewById(R.id.RRTextView);// respiratory rate
-		TextView WBCView = (TextView) findViewById(R.id.WBCTextView);// WBC
-		TextView MAPView = (TextView) findViewById(R.id.MAPTextView);// MAP
-		TextView SBPView = (TextView) findViewById(R.id.SBPTextView);//SBP
-		TextView stateView = (TextView) findViewById(R.id.stateTextView);// State
+        TextView BACInBloodView = (TextView) findViewById(R.id.bibField);// bacteria in blood 
+		TextView tempView = (TextView) findViewById(R.id.tempField);// temperature
+		TextView RRView = (TextView) findViewById(R.id.RRField);// respiratory rate
+		TextView WBCView = (TextView) findViewById(R.id.WBCField);// WBC
+		TextView MAPView = (TextView) findViewById(R.id.MAPField);// MAP
+		TextView SBPView = (TextView) findViewById(R.id.SBPField);//SBP
+		TextView stateView = (TextView) findViewById(R.id.stateField);// State
 		
 		//set data
 		BACInBloodView.setText(p.bacteriaInBlood);

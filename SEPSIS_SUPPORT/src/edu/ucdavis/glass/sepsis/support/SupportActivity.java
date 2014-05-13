@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -45,9 +46,28 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         
         /* set view for support */
         setContentView(R.layout.decision_support);
+        loadView();
         /* Set view done*/
 	}
 
+	private void loadView()
+	{
+		//DSCurrentStateField DSOptActField DSAltActField DSNextStateField
+		Patient p = Global.recentPatients.peek();
+		/* set view for overview */
+		//Retrieve data field
+		TextView DSCurrentStateView = (TextView) findViewById(R.id.DSCurrentStateField);// current state
+		TextView DSOptActView = (TextView) findViewById(R.id.DSOptActField);// optimal option
+		TextView DSAltActView = (TextView) findViewById(R.id.DSAltActField);// alternative action
+		TextView DSNextStateView = (TextView) findViewById(R.id.DSNextStateField);// Next state
+		
+		//set data
+		DSCurrentStateView.setText(p.currentState);
+		DSOptActView.setText(p.optimalAction);
+		DSAltActView.setText(p.alternativeAction);
+		DSNextStateView.setText(p.nextProbableState);
+	}
+	
 	private GestureDetector createGestureDetector(Context context) 
 	{
 		GestureDetector gestureDetector = new GestureDetector(context);

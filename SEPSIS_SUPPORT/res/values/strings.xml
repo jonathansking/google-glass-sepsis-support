@@ -59,30 +59,30 @@
     
     <!-- Vitals -->
     <string name="vitals_screen_title">VITALS</string>
-    <string name="vitals_to_events">&#10096; Events</string>
-    <string name="vitals_to_overview">Overview &#10097;</string>
+    <string name="vitals_to_events">Events &#10097;</string>
+    <string name="vitals_to_overview">&#10096; Overview</string>
     <string name="Bacteria_colon">Bacteria: </string>
     <string name="WBC_colon">WBC: </string>
     <string name="MAP_colon">MAP: </string>
-    <string name="Temp_colon">Temperature: </string>
+    <string name="Temp_colon">TEMP: </string>
     <string name="State_colon">State: </string>
-    <string name="RespRate_colon">Respiratory-Rate: </string>
+    <string name="RespRate_colon">RR: </string>
     <string name="SBP_colon">SBP: </string>
     
     <!-- Events -->
     <string name="events_screen_title">EVENTS</string>
-    <string name="events_to_DS">&#10096; Decision\nSupport</string>
-    <string name="events_to_vitals">Vitals &#10097;</string>
+    <string name="events_to_DS">Decision &#10097;\nSupport</string>
+    <string name="events_to_vitals">&#10096; Vitals </string>
     <string name="Rank">Rank</string>
     <string name="Time">Time Stamp </string>
     <string name="Event">Event </string>
     <string name="Att">Attribute </string>
-    <string name="State">Attribute </string>
+    <string name="State">State </string>
     
     <!-- Decision Support -->
     <string name="DS_screen_title">DECISION SUPPORT</string>
-    <string name="DS_to_overview">&#10096; Overview</string>
-    <string name="DS_to_events">Events &#10097;</string>
+    <string name="DS_to_overview">Overview &#10097;</string>
+    <string name="DS_to_events">&#10096; Events</string>
     <string name="CurrentState_colon">Current State:</string>
     <string name="OptAct_colon">Optimal Action:</string>
     <string name="AltAct_colon">Alternative Action:</string>
