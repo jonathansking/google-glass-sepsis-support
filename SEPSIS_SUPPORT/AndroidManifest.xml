@@ -104,28 +104,28 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.OverviewActivity"
             android:enabled="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.VitalsActivity"
             android:enabled="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.SupportActivity"
             android:enabled="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.EventsActivity"
             android:enabled="true"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/WelcomeTheme" >
         </activity>   
         

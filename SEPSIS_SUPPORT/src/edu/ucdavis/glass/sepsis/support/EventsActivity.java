@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
@@ -33,7 +34,15 @@ import android.widget.TextView;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
-
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
+import com.polysfactory.headgesturedetector.*;
+import com.google.glass.input.VoiceInputHelper;
+import com.google.glass.input.VoiceListener;
+import com.google.glass.logging.FormattingLogger;
+import com.google.glass.logging.FormattingLoggers;
+import com.google.glass.voice.VoiceCommand;
+import com.google.glass.voice.VoiceConfig;
 
 public class EventsActivity extends Activity implements OnHeadGestureListener
 {
@@ -41,6 +50,8 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
 	private ScrollView eventsScrollView;
+    private VoiceInputHelper mVoiceInputHelper;
+    private VoiceConfig mVoiceConfig;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -50,6 +61,12 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
+        //set up voice command
+        String[] items = {"Vitals", "Support", "Overview"};
+        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
+        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
+                VoiceInputHelper.newUserActivityObserver(this));
+
         /* set view for events */
         setContentView(R.layout.events);
         loadView();
@@ -128,11 +145,13 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	finish();
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+                	finish();
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }
@@ -184,6 +203,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
+    		finish();
     		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     	}
     }
@@ -192,6 +212,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
+    		finish();
     		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     	}
     }
@@ -199,5 +220,70 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     @Override
     public void onNod(){
     	// Do something
+    }
+    
+    public class MyVoiceListener implements VoiceListener {
+        protected final VoiceConfig voiceConfig;
+    
+        public MyVoiceListener(VoiceConfig voiceConfig) {
+            this.voiceConfig = voiceConfig;
+        }
+    
+        @Override
+        public void onVoiceServiceConnected() {
+            mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
+        }
+    
+        @Override
+        public void onVoiceServiceDisconnected() {
+    
+        }
+    
+        @Override
+        public VoiceConfig onVoiceCommand(VoiceCommand vc) {
+            String recognizedStr = vc.getLiteral();
+            Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
+            switch (recognizedStr)
+            {
+            case "Vitals": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+            	break;
+            case "Overview": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+            	break;
+            case "Support": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+            	break;
+            }
+            return null;
+        }
+    
+        @Override
+        public FormattingLogger getLogger() {
+            return FormattingLoggers.getContextLogger();
+        }
+    
+        @Override
+        public boolean isRunning() {
+            return true;
+        }
+    
+        @Override
+        public boolean onResampledAudioData(byte[] arg0, int arg1, int arg2) {
+            return false;
+        }
+    
+        @Override
+        public boolean onVoiceAmplitudeChanged(double arg0) {
+            return false;
+        }
+    
+        @Override
+        public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
+    
+        }
     }
 }

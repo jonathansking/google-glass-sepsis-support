@@ -23,18 +23,27 @@ import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
+import com.google.glass.input.VoiceInputHelper;
+import com.google.glass.input.VoiceListener;
+import com.google.glass.logging.FormattingLogger;
+import com.google.glass.logging.FormattingLoggers;
+import com.google.glass.voice.VoiceCommand;
+import com.google.glass.voice.VoiceConfig;
 
 
 public class OverviewActivity extends Activity implements OnHeadGestureListener, AsyncTaskCompleteListener<JSONObject>
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
+	private VoiceInputHelper mVoiceInputHelper;
+    private VoiceConfig mVoiceConfig;
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -46,6 +55,12 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
+        
+        //set up voice command
+        String[] items = {"Vitals", "Support", "Events"};
+        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
+        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
+                VoiceInputHelper.newUserActivityObserver(this));
         
         setContentView(R.layout.overview);
 		loadView();
@@ -73,7 +88,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     	pDOBView.setText(p.dob);
     	pGenderView.setText(p.gender);
     	pHospAdmView.setText(p.admissionTimestamp);
-    	pStateView.setText(p.gender);
+    	pStateView.setText(p.currentState);
     	sumRRView.setText(p.vitals.get(p.vitals.size()-1).respiratoryRate);
     	sumMAPView.setText(p.vitals.get(p.vitals.size()-1).MAP);
     	sumSBPView.setText(p.vitals.get(p.vitals.size()-1).SBP);
@@ -113,11 +128,13 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+                	finish();
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+                	finish();
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 }
@@ -128,26 +145,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
                 return false;
             }
         });
-        
-        
-//        gestureDetector.setScrollListener(new GestureDetector.ScrollListener() {
-//            @Override
-//            public boolean onScroll(float displacement, float delta, float velocity) {
-//            	//System.out.println(displacement);
-//            	currentProgress += (int) (displacement);
-//            	
-//            	//set boundaries to make seek bar look realistic
-//            	if (currentProgress < 0) {
-//            		currentProgress = 0;
-//            	}
-//            	if (currentProgress > TOUCH_PAD_MAX_DISPLACEMENT) {
-//            		currentProgress = TOUCH_PAD_MAX_DISPLACEMENT;
-//            	}
-//            	
-//            	screenTimeoutSeekBar.setProgress(currentProgress);
-//            	return true;
-//            }
-//        });
         
         return gestureDetector;
     }
@@ -164,14 +161,16 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     
     @Override
     protected void onResume() {
-        mHeadGestureDetector.start();
         super.onResume();
+        mHeadGestureDetector.start();
+        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
     protected void onPause() {
-        mHeadGestureDetector.stop();
         super.onPause();
+        mHeadGestureDetector.stop();
+        mVoiceInputHelper.removeVoiceServiceListener();
     }
 
     // headgestures
@@ -179,6 +178,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
+    		finish();
     		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     	}
     }
@@ -187,6 +187,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
+    		finish();
     		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     	}
     }
@@ -194,5 +195,70 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     @Override
     public void onNod(){
     	// Do something
+    }
+    
+    public class MyVoiceListener implements VoiceListener {
+        protected final VoiceConfig voiceConfig;
+    
+        public MyVoiceListener(VoiceConfig voiceConfig) {
+            this.voiceConfig = voiceConfig;
+        }
+    
+        @Override
+        public void onVoiceServiceConnected() {
+            mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
+        }
+    
+        @Override
+        public void onVoiceServiceDisconnected() {
+    
+        }
+    
+        @Override
+        public VoiceConfig onVoiceCommand(VoiceCommand vc) {
+            String recognizedStr = vc.getLiteral();
+            Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
+            switch (recognizedStr)
+            {
+            case "Vitals": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+            	break;
+            case "Events": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+            	break;
+            case "Support": 
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+            	break;
+            }
+            return null;
+        }
+    
+        @Override
+        public FormattingLogger getLogger() {
+            return FormattingLoggers.getContextLogger();
+        }
+    
+        @Override
+        public boolean isRunning() {
+            return true;
+        }
+    
+        @Override
+        public boolean onResampledAudioData(byte[] arg0, int arg1, int arg2) {
+            return false;
+        }
+    
+        @Override
+        public boolean onVoiceAmplitudeChanged(double arg0) {
+            return false;
+        }
+    
+        @Override
+        public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
+    
+        }
     }
 }
