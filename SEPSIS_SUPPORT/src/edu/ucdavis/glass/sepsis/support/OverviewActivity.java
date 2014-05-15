@@ -57,7 +57,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector.start();
         
         //set up voice command
-        String[] items = {"Vitals", "Support", "Events"};
+        String[] items = {"Vitals", "Decision Support", "Events"};
         mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
         mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
                 VoiceInputHelper.newUserActivityObserver(this));
@@ -172,6 +172,12 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector.stop();
         mVoiceInputHelper.removeVoiceServiceListener();
     }
+    
+    /*@Override
+    protected void onDestroy(){
+    	super.onDestroy();
+    	mVoiceInputHelper.removeVoiceServiceListener();
+    }*/
 
     // headgestures
     @Override
@@ -218,21 +224,36 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         public VoiceConfig onVoiceCommand(VoiceCommand vc) {
             String recognizedStr = vc.getLiteral();
             Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
-            switch (recognizedStr)
-            {
-            case "Vitals": 
+            int flag = 0;
+            if (recognizedStr.equals("Vitals"))
+	        {
             	finish();
-            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-            	break;
-            case "Events": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
-            	break;
-            case "Support": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
-            	break;
-            }
+            	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Decision Support"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Events"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
             return null;
         }
     

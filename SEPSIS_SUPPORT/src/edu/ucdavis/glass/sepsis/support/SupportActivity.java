@@ -140,8 +140,9 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     
     @Override
     protected void onResume() {
-        mHeadGestureDetector.start();
-        super.onResume();
+    	super.onResume();
+    	mHeadGestureDetector.start();
+        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
@@ -194,22 +195,37 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         @Override
         public VoiceConfig onVoiceCommand(VoiceCommand vc) {
             String recognizedStr = vc.getLiteral();
-            Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
-            switch (recognizedStr)
-            {
-            case "Vitals": 
+            int flag = 0;
+            if (recognizedStr.equals("Vitals"))
+	        {
             	finish();
-            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-            	break;
-            case "Events": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
-            	break;
-            case "Overview": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-            	break;
-            }
+            	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Events"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Overview"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+            
             return null;
         }
     

@@ -55,13 +55,16 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+		System.out.println("OnCreate Vitals");
+		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
         //set up voice command
-        String[] items = {"Overview", "Support", "Events"};
+        String[] items = {"Overview", "Decision Support", "Events"};
         mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
         mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
                 VoiceInputHelper.newUserActivityObserver(this));
@@ -156,8 +159,9 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     
     @Override
     protected void onResume() {
+    	super.onResume();
         mHeadGestureDetector.start();
-        super.onResume();
+        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
@@ -211,21 +215,37 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         public VoiceConfig onVoiceCommand(VoiceCommand vc) {
             String recognizedStr = vc.getLiteral();
             Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
-            switch (recognizedStr)
-            {
-            case "Overview": 
+            int flag = 0;
+            if (recognizedStr.equals("Overview"))
+	        {
             	finish();
-            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-            	break;
-            case "Events": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
-            	break;
-            case "Support": 
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
-            	break;
-            }
+            	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Events"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+	        
+	        else if (recognizedStr.equals("Decision Support"))
+	        {
+	        	finish();
+	        	if (flag == 0)
+            	{
+            		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
+            	}
+	        	flag = flag + 1;
+	        }
+            
             return null;
         }
     
