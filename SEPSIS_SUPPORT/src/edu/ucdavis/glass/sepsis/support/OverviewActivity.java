@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,12 +45,17 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	private HeadGestureDetector mHeadGestureDetector;
 	private VoiceInputHelper mVoiceInputHelper;
     private VoiceConfig mVoiceConfig;
+    private AudioManager mAudioManager;
+	private Context mContext;
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		
 		System.out.println("OnCreate Overview");
+		
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mContext = this.getBaseContext();
 		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
@@ -61,6 +67,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
         mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
                 VoiceInputHelper.newUserActivityObserver(this));
+        mVoiceInputHelper.addVoiceServiceListener();
         
         setContentView(R.layout.overview);
 		loadView();
@@ -122,10 +129,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
               	  	
                     return true;
                 } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	finish();
@@ -137,10 +140,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
                 	finish();
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
-                }
-                else if (gesture == Gesture.LONG_PRESS) 
-                {	
-                	return true;
                 }
                 return false;
             }
@@ -159,25 +158,26 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         return false;
     }
     
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mHeadGestureDetector.start();
-        mVoiceInputHelper.addVoiceServiceListener();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mHeadGestureDetector.stop();
-        mVoiceInputHelper.removeVoiceServiceListener();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mHeadGestureDetector.start();
+//        mVoiceInputHelper.addVoiceServiceListener();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mHeadGestureDetector.stop();
+//        mVoiceInputHelper.removeVoiceServiceListener();
+//    }
     
-    /*@Override
+    @Override
     protected void onDestroy(){
+//    	mVoiceInputHelper.removeVoiceServiceListener();
     	super.onDestroy();
-    	mVoiceInputHelper.removeVoiceServiceListener();
-    }*/
+//    	System.out.println("Removed voice service listener");
+    }
 
     // headgestures
     @Override
@@ -217,42 +217,30 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     
         @Override
         public void onVoiceServiceDisconnected() {
-    
+        	System.out.println("onVoiceServiceDisconnnect called");
         }
     
         @Override
         public VoiceConfig onVoiceCommand(VoiceCommand vc) {
             String recognizedStr = vc.getLiteral();
             Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
-            int flag = 0;
             if (recognizedStr.equals("Vitals"))
 	        {
-            	finish();
-            	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-            	}
-	        	flag = flag + 1;
+//            	finish();
+//            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Decision Support"))
 	        {
 	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
-            	}
-	        	flag = flag + 1;
+	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+	        	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Events"))
 	        {
-	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
-            	}
-	        	flag = flag + 1;
+//	        	finish();
+//	        	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
 	        }
             return null;
         }

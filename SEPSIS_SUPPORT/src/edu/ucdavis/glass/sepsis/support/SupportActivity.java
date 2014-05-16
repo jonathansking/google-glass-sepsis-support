@@ -45,8 +45,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ListView mListView;
-    private VoiceInputHelper mVoiceInputHelper;
-    private VoiceConfig mVoiceConfig;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -55,12 +53,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
-        
-        //set up voice command
-        String[] items = {"Vitals", "Overview", "Events"};
-        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
-        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
-                VoiceInputHelper.newUserActivityObserver(this));
 
         /* set view for support */
         setContentView(R.layout.decision_support);
@@ -70,7 +62,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
 
 	private void loadView()
 	{
-		//DSCurrentStateField DSOptActField DSAltActField DSNextStateField
 		Patient p = Global.recentPatients.peek();
 		/* set view for overview */
 		//Retrieve data field
@@ -142,7 +133,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     protected void onResume() {
     	super.onResume();
     	mHeadGestureDetector.start();
-        mVoiceInputHelper.addVoiceServiceListener();
+//        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
@@ -174,7 +165,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     public void onNod(){
     	// Do something
     }
-
+/*
     public class MyVoiceListener implements VoiceListener {
         protected final VoiceConfig voiceConfig;
     
@@ -253,5 +244,5 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
     
         }
-    }
+    }*/
 }

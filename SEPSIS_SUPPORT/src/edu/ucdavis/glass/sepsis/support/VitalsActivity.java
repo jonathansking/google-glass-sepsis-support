@@ -63,11 +63,11 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        //set up voice command
-        String[] items = {"Overview", "Decision Support", "Events"};
-        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
-        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
-                VoiceInputHelper.newUserActivityObserver(this));
+//        //set up voice command
+//        String[] items = {"Overview", "Decision Support", "Events"};
+//        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
+//        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
+//                VoiceInputHelper.newUserActivityObserver(this));
 
         setContentView(R.layout.vitals);
         loadView();
@@ -161,7 +161,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     protected void onResume() {
     	super.onResume();
         mHeadGestureDetector.start();
-        mVoiceInputHelper.addVoiceServiceListener();
+//        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
@@ -193,7 +193,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     public void onNod(){
     	// Do something
     }
-
+/*
     public class MyVoiceListener implements VoiceListener {
         protected final VoiceConfig voiceConfig;
     
@@ -273,5 +273,5 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
         public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
     
         }
-    }
+    }*/
 }

@@ -63,9 +63,8 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         
         //set up voice command
         String[] items = {"Vitals", "Decision Support", "Overview"};
-        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
-        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
-                VoiceInputHelper.newUserActivityObserver(this));
+        //mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
+        //mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig), VoiceInputHelper.newUserActivityObserver(this));
 
         /* set view for events */
         setContentView(R.layout.events);
@@ -190,7 +189,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     protected void onResume() {
     	super.onResume();
     	mHeadGestureDetector.start();
-        mVoiceInputHelper.addVoiceServiceListener();
+//        mVoiceInputHelper.addVoiceServiceListener();
     }
 
     @Override
@@ -223,6 +222,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     	// Do something
     }
     
+    /*
     public class MyVoiceListener implements VoiceListener {
         protected final VoiceConfig voiceConfig;
     
@@ -248,31 +248,19 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             if (recognizedStr.equals("Vitals"))
 	        {
             	finish();
-            	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-            	}
-	        	flag = flag + 1;
+            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Overview"))
 	        {
 	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-            	}
-	        	flag = flag + 1;
+	        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Decision Support"))
 	        {
 	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
-            	}
-	        	flag = flag + 1;
+            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
 	        }
             
             return null;
@@ -302,5 +290,5 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
     
         }
-    }
+    }*/
 }
