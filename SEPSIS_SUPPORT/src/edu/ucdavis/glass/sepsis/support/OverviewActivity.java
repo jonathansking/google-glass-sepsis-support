@@ -43,7 +43,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
-	private VoiceInputHelper mVoiceInputHelper;
+	public static VoiceInputHelper mVoiceInputHelper;
     private VoiceConfig mVoiceConfig;
     private AudioManager mAudioManager;
 	private Context mContext;
@@ -54,6 +54,8 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 		
 		System.out.println("OnCreate Overview");
 		
+		Global.overview = 1;
+		
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mContext = this.getBaseContext();
 		
@@ -63,14 +65,14 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector.start();
         
         //set up voice command
-        if (Global.created == 0)
+        if (Global.overviewCreated == 0)
         {
 	        String[] items = {"Vitals", "Decision Support", "Events", "Overview"};
 	        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
 	        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
 	                VoiceInputHelper.newUserActivityObserver(this));
 	        mVoiceInputHelper.addVoiceServiceListener();
-	        Global.created = 1;
+	        Global.overviewCreated = 1;
         }
         
         setContentView(R.layout.overview);

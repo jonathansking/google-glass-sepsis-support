@@ -43,8 +43,11 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
+        System.out.println("oncreate WelcomeActivity");
+        
         mGestureDetector = createGestureDetector(this);	
         setContentView(R.layout.welcome_screen);
+        
         
         // load options
         FileInputStream fis;
@@ -84,6 +87,19 @@ public class WelcomeActivity extends Activity
             e.printStackTrace();
         }
     }
+	
+	@Override
+	protected void onStart(){
+		super.onStart();
+		System.out.println("onStart");
+		//set Overview # times created back to 0
+        Global.overviewCreated = 0;
+        if (Global.overview == 1)
+        {
+        	System.out.println("overview == 1");
+        	OverviewActivity.mVoiceInputHelper.removeVoiceServiceListener();
+        }
+	}
 	
 	@Override
     protected void onDestroy() 

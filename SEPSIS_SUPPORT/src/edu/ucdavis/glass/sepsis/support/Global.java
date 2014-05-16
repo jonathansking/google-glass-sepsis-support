@@ -18,7 +18,8 @@ public class Global
     public static Options options = new Global.Options();
     
     // Voice commands
-    public static int created = 0;
+    public static int overviewCreated = 0;
+    public static int overview = 0;
     
 	// structure to save options
 	@SuppressWarnings("serial")
