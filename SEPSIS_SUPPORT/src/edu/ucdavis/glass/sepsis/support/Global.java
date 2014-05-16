@@ -17,6 +17,9 @@ public class Global
     // options
     public static Options options = new Global.Options();
     
+    // Voice commands
+    public static int created = 0;
+    
 	// structure to save options
 	@SuppressWarnings("serial")
 	public static class Options implements java.io.Serializable

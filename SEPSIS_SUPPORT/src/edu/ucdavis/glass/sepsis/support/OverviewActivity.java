@@ -63,11 +63,15 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector.start();
         
         //set up voice command
-        String[] items = {"Vitals", "Decision Support", "Events"};
-        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
-        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
-                VoiceInputHelper.newUserActivityObserver(this));
-        mVoiceInputHelper.addVoiceServiceListener();
+        if (Global.created == 0)
+        {
+	        String[] items = {"Vitals", "Decision Support", "Events", "Overview"};
+	        mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
+	        mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig),
+	                VoiceInputHelper.newUserActivityObserver(this));
+	        mVoiceInputHelper.addVoiceServiceListener();
+	        Global.created = 1;
+        }
         
         setContentView(R.layout.overview);
 		loadView();
@@ -226,22 +230,30 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
             Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
             if (recognizedStr.equals("Vitals"))
 	        {
-//            	finish();
-//            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
+            	finish();
+            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Decision Support"))
 	        {
 	        	finish();
 	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+	            //mVoiceInputHelper.removeVoiceServiceListener();
 	        	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
 	        }
 	        
 	        else if (recognizedStr.equals("Events"))
 	        {
-//	        	finish();
-//	        	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
+	        	finish();
+	        	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
 	        }
+            
+	        else if (recognizedStr.equals("Overview"))
+	        {
+	        	finish();
+	        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+	        }
+            
             return null;
         }
     
