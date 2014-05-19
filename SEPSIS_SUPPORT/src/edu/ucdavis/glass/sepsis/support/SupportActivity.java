@@ -21,30 +21,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
-import com.polysfactory.headgesturedetector.*;
-import com.google.glass.input.VoiceInputHelper;
-import com.google.glass.input.VoiceListener;
-import com.google.glass.logging.FormattingLogger;
-import com.google.glass.logging.FormattingLoggers;
-import com.google.glass.voice.VoiceCommand;
-import com.google.glass.voice.VoiceConfig;
 
 
 public class SupportActivity extends Activity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
-	private ListView mListView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -54,16 +42,14 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
 
-        /* set view for support */
         setContentView(R.layout.decision_support);
         loadView();
-        /* Set view done*/
 	}
 
 	private void loadView()
 	{
 		Patient p = Global.recentPatients.peek();
-		/* set view for overview */
+		
 		//Retrieve data field
 		TextView DSCurrentStateView = (TextView) findViewById(R.id.DSCurrentStateField);// current state
 		TextView DSOptActView = (TextView) findViewById(R.id.DSOptActField);// optimal option
@@ -87,15 +73,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
             @Override
             public boolean onGesture(Gesture gesture) 
             {
-                if (gesture == Gesture.TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_RIGHT) 
+                if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	finish();
                 	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
@@ -106,11 +84,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
                 	finish();
                 	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
-                }
-                else if (gesture == Gesture.LONG_PRESS) 
-                {	
-                	mListView.setScrollY( mListView.getScrollY()+100 );
-                	return true;
                 }
                 return false;
             }
@@ -128,19 +101,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
         
         return false;
     } 
-    
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	mHeadGestureDetector.start();
-//        mVoiceInputHelper.addVoiceServiceListener();
-    }
-
-    @Override
-    protected void onPause() {
-        mHeadGestureDetector.stop();
-        super.onPause();
-    }
 
     // headgestures
     @Override
@@ -163,86 +123,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     
     @Override
     public void onNod(){
-    	// Do something
+    	// do nothing
     }
-/*
-    public class MyVoiceListener implements VoiceListener {
-        protected final VoiceConfig voiceConfig;
-    
-        public MyVoiceListener(VoiceConfig voiceConfig) {
-            this.voiceConfig = voiceConfig;
-        }
-    
-        @Override
-        public void onVoiceServiceConnected() {
-            mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
-        }
-    
-        @Override
-        public void onVoiceServiceDisconnected() {
-    
-        }
-    
-        @Override
-        public VoiceConfig onVoiceCommand(VoiceCommand vc) {
-            String recognizedStr = vc.getLiteral();
-            int flag = 0;
-            if (recognizedStr.equals("Vitals"))
-	        {
-            	finish();
-            	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-            	}
-	        	flag = flag + 1;
-	        }
-	        
-	        else if (recognizedStr.equals("Events"))
-	        {
-	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
-            	}
-	        	flag = flag + 1;
-	        }
-	        
-	        else if (recognizedStr.equals("Overview"))
-	        {
-	        	finish();
-	        	if (flag == 0)
-            	{
-            		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-            	}
-	        	flag = flag + 1;
-	        }
-            
-            return null;
-        }
-    
-        @Override
-        public FormattingLogger getLogger() {
-            return FormattingLoggers.getContextLogger();
-        }
-    
-        @Override
-        public boolean isRunning() {
-            return true;
-        }
-    
-        @Override
-        public boolean onResampledAudioData(byte[] arg0, int arg1, int arg2) {
-            return false;
-        }
-    
-        @Override
-        public boolean onVoiceAmplitudeChanged(double arg0) {
-            return false;
-        }
-    
-        @Override
-        public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
-    
-        }
-    }*/
 }

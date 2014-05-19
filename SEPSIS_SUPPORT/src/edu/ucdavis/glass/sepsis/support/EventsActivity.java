@@ -21,12 +21,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 import android.widget.TableRow.LayoutParams;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,24 +32,12 @@ import android.widget.TextView;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.polysfactory.headgesturedetector.*;
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
-import com.polysfactory.headgesturedetector.*;
-import com.google.glass.input.VoiceInputHelper;
-import com.google.glass.input.VoiceListener;
-import com.google.glass.logging.FormattingLogger;
-import com.google.glass.logging.FormattingLoggers;
-import com.google.glass.voice.VoiceCommand;
-import com.google.glass.voice.VoiceConfig;
 
 public class EventsActivity extends Activity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
-	private ListView mListView;
 	private ScrollView eventsScrollView;
-    private VoiceInputHelper mVoiceInputHelper;
-    private VoiceConfig mVoiceConfig;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -60,13 +46,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
-        
-        //set up voice command
-        String[] items = {"Vitals", "Decision Support", "Overview"};
-        //mVoiceConfig = new VoiceConfig("MyVoiceConfig", items);
-        //mVoiceInputHelper = new VoiceInputHelper(this, new MyVoiceListener(mVoiceConfig), VoiceInputHelper.newUserActivityObserver(this));
 
-        /* set view for events */
         setContentView(R.layout.events);
         loadView();
         eventsScrollView = (ScrollView) findViewById(R.id.eventsScrollView);
@@ -77,22 +57,22 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         Patient p = Global.recentPatients.peek();
 		TableLayout eventsTableLO = (TableLayout) findViewById(R.id.eventsTableLayout);
         
-        //create rows
-        for (int i = 0; i < Global.options.eventsDisplay; i++) //MAX_EVENT is the maximum events will be display, not yet created
+        // create rows
+        for (int i = 0; i < Global.options.eventsDisplay; i++) // MAX_EVENT is the maximum events will be display, not yet created
         {
-        	//Create Table row
+        	// create table rows
         	TableRow eventRow = new TableRow(this);
         	eventRow.setLayoutParams(new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
         	eventRow.setGravity(Gravity.CENTER);
         	
-        	// Create Text View for events
+        	// create text views
         	TextView rank = new TextView(this);// index
         	TextView time = new TextView(this);// time stamp
         	TextView event = new TextView(this);// event
         	TextView attr = new TextView(this);// attribute
         	TextView state = new TextView(this);// state
         	
-        	//set style
+        	// set style
         	rank.setTextAppearance(this, R.style.GlassText_XXSmall);
         	time.setTextAppearance(this, R.style.GlassText_XXSmall);
         	event.setTextAppearance(this, R.style.GlassText_XXSmall);
@@ -104,24 +84,23 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	attr.setGravity(Gravity.CENTER);
         	state.setGravity(Gravity.CENTER);
         	
-        	//set data
+        	// set data
         	rank.setText(String.valueOf(i+1));// index
         	time.setText(p.events.get(i).timeStamp);// time stamp
         	event.setText(p.events.get(i).event);// event
         	attr.setText(p.events.get(i).attribute);// attribute
         	state.setText(p.events.get(i).state);// state
         	
-        	//add to table row
+        	// add to table row
         	eventRow.addView(rank);
         	eventRow.addView(time);
         	eventRow.addView(event);
         	eventRow.addView(attr);
         	eventRow.addView(state);
         	
-        	// Add row to table
+        	// add row to table
         	eventsTableLO.addView(eventRow, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
         }
-        /* Set view done*/
 	}
 
 	private GestureDetector createGestureDetector(Context context) 
@@ -134,15 +113,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             @Override
             public boolean onGesture(Gesture gesture) 
             {
-                if (gesture == Gesture.TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_RIGHT) 
+                if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	finish();
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
@@ -153,11 +124,6 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
                 	finish();
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
-                }
-                else if (gesture == Gesture.LONG_PRESS) 
-                {	
-                	//mListView.setScrollY( mListView.getScrollY()+100 );
-                	return true;
                 }
                 return false;
             }
@@ -183,19 +149,6 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             return mGestureDetector.onMotionEvent(event);
         
         return false;
-    } 
-    
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	mHeadGestureDetector.start();
-//        mVoiceInputHelper.addVoiceServiceListener();
-    }
-
-    @Override
-    protected void onPause() {
-        mHeadGestureDetector.stop();
-        super.onPause();
     }
 
     // headgestures
@@ -219,76 +172,6 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     
     @Override
     public void onNod(){
-    	// Do something
+    	// do nothing
     }
-    
-    /*
-    public class MyVoiceListener implements VoiceListener {
-        protected final VoiceConfig voiceConfig;
-    
-        public MyVoiceListener(VoiceConfig voiceConfig) {
-            this.voiceConfig = voiceConfig;
-        }
-    
-        @Override
-        public void onVoiceServiceConnected() {
-            mVoiceInputHelper.setVoiceConfig(mVoiceConfig, false);
-        }
-    
-        @Override
-        public void onVoiceServiceDisconnected() {
-    
-        }
-    
-        @Override
-        public VoiceConfig onVoiceCommand(VoiceCommand vc) {
-            String recognizedStr = vc.getLiteral();
-            Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
-            int flag = 0;
-            if (recognizedStr.equals("Vitals"))
-	        {
-            	finish();
-            	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
-	        }
-	        
-	        else if (recognizedStr.equals("Overview"))
-	        {
-	        	finish();
-	        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
-	        }
-	        
-	        else if (recognizedStr.equals("Decision Support"))
-	        {
-	        	finish();
-            	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
-	        }
-            
-            return null;
-        }
-    
-        @Override
-        public FormattingLogger getLogger() {
-            return FormattingLoggers.getContextLogger();
-        }
-    
-        @Override
-        public boolean isRunning() {
-            return true;
-        }
-    
-        @Override
-        public boolean onResampledAudioData(byte[] arg0, int arg1, int arg2) {
-            return false;
-        }
-    
-        @Override
-        public boolean onVoiceAmplitudeChanged(double arg0) {
-            return false;
-        }
-    
-        @Override
-        public void onVoiceConfigChanged(VoiceConfig arg0, boolean arg1) {
-    
-        }
-    }*/
 }

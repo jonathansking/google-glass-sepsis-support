@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,18 +47,16 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	public static VoiceInputHelper mVoiceInputHelper;
     private VoiceConfig mVoiceConfig;
     private AudioManager mAudioManager;
-	private Context mContext;
+    private AsyncTaskCompleteListener<JSONObject> mContext;
 
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		
-		System.out.println("OnCreate Overview");
-		
 		Global.overview = 1;
 		
+		mContext = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mContext = this.getBaseContext();
 		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
@@ -82,20 +81,20 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	private void loadView()
 	{
 		Patient p = Global.recentPatients.peek();
-		/* set view for overview */
-		//Retrieve data field
-		TextView pNameView = (TextView) findViewById(R.id.patientName);// name
-		TextView pIdView = (TextView) findViewById(R.id.patientId);// ID
-		TextView pDOBView = (TextView) findViewById(R.id.overviewDOBField);// DOB
-		TextView pGenderView = (TextView) findViewById(R.id.overviewGenderField);// Gender
-		TextView pHospAdmView = (TextView) findViewById(R.id.overviewHospAdmField);// Hospital Admission
-		TextView pStateView = (TextView) findViewById(R.id.overviewCurentStateField);//Current State
-		TextView sumRRView = (TextView) findViewById(R.id.summaryRRField);//Sum: RR
-		TextView sumMAPView = (TextView) findViewById(R.id.summaryMAPField);//Sum: MAP
-		TextView sumSBPView = (TextView) findViewById(R.id.summarySBPField);//Sum: SBP
-		TextView sumWBCView = (TextView) findViewById(R.id.summaryWBCField);//Sum: WBC
 		
-		//set data
+		// retrieve data fields
+		TextView pNameView = (TextView) findViewById(R.id.patientName);               
+		TextView pIdView = (TextView) findViewById(R.id.patientId);                   
+		TextView pDOBView = (TextView) findViewById(R.id.overviewDOBField);           
+		TextView pGenderView = (TextView) findViewById(R.id.overviewGenderField);     
+		TextView pHospAdmView = (TextView) findViewById(R.id.overviewHospAdmField);   
+		TextView pStateView = (TextView) findViewById(R.id.overviewCurentStateField);
+		TextView sumRRView = (TextView) findViewById(R.id.summaryRRField);           
+		TextView sumMAPView = (TextView) findViewById(R.id.summaryMAPField);          
+		TextView sumSBPView = (TextView) findViewById(R.id.summarySBPField);          
+		TextView sumWBCView = (TextView) findViewById(R.id.summaryWBCField);         
+		
+		// set data
 		pNameView.setText(p.name);
     	pIdView.setText(p.id);
     	pDOBView.setText(p.dob);
@@ -128,11 +127,11 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
             {
                 if (gesture == Gesture.TAP) 
                 {
-//                    // set up AsyncTask
-//                    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( this, "Updating all patient's info...", this );
-//            	    // run AsyncTask
-//              	  	JSON.execute( "overview" );
-              	  	
+                    // set up AsyncTask
+                    AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( (Context) mContext, "Updating all patient's info...", mContext );
+            	    
+                    // run AsyncTask
+              	  	JSON.execute( "overview" );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
@@ -163,27 +162,6 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         
         return false;
     }
-    
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        mHeadGestureDetector.start();
-//        mVoiceInputHelper.addVoiceServiceListener();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        mHeadGestureDetector.stop();
-//        mVoiceInputHelper.removeVoiceServiceListener();
-//    }
-    
-    @Override
-    protected void onDestroy(){
-//    	mVoiceInputHelper.removeVoiceServiceListener();
-    	super.onDestroy();
-//    	System.out.println("Removed voice service listener");
-    }
 
     // headgestures
     @Override
@@ -206,7 +184,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     
     @Override
     public void onNod(){
-    	// Do something
+    	// do nothing
     }
     
     public class MyVoiceListener implements VoiceListener {
@@ -228,28 +206,24 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     
         @Override
         public VoiceConfig onVoiceCommand(VoiceCommand vc) {
-            String recognizedStr = vc.getLiteral();
+        	String recognizedStr = vc.getLiteral();
             Log.i("VoiceMenu", "Recognized text: "+recognizedStr);
             if (recognizedStr.equals("Vitals"))
 	        {
             	finish();
             	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
 	        }
-	        
 	        else if (recognizedStr.equals("Decision Support"))
 	        {
 	        	finish();
 	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
-	            //mVoiceInputHelper.removeVoiceServiceListener();
 	        	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
 	        }
-	        
 	        else if (recognizedStr.equals("Events"))
 	        {
 	        	finish();
 	        	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
 	        }
-            
 	        else if (recognizedStr.equals("Overview"))
 	        {
 	        	finish();

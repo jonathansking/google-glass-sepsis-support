@@ -43,8 +43,6 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
-        System.out.println("oncreate WelcomeActivity");
-        
         mGestureDetector = createGestureDetector(this);	
         setContentView(R.layout.welcome_screen);
         

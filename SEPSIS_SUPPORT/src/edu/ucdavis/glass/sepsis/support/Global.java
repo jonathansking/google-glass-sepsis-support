@@ -30,8 +30,8 @@ public class Global
 		public int eventsDisplay;
 		public boolean headGesture;
 		public Options() {
-			screenTimeout = 30;
-			numberOfRecentPatients = 5;
+			screenTimeout = 60;
+			numberOfRecentPatients = 3;
 			eventsDisplay = 10;
 			headGesture = false;
 		}
@@ -47,13 +47,6 @@ public class Global
     		recentPatients.removeLast();
 
 		recentPatients.addFirst( p );
-    }
-    
-    // debugging purposes
-    public static void printPatients() 
-    {
-    	for( Patient p : recentPatients )
-    		System.out.println( p );
     }
     
     // this is causing window leaks, we need a new solution
