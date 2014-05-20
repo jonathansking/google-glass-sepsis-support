@@ -23,7 +23,7 @@
 	        android:background="@color/black" />
 	
 	    <TextView android:id="@+id/message"
-	        style="@style/Heading"
+	        style="@style/GlassText.Large"
 	        android:textColor="@color/black"
 	        android:background="@color/orange" />
 	    

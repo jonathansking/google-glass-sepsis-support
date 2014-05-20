@@ -89,6 +89,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 		TextView pGenderView = (TextView) findViewById(R.id.overviewGenderField);     
 		TextView pHospAdmView = (TextView) findViewById(R.id.overviewHospAdmField);   
 		TextView pStateView = (TextView) findViewById(R.id.overviewCurentStateField);
+		TextView sumBACView = (TextView) findViewById(R.id.summaryBACField);       
 		TextView sumRRView = (TextView) findViewById(R.id.summaryRRField);           
 		TextView sumMAPView = (TextView) findViewById(R.id.summaryMAPField);          
 		TextView sumSBPView = (TextView) findViewById(R.id.summarySBPField);          
@@ -101,6 +102,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     	pGenderView.setText(p.gender);
     	pHospAdmView.setText(p.admissionTimestamp);
     	pStateView.setText(p.currentState);
+    	sumBACView.setText(p.bacteriaInBlood);
     	sumRRView.setText(p.vitals.get(p.vitals.size()-1).respiratoryRate);
     	sumMAPView.setText(p.vitals.get(p.vitals.size()-1).MAP);
     	sumSBPView.setText(p.vitals.get(p.vitals.size()-1).SBP);
@@ -115,6 +117,8 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	    {	
 			if ( (json.get("result_status").toString()).equals("success") )
 		    {	
+				finish();
+				
 				// create patient
 			    Global.pushRecentPatient( Global.recentPatients.peek().id, json );
 
@@ -144,22 +148,26 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
             {
                 if (gesture == Gesture.TAP) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+    	            
                     // set up AsyncTask
                     AsyncTask<String, Void, JSONObject> JSON = new LoadJSONAsyncTask( (Context) mContext, "Updating all patient's info...", mContext );
             	    
                     // run AsyncTask
-              	  	JSON.execute( "overview" );
+              	  	JSON.execute( Global.recentPatients.peek().id );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	finish();
+    	            mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_RIGHT);
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
                 	finish();
+    	            mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_LEFT);
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 }
@@ -186,6 +194,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     	if(Global.options.headGesture)
     	{
     		finish();
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     	}
     }
@@ -195,6 +204,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     	if(Global.options.headGesture)
     	{
     		finish();
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     	}
     }
@@ -228,6 +238,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
             if (recognizedStr.equals("Vitals"))
 	        {
             	finish();
+	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
             	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
 	        }
 	        else if (recognizedStr.equals("Decision Support"))
@@ -239,11 +250,13 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	        else if (recognizedStr.equals("Events"))
 	        {
 	        	finish();
+	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
 	        	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
 	        }
 	        else if (recognizedStr.equals("Overview"))
 	        {
 	        	finish();
+	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
 	        	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 	        }
             

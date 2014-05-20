@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
     <TextView
-        style="@style/Heading"
+        style="@style/GlassText.Large"
 	    android:text="@string/welcome" />
     
     <View
@@ -14,7 +14,7 @@
         android:background="@color/white"/>
     
     <TextView
-        style="@style/Heading.Sub"
+        style="@style/GlassText.Medium"
 	    android:text="@string/tap_scanner" />
 
 </LinearLayout>

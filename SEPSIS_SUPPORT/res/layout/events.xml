@@ -20,7 +20,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/events_to_DS"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <View
         android:id="@+id/separator"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/events"
-        style="@style/GlassText.Small"
+        style="@style/GlassText.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -60,12 +60,14 @@
 	        <TextView
 	            android:id="@+id/eventsRank"
 	            style="@style/GlassText.XSmall"
-	            android:text="@string/Rank" />
+	            android:text="@string/Rank"
+	            android:textSize="20sp" />
 	
 	        <TextView
 	            android:id="@+id/eventsTime"
 	            style="@style/GlassText.XSmall"
-	            android:text="@string/Time" />
+	            android:text="@string/Time"
+	            android:textSize="20sp" />
 	
 	        <TextView
 	            android:id="@+id/eventsEvent"

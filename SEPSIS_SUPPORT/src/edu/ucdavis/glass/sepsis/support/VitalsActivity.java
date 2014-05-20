@@ -21,6 +21,7 @@ import org.achartengine.GraphicalView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -36,12 +37,14 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
-	private ListView mListView;
 	private GraphicalView mChart;
+    private AudioManager mAudioManager;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
@@ -91,28 +94,17 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
             @Override
             public boolean onGesture(Gesture gesture) 
             {
-                if (gesture == Gesture.TAP) 
+                if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                    return true;
-                } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_RIGHT) 
-                {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
-                }
-                else if (gesture == Gesture.LONG_PRESS) 
-                {	
-                	mListView.setScrollY( mListView.getScrollY()+100 );
-                	return true;
                 }
                 return false;
             }
@@ -136,6 +128,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     	}
     }
@@ -144,6 +137,7 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
     	}
     }

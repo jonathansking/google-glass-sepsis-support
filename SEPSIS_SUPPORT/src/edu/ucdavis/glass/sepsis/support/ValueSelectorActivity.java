@@ -27,6 +27,7 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
 	private GestureDetector mGestureDetector;
 	private Context mContext;
 	private int requestCode;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -38,11 +39,15 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
         // get card values from intent
         cardValues = getIntent().getIntegerArrayListExtra("values");
         requestCode = getIntent().getIntExtra("requestCode",-1);
+        
         // set up view
-        mCardScrollView = new CardScrollView(this) {
+        mCardScrollView = new CardScrollView(this) 
+        {
             @Override
-            public final boolean dispatchGenericFocusedEvent(MotionEvent event) {
-                if (mGestureDetector.onMotionEvent(event)) {
+            public final boolean dispatchGenericFocusedEvent(MotionEvent event) 
+            {
+                if (mGestureDetector.onMotionEvent(event)) 
+                {
                     return true;
                 }
                 return super.dispatchGenericFocusedEvent(event);
@@ -56,26 +61,30 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
     }
 
     @Override
-    public void onResume() {
+    public void onResume() 
+    {
         super.onResume();
         mCardScrollView.activate();
     }
 
     @Override
-    public void onPause() {
+    public void onPause() 
+    {
         super.onPause();
         mCardScrollView.deactivate();
     }
 
     @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
+    public boolean onGenericMotionEvent(MotionEvent event) 
+    {
         return mGestureDetector.onMotionEvent(event);
     }
     
     @Override
-    public boolean onGesture(Gesture gesture) {
-        if (gesture == Gesture.TAP) {
-            finish();
+    public boolean onGesture(Gesture gesture) 
+    {
+        if (gesture == Gesture.TAP) 
+        {
             
         	Intent resultIntent = new Intent();
         	if(2 == requestCode)
@@ -84,13 +93,19 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
         			resultIntent.putExtra("selected_value", false);	
         		else
         			resultIntent.putExtra("selected_value", true);
+
+                setResult(RESULT_OK, resultIntent);
+                mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
         	}
         	else
             {
         		resultIntent.putExtra("selected_value", cardValues.get(mCardScrollView.getSelectedItemPosition()) );
+        		
+                setResult(RESULT_OK, resultIntent);
+                mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
             }
-            setResult(RESULT_OK, resultIntent);
-            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+
+            finish();
             return true;
         }
         return false;
@@ -135,10 +150,7 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
             }
             else
             {
-            	if(cardValues.get(position) == -1)
-	            	left.setText( "Never" );
-	            else
-	            	left.setText( cardValues.get(position).toString() );
+            	left.setText( cardValues.get(position).toString() );
             }
             
             return  view;

@@ -20,6 +20,7 @@ package edu.ucdavis.glass.sepsis.support;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -38,15 +39,18 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
 	private ScrollView eventsScrollView;
+    private AudioManager mAudioManager;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
-
+        
         setContentView(R.layout.events);
         loadView();
         eventsScrollView = (ScrollView) findViewById(R.id.eventsScrollView);
@@ -73,15 +77,15 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
         	TextView state = new TextView(this);// state
         	
         	// set style
-        	rank.setTextAppearance(this, R.style.GlassText_XXSmall);
-        	time.setTextAppearance(this, R.style.GlassText_XXSmall);
-        	event.setTextAppearance(this, R.style.GlassText_XXSmall);
-        	attr.setTextAppearance(this, R.style.GlassText_XXSmall);
-        	state.setTextAppearance(this, R.style.GlassText_XXSmall);
+        	rank.setTextAppearance(this, R.style.GlassText_XSmall);
+        	time.setTextAppearance(this, R.style.GlassText_XSmall);
+        	event.setTextAppearance(this, R.style.GlassText_XSmall);
+        	attr.setTextAppearance(this, R.style.GlassText_XSmall);
+        	state.setTextAppearance(this, R.style.GlassText_XSmall);
         	rank.setGravity(Gravity.CENTER);
         	time.setGravity(Gravity.CENTER);
-        	event.setGravity(Gravity.CENTER);
-        	attr.setGravity(Gravity.CENTER);
+        	event.setGravity(Gravity.RIGHT);
+        	attr.setGravity(Gravity.LEFT);
         	state.setGravity(Gravity.CENTER);
         	
         	// set data
@@ -115,11 +119,13 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             {
                 if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }
@@ -154,6 +160,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     	}
     }
@@ -162,6 +169,7 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     	}
     }

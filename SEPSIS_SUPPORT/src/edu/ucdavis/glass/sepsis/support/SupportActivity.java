@@ -20,6 +20,7 @@ package edu.ucdavis.glass.sepsis.support;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -33,10 +34,14 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
 {
 	private GestureDetector mGestureDetector;
 	private HeadGestureDetector mHeadGestureDetector;
+    private AudioManager mAudioManager;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        
         mGestureDetector = createGestureDetector(this);
         mHeadGestureDetector = new HeadGestureDetector(this);
         mHeadGestureDetector.setOnHeadGestureListener(this);
@@ -75,11 +80,13 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
             {
                 if (gesture == Gesture.SWIPE_RIGHT) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 }
@@ -105,6 +112,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
     	}
     }
@@ -113,6 +121,7 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
+    		mHeadGestureDetector.stop();
     		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     	}
     }

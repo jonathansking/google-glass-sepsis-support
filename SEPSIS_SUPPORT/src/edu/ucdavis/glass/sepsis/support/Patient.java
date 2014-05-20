@@ -39,12 +39,7 @@ public class Patient implements java.io.Serializable
 			public String state;
 			
 			public Event( String ts, String e, String a, String s) throws ParseException {
-				//parse time stamp to simpler format for display purpose
-				SimpleDateFormat parseFormat = new SimpleDateFormat("M/dd/yyyy hh:mm a");
-				SimpleDateFormat displayFormat = new SimpleDateFormat("M/dd/yy HH:mm", Locale.US);
-				Date tsDate = parseFormat.parse(ts);
-				
-				timeStamp = displayFormat.format(tsDate).toString();
+				timeStamp = ts;
 				event = e;
 				attribute = a;
 				state = s;

@@ -23,7 +23,7 @@ public class VitalLineGraph{
 		TimeSeries SBPSeries = new TimeSeries("SBP"); 
 		TimeSeries MAPSeries = new TimeSeries("MAP");
 		
-		int xAxis = 0; // USE 0,1,2,3,... as X axis for now, might need to change.
+		double xAxis = 11.0/10.0; 
 		for(Vital i : p.vitals)
 		{
 			TempSeries.add(xAxis, Double.parseDouble(i.temperature));
@@ -31,7 +31,7 @@ public class VitalLineGraph{
 			WBCSeries.add(xAxis, Double.parseDouble(i.WBC));
 			SBPSeries.add(xAxis, Double.parseDouble(i.SBP));
 			MAPSeries.add(xAxis, Double.parseDouble(i.MAP));
-			xAxis++;
+			xAxis +=11.0/10.0 ;
 		}
 		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -52,7 +52,7 @@ public class VitalLineGraph{
 		mRenderer.addSeriesRenderer(WBCrenderer);
 		mRenderer.addSeriesRenderer(SBPrenderer);
 		mRenderer.addSeriesRenderer(MAPrenderer);
-		mRenderer.setXAxisMax(12.0); //can set scale here
+		mRenderer.setXAxisMax(10.0); //can set scale here
 		
 		// Customization time for Temperature
 		TempRenderer.setColor(Color.CYAN);

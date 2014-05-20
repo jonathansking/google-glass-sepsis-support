@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +23,13 @@ public class OptionsActivity extends Activity
 	private TextView recentPatientOptionTxtView;
 	private TextView timeoutOptionTxtView;
 	private TextView headGestureTxtView;
+    private AudioManager mAudioManager;
 	
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+        
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 	    
         setContentView(R.layout.options);
         mGestureDetector = createGestureDetector(this);
@@ -93,7 +97,8 @@ public class OptionsActivity extends Activity
 
     	if(resultCode == RESULT_CANCELED)
     	{
-    		Toast.makeText(OptionsActivity.this,"Settings were not saved.",Toast.LENGTH_SHORT).show();
+    		System.out.println("Settings were not saved");
+        	Global.toastUser(this, "Settings were not saved");
     	}
     	else
     	{
@@ -103,7 +108,14 @@ public class OptionsActivity extends Activity
 	    		Global.options.screenTimeout = screenTimeoutSetting;
 	    		timeoutOptionTxtView.setText(String.valueOf(Global.options.screenTimeout));
 
-	    		android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, Global.options.screenTimeout*1000);
+	    		if( screenTimeoutSetting == -1 ) 
+	    		{
+	    			android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, Global.options.screenTimeout);
+	    		}
+	    		else
+	    		{
+	    			android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, Global.options.screenTimeout*1000);
+	    		}
 	    	}
 	    	else if(requestCode == 1)
 	    	{
@@ -135,12 +147,14 @@ public class OptionsActivity extends Activity
                 if (gesture == Gesture.TAP) 
                 {
                 	// bring up menu
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	openOptionsMenu();
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	// go back to welcome screen
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	finish();
                     return true;
                 } 

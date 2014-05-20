@@ -25,18 +25,18 @@
         android:id="@+id/DSSeparator"
         android:layout_width="match_parent"
         android:layout_height="2dip"
-        android:layout_alignBottom="@+id/DSToOverview"
+        android:layout_alignBottom="@+id/vitals"
         android:layout_alignParentLeft="true"
         android:background="@color/white" />
 
     <TextView
         android:id="@+id/vitals"
-        style="@style/GlassText.Small"
+        style="@style/GlassText.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/DS_screen_title" />
+        android:text="@string/DS_screen_title"/>
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -46,68 +46,68 @@
  
         <TableRow
 	        android:id="@+id/DSTableRow1"
-	        style="@style/Row" >
+	        style="@style/GlassText.Row" >
 	
 	        <TextView
 	            android:id="@+id/DSCurrentState"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Right"
 	            android:text="@string/CurrentState_colon"
 	            android:gravity="left" />
 	
 	        <TextView
 	            android:id="@+id/DSCurrentStateField"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Left"
 	            android:text="@string/empty" />
 	        
 	    </TableRow>
 	    
         <TableRow
 	        android:id="@+id/DSTableRow2"
-	        style="@style/Row" >
+	        style="@style/GlassText.Row" >
 	
 	        <TextView
 	            android:id="@+id/DSOptAct"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Right"
 	            android:text="@string/OptAct_colon"
 	            android:gravity="left" />
 	
 	        <TextView
 	            android:id="@+id/DSOptActField"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Left"
 	            android:text="@string/empty" />
 	        
 	    </TableRow>
 	    
         <TableRow
 	        android:id="@+id/DSTableRow3"
-	        style="@style/Row" >
+	        style="@style/GlassText.Row" >
 	
 	        <TextView
 	            android:id="@+id/DSAltAct"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Right"
 	            android:text="@string/AltAct_colon"
 	            android:gravity="left" />
 	
 	        <TextView
 	            android:id="@+id/DSAltActField"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Left"
 	            android:text="@string/empty" />
 	        
 	    </TableRow>
         
         <TableRow
 	        android:id="@+id/DSTableRow4"
-	        style="@style/Row" >
+	        style="@style/GlassText.Row" >
 	
 	        <TextView
 	            android:id="@+id/DSNextState"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Right"
 	            android:text="@string/NextState_colon"
 	            android:gravity="left" />
 	
 	        <TextView
 	            android:id="@+id/DSNextStateField"
-	            style="@style/Heading.Sub.Row.Left"
+	            style="@style/GlassText.Row.Left"
 	            android:text="@string/empty" />
 	        
 	    </TableRow>

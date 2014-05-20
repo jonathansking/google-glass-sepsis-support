@@ -25,6 +25,7 @@ import java.util.ArrayDeque;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
@@ -37,12 +38,15 @@ public class WelcomeActivity extends Activity
 {
 	private GestureDetector mGestureDetector;
 	private Context mContext;
+    private AudioManager mAudioManager;
 	
 	@SuppressWarnings("unchecked")
 	@Override
     protected void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+        
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         
         mContext = this;
         mGestureDetector = createGestureDetector(this);	
@@ -155,16 +159,14 @@ public class WelcomeActivity extends Activity
             {
                 if (gesture == Gesture.TAP) 
                 {
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	startActivity( new Intent(getApplicationContext(), QRScannerActivity.class) );
                     return true;
-                } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                	return true;
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	// go to recent patient view
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                 	if(Global.recentPatients.isEmpty())
                 	{
                     	Global.toastUser(context, "No recent patients");
@@ -178,6 +180,7 @@ public class WelcomeActivity extends Activity
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
                 	// go to options view
+    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
                     startActivity( new Intent(getApplicationContext(), OptionsActivity.class));
                 	return true;
                 }

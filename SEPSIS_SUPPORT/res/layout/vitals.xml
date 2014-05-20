@@ -25,13 +25,13 @@
         android:id="@+id/vitalsSeparator"
         android:layout_width="match_parent"
         android:layout_height="2dip"
-        android:layout_alignBottom="@+id/vitalsToEvents"
+        android:layout_above="@+id/RelativeLayout1"
         android:layout_alignParentLeft="true"
         android:background="@color/white" />
 
     <TextView
         android:id="@+id/vitals"
-        style="@style/GlassText.Small"
+        style="@style/GlassText.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -65,12 +65,12 @@
 
                 <TextView
                     android:id="@+id/bacInBloodTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/Bacteria_colon" />
 
                 <TextView
                     android:id="@+id/bibField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -81,12 +81,12 @@
 
                 <TextView
                     android:id="@+id/tempTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/Temp_colon" />
 
                 <TextView
                     android:id="@+id/tempField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -97,12 +97,12 @@
 
                 <TextView
                     android:id="@+id/RRTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/RespRate_colon" />
 
                 <TextView
                     android:id="@+id/RRField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -113,12 +113,12 @@
 
                 <TextView
                     android:id="@+id/WBCTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/WBC_colon" />
 
                 <TextView
                     android:id="@+id/WBCField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -129,12 +129,12 @@
 
                 <TextView
                     android:id="@+id/SBPTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/SBP_colon" />
 
                 <TextView
                     android:id="@+id/SBPField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -145,12 +145,12 @@
 
                 <TextView
                     android:id="@+id/MAPTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/MAP_colon" />
 
                 <TextView
                     android:id="@+id/MAPField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
 
@@ -161,12 +161,12 @@
 
                 <TextView
                     android:id="@+id/stateTextView"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/State_colon" />
 
                 <TextView
                     android:id="@+id/stateField"
-                    style="@style/GlassText.Row.Right.Thin"
+                    style="@style/GlassText.Row.Right"
                     android:text="@string/empty" />
             </TableRow>
         </LinearLayout>

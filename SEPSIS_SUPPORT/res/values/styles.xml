@@ -20,20 +20,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
 	    <item name="android:textColor">@color/white</item>
-	    <item name="android:paddingTop">5dp</item>
-	    <item name="android:paddingBottom">5dp</item>
+	    <item name="android:paddingTop">0dp</item>
+	    <item name="android:paddingBottom">0dp</item>
 	    <item name="android:paddingLeft">5dp</item>
 	    <item name="android:paddingRight">5dp</item>
     </style>
     
     <style name="GlassText.Large">
-        <item name="android:textSize">60sp</item>
+        <item name="android:textSize">50sp</item>
     </style>
     
     <style name="GlassText.Medium">
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">30sp</item>
     </style>
     
     <style name="GlassText.Small">
@@ -49,9 +49,7 @@
     </style>
     
     <style name="GlassText.Row">
-        <item name="android:textSize">24sp</item>
-	    <item name="android:paddingTop">1dp</item>
-	    <item name="android:paddingBottom">1dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
     
     <style name="GlassText.Row.Right">
@@ -63,79 +61,10 @@
         <item name="android:layout_gravity">left</item>
         <item name="android:gravity">left</item>
     </style>
-    
-    <style name="GlassText.Row.Right.Thin">
-        <item name="android:textSize">16sp</item>
-	    <item name="android:paddingTop">0.5dp</item>
-	    <item name="android:paddingBottom">0.5dp</item>
-    </style>
-    
-    
-	
-    <style name="Heading">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">60px</item>
-	    <item name="android:textColor">@color/white</item>
-	    <item name="android:paddingTop">5dp</item>
-	    <item name="android:paddingBottom">5dp</item>
-	    <item name="android:paddingLeft">5dp</item>
-	    <item name="android:paddingRight">5dp</item>
-    </style>
-    
-    <style name="Heading.Left">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:gravity">left</item>
-    </style>
-    
-    <style name="Heading.Right">
-        <item name="android:layout_gravity">right</item>
-        <item name="android:gravity">right</item>
-    </style>
-    
-    <style name="Heading.Sub">
-        <item name="android:textSize">40px</item>
-    </style>
-    
-    <style name="Heading.Sub.Sub">
-        <item name="android:textSize">24px</item>
-    </style>
-    
-    <style name="Heading.Sub.Row">
-        <item name="android:textSize">20px</item>
-	    <item name="android:paddingTop">1dp</item>
-	    <item name="android:paddingBottom">1dp</item>
-    </style>
-    
-    <style name="Heading.Sub.Row.Left">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:gravity">left</item>
-    </style>
-    
-    <style name="Heading.Sub.Row.Right">
-        <item name="android:layout_gravity">right</item>
-        <item name="android:gravity">right</item>
-    </style>
-    
-    <style name="Row">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-    </style>
-    
-    <style name="LeftJustRow">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">left</item>
-        <item name="android:gravity">left</item>
-    </style>
  
     <style name="ComponentIcon">
-        <item name="android:layout_width">55px</item>
-        <item name="android:layout_height">55px</item>
+        <item name="android:layout_width">55sp</item>
+        <item name="android:layout_height">55sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
     </style>
