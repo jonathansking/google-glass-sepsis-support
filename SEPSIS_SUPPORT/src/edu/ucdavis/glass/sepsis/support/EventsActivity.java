@@ -115,13 +115,11 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             {
                 if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }
@@ -156,7 +154,6 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
     	}
     }
@@ -165,7 +162,6 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
     	}
     }

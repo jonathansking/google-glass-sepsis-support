@@ -75,13 +75,11 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
             {
                 if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 }
@@ -107,7 +105,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
     	}
     }
@@ -116,7 +113,6 @@ public class SupportActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     	}
     }

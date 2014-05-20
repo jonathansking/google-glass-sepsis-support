@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/events_to_DS" />
+        android:text="@string/events_to_DS"
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/separator"

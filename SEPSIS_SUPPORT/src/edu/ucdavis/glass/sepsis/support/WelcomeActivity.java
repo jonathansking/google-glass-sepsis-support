@@ -23,17 +23,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -72,7 +65,7 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-        	Global.toastUser(mContext, "Warning", "Loading options failed");
+        	Global.toastUser(mContext, "Loading options failed");
             System.out.println("Loading options failed");
         }
         
@@ -89,7 +82,7 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-        	Global.toastUser(mContext, "Warning", "Loading patients failed");
+        	Global.toastUser(mContext, "Loading patients failed");
             System.out.println("Loading patients failed");
         }
     }
@@ -128,7 +121,7 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error        	
-        	Global.toastUser(mContext, "Warning", "Saving patients failed");
+        	Global.toastUser(mContext, "Saving patients failed");
             System.out.println("Saving patients failed");
         }
         
@@ -145,7 +138,7 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-        	Global.toastUser(mContext, "Warning", "Saving options failed");
+        	Global.toastUser(mContext, "Saving options failed");
             System.out.println("Saving options failed");
             e.printStackTrace();
         }
@@ -174,7 +167,7 @@ public class WelcomeActivity extends Activity
                 	// go to recent patient view
                 	if(Global.recentPatients.isEmpty())
                 	{
-                    	Global.toastUser(context, "Notification", "No recent patients");
+                    	Global.toastUser(context, "No recent patients");
                 	}
                 	else
                 	{

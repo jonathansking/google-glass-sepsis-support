@@ -101,14 +101,11 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
                 } 
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-                	// go to overview
-                	finish();
                 	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
                     return true;
                 }
@@ -139,7 +136,6 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToRight() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), EventsActivity.class) );
     	}
     }
@@ -148,7 +144,6 @@ public class VitalsActivity extends Activity implements OnHeadGestureListener
     public void onShakeToLeft() {
     	if(Global.options.headGesture)
     	{
-    		finish();
     		startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
     	}
     }

@@ -22,7 +22,6 @@ import org.json.JSONObject;
 
 public class RecentPatientActivity extends Activity 
 {
-	private GestureDetector mGestureDetector;
     private ArrayList<Card> mCards;
     private CardScrollView mCardScrollView;
 
@@ -30,15 +29,13 @@ public class RecentPatientActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-
-        mGestureDetector = createGestureDetector(this);
         
         createCards();
         mCardScrollView = new CardScrollView(this);
         PatientCardScrollAdapter adapter = new PatientCardScrollAdapter();
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.activate();
-        mCardScrollView.setHorizontalScrollBarEnabled(true); //changes
+        mCardScrollView.setHorizontalScrollBarEnabled(true);
         setContentView(mCardScrollView);
         
         mCardScrollView.setOnItemClickListener(new AdapterView.OnItemClickListener() 
@@ -78,7 +75,10 @@ public class RecentPatientActivity extends Activity
         
 	    // error, no recent patients
         if( mCards.isEmpty() ) {
-            System.out.println("no recent patients.");
+        	finish();
+        	
+        	Global.toastUser(this, "No recent patients");
+            System.out.println("No recent patients.");
         }
     }
     
@@ -123,48 +123,4 @@ public class RecentPatientActivity extends Activity
         }
     }
     
-	private GestureDetector createGestureDetector(Context context) 
-	{
-		GestureDetector gestureDetector = new GestureDetector(context);
-		
-        // create a base listener for generic gestures
-        gestureDetector.setBaseListener( new GestureDetector.BaseListener() 
-        {
-            @Override
-            public boolean onGesture(Gesture gesture) 
-            {
-                if (gesture == Gesture.TAP) 
-                {
-                	System.out.println("Tap on Patient");
-                	return true;
-                } 
-                else if (gesture == Gesture.TWO_TAP) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_RIGHT) 
-                {
-                    return true;
-                } 
-                else if (gesture == Gesture.SWIPE_LEFT) 
-                {
-                	// go back to welcome view
-                    finish();
-                }
-                return false;
-            }
-        });
-        
-        return gestureDetector;
-    }
-
-    // send generic motion events to the gesture detector
-    @Override
-    public boolean onGenericMotionEvent(MotionEvent event) 
-    {
-        if (mGestureDetector != null)
-            return mGestureDetector.onMotionEvent(event);
-        
-        return false;
-    }
 }

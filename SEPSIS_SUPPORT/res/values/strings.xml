@@ -73,11 +73,11 @@
     <string name="events_screen_title">Events</string>
     <string name="events_to_DS">Decision &#10097;\nSupport</string>
     <string name="events_to_vitals">&#10096; Vitals </string>
-    <string name="Rank">Rank</string>
-    <string name="Time">Time Stamp </string>
-    <string name="Event">Event </string>
-    <string name="Att">Attribute </string>
-    <string name="State">State </string>
+    <string name="Rank">#</string>
+    <string name="Time">Time</string>
+    <string name="Event">Event</string>
+    <string name="Att">Attribute</string>
+    <string name="State">State</string>
     
     <!-- Decision Support -->
     <string name="DS_screen_title">Decision Support</string>

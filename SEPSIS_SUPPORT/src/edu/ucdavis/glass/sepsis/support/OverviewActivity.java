@@ -63,7 +63,7 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
         mHeadGestureDetector.setOnHeadGestureListener(this);
         mHeadGestureDetector.start();
         
-        //set up voice command
+        // set up voice command
         if (Global.overviewCreated == 0)
         {
 	        String[] items = {"Vitals", "Decision Support", "Events", "Overview"};
@@ -110,9 +110,26 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 	
 	public void onTaskComplete(JSONObject json) 
 	{
-    	// reload overview
-		finish();
-    	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+		// reload view 
+	    try 
+	    {	
+			if ( (json.get("result_status").toString()).equals("success") )
+		    {	
+				// create patient
+			    Global.pushRecentPatient( Global.recentPatients.peek().id, json );
+
+            	// go to overview
+            	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
+		    }
+			else
+			{
+	            System.out.println("No internet access");
+	        	Global.toastUser(this, "No internet access");
+			}
+			
+	    } catch (Exception e) {
+			// error
+		}
 	}
 	
 	private GestureDetector createGestureDetector(Context context) 

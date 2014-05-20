@@ -60,14 +60,14 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.OptionsActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.ValueSelectorActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity> 
         
@@ -111,21 +111,21 @@
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.VitalsActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.SupportActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>
         
         <activity
             android:name="edu.ucdavis.glass.sepsis.support.EventsActivity"
             android:enabled="true"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/WelcomeTheme" >
         </activity>   
         

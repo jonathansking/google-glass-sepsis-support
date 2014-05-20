@@ -38,16 +38,19 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 	    	}
 	    	else if (resultCode == RESULT_CANCELED) 
 	    	{
-	    		// error
 	    		finish();
+	    		
+	    		// error
 	            System.out.println("Scan canceled");
-	        	Global.toastUser(this, "Notification", "Scan canceled");
+	        	Global.toastUser(this, "Scan canceled");
 	        }
     	}
     }
 
 	public void onTaskComplete(JSONObject json) 
 	{
+	    finish();
+	    
 		// add patient 
 	    try 
 	    {	
@@ -62,12 +65,11 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 			else
 			{
 	            System.out.println("No internet access");
-	        	Global.toastUser(this, "Warning", "No internet access");
+	        	Global.toastUser(this, "No internet access");
 			}
 			
 	    } catch (Exception e) {
 			// error
 		}
-	    finish();
 	}
 }

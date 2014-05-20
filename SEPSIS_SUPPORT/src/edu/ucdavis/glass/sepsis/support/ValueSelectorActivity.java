@@ -75,6 +75,8 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
     @Override
     public boolean onGesture(Gesture gesture) {
         if (gesture == Gesture.TAP) {
+            finish();
+            
         	Intent resultIntent = new Intent();
         	if(2 == requestCode)
         	{
@@ -89,7 +91,6 @@ public class ValueSelectorActivity extends Activity implements GestureDetector.B
             }
             setResult(RESULT_OK, resultIntent);
             mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
-            finish();
             return true;
         }
         return false;
