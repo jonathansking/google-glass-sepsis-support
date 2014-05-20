@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<RelativeLayout   
+    xmlns:android="http://schemas.android.com/apk/res/android"   
+    android:layout_width="match_parent"    
+    android:layout_height="match_parent"  
+    android:background="@color/dark"> 
+    
+	<LinearLayout
+	    android:id="@+id/toast_layout_root"
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:gravity="center"  
+        android:layout_centerInParent="true">
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="2dip"
+	        android:background="@color/orange" />
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="20dip"
+	        android:background="@color/black" />
+	
+	    <TextView android:id="@+id/message"
+	        style="@style/Heading"
+	        android:textColor="@color/black"
+	        android:background="@color/orange" />
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="20dip"
+	        android:background="@color/black" />
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="2dip"
+	        android:background="@color/orange" />
+	
+	</LinearLayout>
+	
+</RelativeLayout> 

@@ -39,7 +39,9 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 	    	else if (resultCode == RESULT_CANCELED) 
 	    	{
 	    		// error
-	            System.out.println("unable to read json.");
+	    		finish();
+	            System.out.println("Scan canceled");
+	        	Global.toastUser(this, "Notification", "Scan canceled");
 	        }
     	}
     }
@@ -57,6 +59,11 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
             	// go to overview
             	startActivity( new Intent(getApplicationContext(), OverviewActivity.class) );
 		    }
+			else
+			{
+	            System.out.println("No internet access");
+	        	Global.toastUser(this, "Warning", "No internet access");
+			}
 			
 	    } catch (Exception e) {
 			// error

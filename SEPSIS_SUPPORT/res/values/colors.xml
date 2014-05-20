@@ -19,4 +19,7 @@
     <color name="white">#ffffffff</color>
     <color name="gray">#ff808080</color>
     <color name="red">#ffcc3333</color>
+    <color name="orange">#fff87531</color>
+    <color name="dark">#aa000000</color>
+    <color name="clear">#00000000</color>
 </resources>

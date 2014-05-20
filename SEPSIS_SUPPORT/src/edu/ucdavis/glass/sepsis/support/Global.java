@@ -4,6 +4,15 @@ import java.util.ArrayDeque;
 
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 public class Global 
 {
 	// Constants
@@ -49,20 +58,21 @@ public class Global
 		recentPatients.addFirst( p );
     }
     
-    // this is causing window leaks, we need a new solution
-//    // error dialog
-//    GestureDetector mGestureDetector;
-//    public static void alertUser( final Context context, String title, String message ) {
-//    	
-//		Dialog dialog = new Dialog(context);
-//		dialog.setContentView(R.layout.notification);
-//		
-//		TextView notificationTitle = (TextView) dialog.findViewById(R.id.notification_title);
-//		notificationTitle.setText( title );
-//		
-//		TextView text = (TextView) dialog.findViewById(R.id.notification_message);
-//		text.setText( message );
-//		
-//		dialog.show();
-//    }
+    // error toast
+    public static void toastUser( Context context, String title, String message ) 
+    {
+    	LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+    	
+    	View layout = new View(context.getApplicationContext());
+    	layout = inflater.inflate(R.layout.toast, (ViewGroup) layout.findViewById(R.id.toast_layout_root));
+
+    	TextView toastMessage = (TextView) layout.findViewById(R.id.message);
+    	toastMessage.setText( message );
+
+    	Toast toast = new Toast(context.getApplicationContext());
+    	toast.setGravity(Gravity.FILL, 0, 0);
+    	toast.setDuration(Toast.LENGTH_LONG);
+    	toast.setView(layout);
+    	toast.show();
+    }
 }

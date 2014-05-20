@@ -23,10 +23,17 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -36,6 +43,7 @@ import edu.ucdavis.glass.sepsis.support.Global.Options;
 public class WelcomeActivity extends Activity 
 {
 	private GestureDetector mGestureDetector;
+	private Context mContext;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -43,9 +51,9 @@ public class WelcomeActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         
+        mContext = this;
         mGestureDetector = createGestureDetector(this);	
         setContentView(R.layout.welcome_screen);
-        
         
         // load options
         FileInputStream fis;
@@ -64,8 +72,8 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-            System.out.println("loading options failed");
-            e.printStackTrace();
+        	Global.toastUser(mContext, "Warning", "Loading options failed");
+            System.out.println("Loading options failed");
         }
         
         // load recent patients
@@ -81,8 +89,8 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-            System.out.println("loading patients failed");
-            e.printStackTrace();
+        	Global.toastUser(mContext, "Warning", "Loading patients failed");
+            System.out.println("Loading patients failed");
         }
     }
 	
@@ -104,6 +112,9 @@ public class WelcomeActivity extends Activity
 	{
         super.onDestroy();
         
+        // set screen timeout back to default
+		android.provider.Settings.System.putInt(getContentResolver(),android.provider.Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+        
         // write out recent patients
         try 
         {
@@ -117,8 +128,8 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error        	
-            System.out.println("saving patients failed");
-            e.printStackTrace();
+        	Global.toastUser(mContext, "Warning", "Saving patients failed");
+            System.out.println("Saving patients failed");
         }
         
         // write out options
@@ -134,12 +145,13 @@ public class WelcomeActivity extends Activity
         catch (Exception e) 
         {
         	// error
-            System.out.println("saving options failed");
+        	Global.toastUser(mContext, "Warning", "Saving options failed");
+            System.out.println("Saving options failed");
             e.printStackTrace();
         }
     }
 	
-	private GestureDetector createGestureDetector(Context context) 
+	private GestureDetector createGestureDetector(final Context context) 
 	{
     GestureDetector gestureDetector = new GestureDetector(context);
         // create a base listener for generic gestures
@@ -160,7 +172,14 @@ public class WelcomeActivity extends Activity
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	// go to recent patient view
-                	startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
+                	if(Global.recentPatients.isEmpty())
+                	{
+                    	Global.toastUser(context, "Notification", "No recent patients");
+                	}
+                	else
+                	{
+                		startActivity( new Intent(getApplicationContext(), RecentPatientActivity.class) );
+                	}
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
@@ -186,4 +205,5 @@ public class WelcomeActivity extends Activity
         
         return false;
     }
+    
 }

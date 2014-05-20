@@ -32,8 +32,7 @@
     
     <!-- Welcome Screen -->
     <string name="welcome">Welcome to Sepsis Decision Support</string>
-    <string name="tap_scanner">Tap to scan patient QR code</string>
-    <string name="swipe_recent_patients">Swipe to view recent patients</string>
+    <string name="tap_scanner">Tap to scan QR code</string>
     
     <!--  Overview -->
     <string name="Hosp_Adm_colon">Hospital Adm: </string>
@@ -50,7 +49,7 @@
    
     
     <!-- Options -->
-    <string name="options">OPTIONS</string>
+    <string name="options">Options</string>
     <string name="num_recent_patients">Number of recent patients</string>
     <string name="screen_timeout">Screen timeout</string>
     <string name="set_screen_timeout">Set screen timeout</string>
@@ -59,7 +58,7 @@
     <string name="reset_options">Reset to default options</string>
     
     <!-- Vitals -->
-    <string name="vitals_screen_title">VITALS</string>
+    <string name="vitals_screen_title">Vitals</string>
     <string name="vitals_to_events">Events &#10097;</string>
     <string name="vitals_to_overview">&#10096; Overview</string>
     <string name="Bacteria_colon">Bacteria: </string>
@@ -71,7 +70,7 @@
     <string name="SBP_colon">SBP: </string>
     
     <!-- Events -->
-    <string name="events_screen_title">EVENTS</string>
+    <string name="events_screen_title">Events</string>
     <string name="events_to_DS">Decision &#10097;\nSupport</string>
     <string name="events_to_vitals">&#10096; Vitals </string>
     <string name="Rank">Rank</string>
@@ -81,7 +80,7 @@
     <string name="State">State </string>
     
     <!-- Decision Support -->
-    <string name="DS_screen_title">DECISION SUPPORT</string>
+    <string name="DS_screen_title">Decision Support</string>
     <string name="DS_to_overview">Overview &#10097;</string>
     <string name="DS_to_events">&#10096; Events</string>
     <string name="CurrentState_colon">Current State:</string>
@@ -94,12 +93,6 @@
     <string name="patient_status">Patient Status</string>
     <string name="patient_rompd">Patient ROMPD</string>
     <string name="patientBlood">Patient Blood</string>
-  
-    
-    <!-- Error View -->
-    <string name="notification_title">Notification</string>
-    <string name="notification_dismiss">Swipe down to dismiss</string>
-    
     
     <!-- Max Patient Setting -->
 	<string name="max_patient_setting">Max Recent Patients Display</string>
@@ -109,6 +102,4 @@
 	<string name="screen_timeout_setting">Screen Timeout Setting</string>
 	<string name="dob_colon">"DOB: "</string>
     
-   
-
 </resources>
