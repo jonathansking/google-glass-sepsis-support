@@ -156,7 +156,7 @@ public class OptionsActivity extends Activity
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	// go back to welcome screen
-    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+                	mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_RIGHT); 
                 	finish();
                     return true;
                 } 

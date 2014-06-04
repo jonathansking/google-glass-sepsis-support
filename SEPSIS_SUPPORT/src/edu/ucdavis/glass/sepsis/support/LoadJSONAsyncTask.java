@@ -82,12 +82,12 @@ public class LoadJSONAsyncTask extends AsyncTask<String,Void,JSONObject>
 		catch(Exception e) 
 		{
 		    // return if unsuccessful
-	    	System.out.println("patient doesn't exist.");
+	    	System.out.println("patient doesn't exist 1.");
 	    	return fail;
 		}
 
 	    // return if unsuccessful
-    	System.out.println("patient doesn't exist.");
+    	System.out.println("patient doesn't exist 2.");
     	return fail;
 		
 	}

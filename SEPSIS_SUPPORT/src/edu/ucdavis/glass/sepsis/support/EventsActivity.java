@@ -119,13 +119,13 @@ public class EventsActivity extends Activity implements OnHeadGestureListener
             {
                 if (gesture == Gesture.SWIPE_RIGHT) 
                 {
-    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+                	mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_RIGHT); 
                 	startActivity( new Intent(getApplicationContext(), SupportActivity.class) );
                     return true;
                 } 
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
-    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+                	mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_LEFT); 
                 	startActivity( new Intent(getApplicationContext(), VitalsActivity.class) );
                     return true;
                 }

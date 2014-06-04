@@ -166,7 +166,7 @@ public class WelcomeActivity extends Activity
                 else if (gesture == Gesture.SWIPE_RIGHT) 
                 {
                 	// go to recent patient view
-    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+                	mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_RIGHT); 
                 	if(Global.recentPatients.isEmpty())
                 	{
                     	Global.toastUser(context, "No recent patients");
@@ -180,7 +180,7 @@ public class WelcomeActivity extends Activity
                 else if (gesture == Gesture.SWIPE_LEFT) 
                 {
                 	// go to options view
-    	            mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+                	mAudioManager.playSoundEffect(AudioManager.FX_FOCUS_NAVIGATION_LEFT); 
                     startActivity( new Intent(getApplicationContext(), OptionsActivity.class));
                 	return true;
                 }
