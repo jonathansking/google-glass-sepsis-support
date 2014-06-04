@@ -25,7 +25,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;

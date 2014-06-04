@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -85,6 +84,9 @@ public class OptionsActivity extends Activity
 	            return true;
 	        case R.id.reset_options:
 	        	Global.options = new Global.Options();
+	            return true;
+	        case R.id.reset_patients:
+	        	Global.recentPatients.clear();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);

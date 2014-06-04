@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <TextView
-        style="@style/GlassText.Large"
-	    android:text="@string/welcome" />
-    
-    <View
-    	android:layout_width="match_parent"
-        android:layout_height="2dip"
-        android:background="@color/white"/>
-    
-    <TextView
-        style="@style/GlassText.Medium"
-	    android:text="@string/tap_scanner" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventsRelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/welcome"
+        style="@style/GlassText.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/welcome" />
+
+    <View
+        android:id="@+id/DSSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/welcome"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/WToRecentPatients"
+        style="@style/GlassText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/w_to_recent_patients" />
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/GlassText.Medium"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/DSSeparator"
+        android:text="@string/tap_scanner" />
+
+    <TextView
+        android:id="@+id/WToOptions"
+        style="@style/GlassText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/w_to_options" />
+
+</RelativeLayout>

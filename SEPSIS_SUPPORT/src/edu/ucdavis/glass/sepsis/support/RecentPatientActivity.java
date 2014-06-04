@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.lang.Object;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.google.android.glass.app.*;
-import com.google.android.glass.touchpad.Gesture;
-import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.*;
 
 import org.json.JSONException;
@@ -69,7 +65,17 @@ public class RecentPatientActivity extends Activity
         	c.setText( p.name );
         	c.setFootnote( p.id );
         	c.setImageLayout(Card.ImageLayout.LEFT);
-        	c.addImage(R.drawable.default_user);
+        	if( p.id.equals("1") ){
+            	c.addImage(R.drawable.patient_1);
+        	} else if( p.id.equals("2") ){
+            	c.addImage(R.drawable.patient_2);
+        	} else if( p.id.equals("3") ) {
+            	c.addImage(R.drawable.patient_3);
+        	} else if( p.id.equals("4") ) {
+            	c.addImage(R.drawable.patient_4);
+        	} else {
+            	c.addImage(R.drawable.default_user);
+        	}
         	mCards.add(c);
         }
         

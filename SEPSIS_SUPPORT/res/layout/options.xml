@@ -56,5 +56,32 @@
             android:text="@string/empty" />
 
     </TableRow>
+    
+    <TableRow
+        style="@style/GlassText.Row" >
+
+        <TextView
+            style="@style/GlassText.Row.Right"
+            android:text=""/> />
+
+    </TableRow>
+    
+    <TableRow
+        style="@style/GlassText.Row" >
+
+        <TextView
+            style="@style/GlassText.Row.Right"
+            android:text=""/> />
+
+    </TableRow>
+    
+    <TableRow
+        style="@style/GlassText.Row" >
+
+        <TextView
+            style="@style/GlassText.Row"
+            android:text="Tap to change settings"/> />
+
+    </TableRow>
 
 </TableLayout>

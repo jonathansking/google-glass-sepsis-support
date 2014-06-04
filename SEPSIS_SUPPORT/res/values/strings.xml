@@ -33,6 +33,8 @@
     <!-- Welcome Screen -->
     <string name="welcome">Welcome to Sepsis Decision Support</string>
     <string name="tap_scanner">Tap to scan QR code</string>
+    <string name="w_to_options">&#10096; Options</string>
+    <string name="w_to_recent_patients">Recent\nPatients &#10097;</string>
     
     <!--  Overview -->
     <string name="Hosp_Adm_colon">Hospital Adm: </string>
@@ -50,12 +52,13 @@
     
     <!-- Options -->
     <string name="options">Options</string>
-    <string name="num_recent_patients">Number of recent patients</string>
-    <string name="screen_timeout">Screen timeout</string>
-    <string name="set_screen_timeout">Set screen timeout</string>
-    <string name="set_num_recent_patients">Set number of recent patients</string>
-    <string name="head_gesture">Head Gesture</string>
-    <string name="reset_options">Reset to default options</string>
+    <string name="num_recent_patients">Number of Recent Patients</string>
+    <string name="screen_timeout">Screen Timeout</string>
+    <string name="set_screen_timeout">Set Screen Timeout</string>
+    <string name="set_num_recent_patients">Set Recent Patients</string>
+    <string name="head_gesture">Set Head Gestures</string>
+    <string name="reset_options">Reset Options</string>
+    <string name="reset_patients">Reset Patients</string>
     
     <!-- Vitals -->
     <string name="vitals_screen_title">Vitals</string>

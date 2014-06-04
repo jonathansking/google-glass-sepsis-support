@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -93,7 +94,8 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
 		TextView sumRRView = (TextView) findViewById(R.id.summaryRRField);           
 		TextView sumMAPView = (TextView) findViewById(R.id.summaryMAPField);          
 		TextView sumSBPView = (TextView) findViewById(R.id.summarySBPField);          
-		TextView sumWBCView = (TextView) findViewById(R.id.summaryWBCField);         
+		TextView sumWBCView = (TextView) findViewById(R.id.summaryWBCField);          
+		ImageView c = (ImageView) findViewById(R.id.picture);         
 		
 		// set data
 		pNameView.setText(p.name);
@@ -107,6 +109,19 @@ public class OverviewActivity extends Activity implements OnHeadGestureListener,
     	sumMAPView.setText(p.vitals.get(p.vitals.size()-1).MAP);
     	sumSBPView.setText(p.vitals.get(p.vitals.size()-1).SBP);
     	sumWBCView.setText(p.vitals.get(p.vitals.size()-1).WBC);
+    	
+
+    	if( p.id.equals("1") ){
+        	c.setImageResource(R.drawable.patient_1);
+    	} else if( p.id.equals("2") ){
+        	c.setImageResource(R.drawable.patient_2);
+    	} else if( p.id.equals("3") ) {
+        	c.setImageResource(R.drawable.patient_3);
+    	} else if( p.id.equals("4") ) {
+        	c.setImageResource(R.drawable.patient_4);
+    	} else {
+        	c.setImageResource(R.drawable.default_user);
+    	}
     	
 	}
 	

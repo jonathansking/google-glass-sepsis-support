@@ -64,8 +64,8 @@ public class QRScannerActivity extends Activity implements AsyncTaskCompleteList
 		    }
 			else
 			{
-	            System.out.println("No internet access");
-	        	Global.toastUser(this, "No internet access");
+	            System.out.println("Patient unavailable");
+	        	Global.toastUser(this, "Patient unavailable");
 			}
 			
 	    } catch (Exception e) {
